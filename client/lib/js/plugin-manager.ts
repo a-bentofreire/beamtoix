@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@
  * - Set the `pluginInfo.teleportable = true`.
  * - Follow the [Developer Guideline Rules](../../../../../developer/dev-docs/coding-style).
  *
- * ABeamer allows plugins to add the following functionality types:
+ * BeamToIX allows plugins to add the following functionality types:
  *
  * - [](easings)
  * - [](oscillators)
@@ -33,14 +33,14 @@
  * To add a functionality use: `pluginManager.add<functionality-type>`.
  *
  * In most cases, a functionality is a function that receives a set of parameters
- * followed by `args?:ABeamerArgs`.
+ * followed by `args?:BeamToIXArgs`.
  * This last parameter will provide information regarding the state of the system.
  *
  * Plugins should try to be independent of DOM in order to work
  * with virtual elements such as WebGL and canvas. However, in some cases is
  * required to work with DOM only.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -54,7 +54,7 @@ namespace ABeamer {
 
   export interface AnyParams { [key: string]: any; }
 
-  export interface ABeamerArgs {
+  export interface BeamToIXArgs {
     story?: Story;
     scene?: Scene;
     stage?: uint;
@@ -76,7 +76,7 @@ namespace ABeamer {
 
     /*
      * Global variables used as variables of expressions.
-     * `abeamer render` command-line can change these variables by passing them
+     * `beamtoix render` command-line can change these variables by passing them
      * as multiple `--var` parameters,
      * these parameters will be converted to queryString and added to url.
      *
@@ -86,7 +86,7 @@ namespace ABeamer {
      * `valueText: 'pi*2'`
      *
      * passed by command line:
-     * `abeamer render --var name=end-user --var value=1.2.3`.
+     * `beamtoix render --var name=end-user --var value=1.2.3`.
      *
      * passed on the url:
      * ?var=name%3Dend-user&var=value%3D1.2.3

@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -30,7 +30,7 @@
  *    Used in `text-shadow`, `transform`.
  * - via dual-properties.
  *
- * ABeamer has the following built-in dual-properties:
+ * BeamToIX has the following built-in dual-properties:
  *
  * - Interpolate the following CSS properties for DOM Elements:
  *    * `left-top`.
@@ -57,10 +57,10 @@
  *     Virtual Elements such as WebGL can use 3D paths to move their objects.
  *
  * ## Core paths
- * **WARNING!** In the ABeamer 2.x these core paths will move `core-paths` plugin.
+ * **WARNING!** In the BeamToIX 2.x these core paths will move `core-paths` plugin.
  * To prevent breaking changes include now the js script `core-paths.js` on the html file.
  *
- *  ABeamer has the following core paths:
+ *  BeamToIX has the following core paths:
  *  - `line`
  *  - `rect`
  *  - `circle`
@@ -68,7 +68,7 @@
  *
  * @see gallery/gallery-path
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -86,7 +86,7 @@ namespace ABeamer {
    * An path defines a movement in the n-space.
    */
   export type PathFunc = (t: number, params: PathParams, stage: uint,
-    args?: ABeamerArgs) => number[];
+    args?: BeamToIXArgs) => number[];
 
 
   /**
@@ -172,7 +172,7 @@ namespace ABeamer {
 
 
   export function _expressionPath(t: number, params: PathParams, _stage: uint,
-    args?: ABeamerArgs): number[] {
+    args?: BeamToIXArgs): number[] {
 
     _vars.t = t;
     const v = calcExpr((params as _WorkExprMotionParams)._expression, args);
@@ -196,7 +196,7 @@ namespace ABeamer {
 
   /** Implements the Line Path */
   function _linePath(t: number, params: _WorkLinePathParams,
-    _stage: uint, args?: ABeamerArgs): number[] {
+    _stage: uint, args?: BeamToIXArgs): number[] {
 
     if (!params._isPrepared) {
       params._x0 = ExprOrNumToNum(params.x0, 0, args);
@@ -228,7 +228,7 @@ namespace ABeamer {
 
   /** Implements the Rect Path */
   function _rectPath(t: number, params: _WorkRectPathParams,
-    _stage: uint, args?: ABeamerArgs): number[] {
+    _stage: uint, args?: BeamToIXArgs): number[] {
 
     if (!params._isPrepared) {
       params._isPrepared = true;
@@ -272,7 +272,7 @@ namespace ABeamer {
   /** Common Implementation of the Circle and Ellipse Path */
   function _interpolateEllipse(t: number, params: _CirclePathParams,
     radiusX: number | string, radiusY: number | string, _stage: uint,
-    args?: ABeamerArgs): number[] {
+    args?: BeamToIXArgs): number[] {
 
     if (!params._isPrepared) {
       params._isPrepared = true;
@@ -293,7 +293,7 @@ namespace ABeamer {
 
   /** Implements the Circle Path */
   function _circlePath(t: number, params: _CirclePathParams,
-    stage: uint, args?: ABeamerArgs): number[] {
+    stage: uint, args?: BeamToIXArgs): number[] {
 
     return _interpolateEllipse(t, params, params.radius, params.radius, stage, args);
   }
@@ -303,7 +303,7 @@ namespace ABeamer {
 
   /** Implements the Ellipse Path */
   function _ellipsePath(t: number, params: EllipsePathParams,
-    stage: uint, args?: ABeamerArgs): number[] {
+    stage: uint, args?: BeamToIXArgs): number[] {
 
     return _interpolateEllipse(t, params as _CirclePathParams,
       params.radiusX, params.radiusY, stage, args);

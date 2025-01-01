@@ -5,7 +5,7 @@ category: Pages
 ---
 ## Description
   
-A **story** is the entry point of ABeamer web browser library.  
+A **story** is the entry point of BeamToIX web browser library.  
 It has the following functions:  
   
 - Manage multiple scenes, including insert and remove.  
@@ -251,11 +251,11 @@ True if it's teleporting.
 
 <span class="code-badge badge-readonly">readonly</span> <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[Story](story.md#story)]  
 ```js
-readonly args: ABeamerArgs;
+readonly args: BeamToIXArgs;
 ```
 
 
-Returns ABeamerArgs.  
+Returns BeamToIXArgs.  
 This should be used only in specific cases such the access to --var.  
 In most cases, this property is passed as an argument to plugins and callbacks.  
 
@@ -332,7 +332,7 @@ _default_: `true`
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[Story](story.md#story)]  
 ```js
-onRenderFinished?: (args?: ABeamerArgs) => void;
+onRenderFinished?: (args?: BeamToIXArgs) => void;
 ```
 
 
@@ -343,7 +343,7 @@ Event triggered when render finished the rendering process.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[Story](story.md#story)]  
 ```js
-onServerReady?: (args?: ABeamerArgs) => void;
+onServerReady?: (args?: BeamToIXArgs) => void;
 ```
 
 
@@ -355,7 +355,7 @@ If the animation is running without server, this event is never fired.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[Story](story.md#story)]  
 ```js
-onBeforeRenderFrame?: (args?: ABeamerArgs) => void;
+onBeforeRenderFrame?: (args?: BeamToIXArgs) => void;
 ```
 
 
@@ -365,7 +365,7 @@ Event triggered before a frame is rendered.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[Story](story.md#story)]  
 ```js
-onAfterRenderFrame?: (args?: ABeamerArgs) => void;
+onAfterRenderFrame?: (args?: BeamToIXArgs) => void;
 ```
 
 
@@ -375,7 +375,7 @@ Event triggered after a frame is rendered.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[Story](story.md#story)]  
 ```js
-onNextFrame?: (args?: ABeamerArgs) => void;
+onNextFrame?: (args?: BeamToIXArgs) => void;
 ```
 
 
@@ -386,7 +386,7 @@ and is ready to move to following frame.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[Story](story.md#story)]  
 ```js
-onGetVirtualElement?: (id: string, args?: ABeamerArgs) => VirtualElement;
+onGetVirtualElement?: (id: string, args?: BeamToIXArgs) => VirtualElement;
 ```
 
 
@@ -436,7 +436,7 @@ addDefaultScenes(): void;
 ```
 
 
-Adds scenes defined in the html by `.abeamer-scene` class.  
+Adds scenes defined in the html by `.beamtoix-scene` class.  
 These classes are added automatically during Story constructor.  
 Add only after a `story.reset()`.
 
@@ -449,7 +449,7 @@ addScene(sceneSelector: SceneSelector): Scene;
 
 
 Adds a scene to the story.  
-HTML elements with abeamer-scene class are added automatically.  
+HTML elements with beamtoix-scene class are added automatically.  
 **param**: `sceneSelector` DOM selector, JQuery object or Virtual Scene
 **returns**: A pointer to newly created scene
 
@@ -579,7 +579,7 @@ getStoryToTeleportAsConfig(frameOpts?: RenderFrameOptions): StoryConfig;
 Same as `getStoryToTeleport()` but it returns as `StoryConfig` object.  
 Use this function instead of getStoryToTeleport, if you need to
 add extra fields.  
-Modifying the content of `config.abeamer` is forbidden for 3rd-party
+Modifying the content of `config.beamtoix` is forbidden for 3rd-party
 remote server rendering.
 
 ### Story.teleport()
@@ -595,7 +595,7 @@ Use this method only for testing.
 This method requires that:  
 
 1. Is on teleporting mode `isTeleporting === true`  
-2. The render server agent. `abeamer render ...`  
+2. The render server agent. `beamtoix render ...`  
 
 Use this method instead of `getStoryToTeleport`.
 
@@ -638,7 +638,7 @@ If it has a server, such as headless webpage capture program, it will
 render a frame, and send a message to the server to store it on the disk.  
 If it's running on the browser, it will render and wait `playSpeedMs` time.  
 **param**: `playSpeedMs` Play speed in milliseconds,
-ignored on server mode. ABeamer doesn't guarantee the exact timing.  
+ignored on server mode. BeamToIX doesn't guarantee the exact timing.  
 If it's undefined, it will play at full speed.
 
 ### Story.finishRender()
@@ -725,7 +725,7 @@ export type DoneFunc = () => void;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
-export type WaitFunc = (args: ABeamerArgs, params: AnyParams,
+export type WaitFunc = (args: BeamToIXArgs, params: AnyParams,
     onDone: DoneFunc) => void;
 ```
 
@@ -779,7 +779,7 @@ export interface StoryConfig{ }
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[StoryConfig](story.md#storyconfig)]  
 ```js
 config: {
-      abeamer: any;
+      beamtoix: any;
 ```
 
 <div class=class-interface-header>&nbsp;</div>
@@ -932,7 +932,7 @@ export interface RenderFrameOptions{ }
 ```
 
 
-ABeamer still has to render all the previous frames
+BeamToIX still has to render all the previous frames
 of active scene bypassing the middle frames,
 but it won't be render to disk and it will bypass any unnecessary frames.
 
@@ -959,7 +959,7 @@ renderCount?: TimeHandler;
 Total number of frames to render.  
 
 **EXPERIMENTAL** Use a negative value to render backwards.  
-For backward rendering, ABeamer first has to consume all the frames forward,
+For backward rendering, BeamToIX first has to consume all the frames forward,
 bypassing all middle frames, only after can render backwards.  
 _default_: `the total number of frames`  
 ### RenderFrameOptions.startScene
@@ -972,7 +972,7 @@ startScene?: SceneHandler;
 
 First scene to be rendered.  
 Before start rendering the `startScene`, first,
-ABeamer first has to consume all the frames until it reaches the
+BeamToIX first has to consume all the frames until it reaches the
 beginning of Scene.  
 Accepts by 'Scene Zero-Based Index', 'Name' or by 'Scene Object'
 

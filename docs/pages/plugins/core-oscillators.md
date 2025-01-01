@@ -4,6 +4,6 @@ group: Plugins
 category: Pages
 ---
 ## Description
-In the ABeamer 2.x the core oscillators will move into this plugin.  
+In the BeamToIX 2.x the core oscillators will move into this plugin.  
 To prevent breaking changes include now the js script `core-oscillators.js` on the html file.  
   

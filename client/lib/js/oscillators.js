@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -45,10 +45,10 @@
  *
  *
  * ## Core oscillators
- * **WARNING!** In the ABeamer 2.x these core oscillators will move `core-oscillators` plugin.
+ * **WARNING!** In the BeamToIX 2.x these core oscillators will move `core-oscillators` plugin.
  * To prevent breaking changes include now the js script `core-oscillators.js` on the html file.
  *
- *  ABeamer has the following core oscillators:
+ *  BeamToIX has the following core oscillators:
  *
  * - `harmonic` - it generates a sinusoidal function that repeats it self every
  * duration / cycles.
@@ -56,7 +56,7 @@
  *
  * - `damped` - it's a sinusoidal function that reduces its amplitude due friction in
  * every cycle.
- * To reduce the user's effort, ABeamer uses cycles parameter to compute the friction.
+ * To reduce the user's effort, BeamToIX uses cycles parameter to compute the friction.
  *
  * - `pulsar` - outside the range of [midpoint - spread, midpoint + spread]
  * it will return 0, and inside the range will generate a function depending of
@@ -67,8 +67,8 @@
  *     * `positive-random` - a random value with [0, 1].
  * @see gallery/animate-pulsar
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Oscillators
@@ -79,7 +79,7 @@ var ABeamer;
         OscillatorName[OscillatorName["harmonic"] = 1000] = "harmonic";
         OscillatorName[OscillatorName["damped"] = 1001] = "damped";
         OscillatorName[OscillatorName["pulsar"] = 1002] = "pulsar";
-    })(OscillatorName = ABeamer.OscillatorName || (ABeamer.OscillatorName = {}));
+    })(OscillatorName = BeamToIX.OscillatorName || (BeamToIX.OscillatorName = {}));
     /**
      * List of Negative built-in functions:
      * - `abs` Math.abs
@@ -90,7 +90,7 @@ var ABeamer;
         NegativeBuiltInFuncs[NegativeBuiltInFuncs["none"] = 0] = "none";
         NegativeBuiltInFuncs[NegativeBuiltInFuncs["clip"] = 1] = "clip";
         NegativeBuiltInFuncs[NegativeBuiltInFuncs["abs"] = 2] = "abs";
-    })(NegativeBuiltInFuncs = ABeamer.NegativeBuiltInFuncs || (ABeamer.NegativeBuiltInFuncs = {}));
+    })(NegativeBuiltInFuncs = BeamToIX.NegativeBuiltInFuncs || (BeamToIX.NegativeBuiltInFuncs = {}));
     /** List of the built-in pulsar type */
     var PulsarType;
     (function (PulsarType) {
@@ -98,16 +98,16 @@ var ABeamer;
         PulsarType[PulsarType["sine"] = 1] = "sine";
         PulsarType[PulsarType["random"] = 2] = "random";
         PulsarType[PulsarType["positiveRandom"] = 3] = "positiveRandom";
-    })(PulsarType = ABeamer.PulsarType || (ABeamer.PulsarType = {}));
+    })(PulsarType = BeamToIX.PulsarType || (BeamToIX.PulsarType = {}));
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
     function _oscillatorNumToStr(num) {
-        return OscillatorName[num] || ABeamer._easingNumToStr(num);
+        return OscillatorName[num] || BeamToIX._easingNumToStr(num);
     }
-    ABeamer._oscillatorNumToStr = _oscillatorNumToStr;
+    BeamToIX._oscillatorNumToStr = _oscillatorNumToStr;
     /** Transforms the user `negativeHandler` value into a Code Handler. */
     function _parseNegativeHandler(negativeHander) {
         if (typeof negativeHander === 'string') {
@@ -121,7 +121,7 @@ var ABeamer;
         }
         return negativeHander;
     }
-    ABeamer._easingFunctions['harmonic'] = _harmonicOscillator;
+    BeamToIX._easingFunctions['harmonic'] = _harmonicOscillator;
     /** Implements the Harmonic Oscillator */
     function _harmonicOscillator(t, params) {
         if (!params._isPrepared) {
@@ -133,7 +133,7 @@ var ABeamer;
         var v = Math.sin(Math.PI * 2 * (t + params._shift) * cycles);
         return params._negativeHandler ? params._negativeHandler(v) : v;
     }
-    ABeamer._easingFunctions['damped'] = _dampedOscillator;
+    BeamToIX._easingFunctions['damped'] = _dampedOscillator;
     /** Implements the Damped Oscillator */
     function _dampedOscillator(t, params) {
         if (!params._isPrepared) {
@@ -155,7 +155,7 @@ var ABeamer;
         var v = Math.sin(Math.PI * 2 * (t1 / params._curFrequency)) * params._curAmplitude;
         return params._negativeHandler ? params._negativeHandler(v) : v;
     }
-    ABeamer._easingFunctions['pulsar'] = _pulsarOscillator;
+    BeamToIX._easingFunctions['pulsar'] = _pulsarOscillator;
     /** Implements the Pulsar Oscillator */
     function _pulsarOscillator(t, params) {
         if (!params._isPrepared) {
@@ -189,5 +189,5 @@ var ABeamer;
                 return Math.random();
         }
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=oscillators.js.map

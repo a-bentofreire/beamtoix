@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of built-in shape Tasks
@@ -17,8 +17,8 @@
  * - `circle`
  * - `speech` - round rectangle with left and right speech triangle.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Shape Tasks
@@ -33,33 +33,33 @@ var ABeamer;
         Shapes[Shapes["line"] = 1] = "line";
         Shapes[Shapes["circle"] = 2] = "circle";
         Shapes[Shapes["speech"] = 3] = "speech";
-    })(Shapes = ABeamer.Shapes || (ABeamer.Shapes = {}));
-    ABeamer.DEFAULT_SPEECH_START = 10;
-    ABeamer.DEFAULT_SPEECH_WIDTH = 10;
-    ABeamer.DEFAULT_SPEECH_HEIGHT = 10;
-    ABeamer.DEFAULT_SPEECH_SHIFT = 0;
+    })(Shapes = BeamToIX.Shapes || (BeamToIX.Shapes = {}));
+    BeamToIX.DEFAULT_SPEECH_START = 10;
+    BeamToIX.DEFAULT_SPEECH_WIDTH = 10;
+    BeamToIX.DEFAULT_SPEECH_HEIGHT = 10;
+    BeamToIX.DEFAULT_SPEECH_SHIFT = 0;
     var SpeechPosition;
     (function (SpeechPosition) {
         SpeechPosition[SpeechPosition["left"] = 0] = "left";
         SpeechPosition[SpeechPosition["right"] = 1] = "right";
-    })(SpeechPosition = ABeamer.SpeechPosition || (ABeamer.SpeechPosition = {}));
+    })(SpeechPosition = BeamToIX.SpeechPosition || (BeamToIX.SpeechPosition = {}));
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addPlugin({
-        id: 'abeamer.shape-tasks',
+    BeamToIX.pluginManager.addPlugin({
+        id: 'beamtoix.shape-tasks',
         uuid: '3e5d5813-348a-4eb1-a8b5-9c87c3988923',
         author: 'Alexandre Bento Freire',
-        email: 'abeamer@a-bentofreire.com',
+        email: 'beamtoix@a-bentofreire.com',
         jsUrls: ['plugins/shape-tasks/shape-tasks.js'],
         teleportable: true,
     });
     // ------------------------------------------------------------------------
     //                               Shape Task
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addTasks([['shape', _shapeTask]]);
+    BeamToIX.pluginManager.addTasks([['shape', _shapeTask]]);
     /** Implements the Shape Task */
     function _shapeTask(anime, _wkTask, params, stage, args) {
         function buildSvg(inTextHtml, shapeTag, width, height, attrs, x0, y0) {
@@ -77,26 +77,26 @@ var ABeamer;
             });
         }
         function buildRectangle(inTextHtml, sw, sr) {
-            var rw = ABeamer.ExprOrNumToNum(sr.width, 0, args);
-            var rh = ABeamer.ExprOrNumToNum(sr.height, 0, args);
-            var rx = ABeamer.ExprOrNumToNum(sr.rx, 0, args);
-            var ry = ABeamer.ExprOrNumToNum(sr.ry, 0, args);
+            var rw = BeamToIX.ExprOrNumToNum(sr.width, 0, args);
+            var rh = BeamToIX.ExprOrNumToNum(sr.height, 0, args);
+            var rx = BeamToIX.ExprOrNumToNum(sr.rx, 0, args);
+            var ry = BeamToIX.ExprOrNumToNum(sr.ry, 0, args);
             buildSvg(inTextHtml, 'rect', rw, rh, [['x', sw], ['y', sw], ['rx', rx], ['ry', ry],
                 ['width', rw - 2 * sw], ['height', rh - 2 * sw]]);
         }
         function buildSpeech(inTextHtml, sw, sp) {
-            var w = ABeamer.ExprOrNumToNum(sp.width, 0, args);
-            var h = ABeamer.ExprOrNumToNum(sp.height, 0, args);
-            var srx = ABeamer.ExprOrNumToNum(sp.rx, 0, args);
-            var sry = ABeamer.ExprOrNumToNum(sp.ry, 0, args);
+            var w = BeamToIX.ExprOrNumToNum(sp.width, 0, args);
+            var h = BeamToIX.ExprOrNumToNum(sp.height, 0, args);
+            var srx = BeamToIX.ExprOrNumToNum(sp.rx, 0, args);
+            var sry = BeamToIX.ExprOrNumToNum(sp.ry, 0, args);
             var x0 = -sw;
             var rx = srx || sry || 0;
             var ry = sry || rx || 0;
             var isRound = rx !== 0 && ry !== 0;
-            var speechStart = Math.max(sp.speechStart || ABeamer.DEFAULT_SPEECH_START, rx);
-            var speechWidth = Math.max(sp.speechWidth || ABeamer.DEFAULT_SPEECH_WIDTH, 0);
-            var speechHeight = sp.speechHeight || ABeamer.DEFAULT_SPEECH_HEIGHT;
-            var speechShift = sp.speechShift || ABeamer.DEFAULT_SPEECH_SHIFT;
+            var speechStart = Math.max(sp.speechStart || BeamToIX.DEFAULT_SPEECH_START, rx);
+            var speechWidth = Math.max(sp.speechWidth || BeamToIX.DEFAULT_SPEECH_WIDTH, 0);
+            var speechHeight = sp.speechHeight || BeamToIX.DEFAULT_SPEECH_HEIGHT;
+            var speechShift = sp.speechShift || BeamToIX.DEFAULT_SPEECH_SHIFT;
             var path = [];
             // @TODO: fix speech shift
             if (!sp.speechPosition || sp.speechPosition === SpeechPosition.left
@@ -127,15 +127,15 @@ var ABeamer;
         }
         function buildArrow(inTextHtml, sa, isArrow) {
             // @TODO: Build Arrow code
-            var x = ABeamer.ExprOrNumToNum(sa.x, 0, args);
-            var y = ABeamer.ExprOrNumToNum(sa.y, 0, args);
+            var x = BeamToIX.ExprOrNumToNum(sa.x, 0, args);
+            var y = BeamToIX.ExprOrNumToNum(sa.y, 0, args);
             var x0 = 0;
             var y0 = 0;
             var radDir;
             var len;
             if (params.direction) {
-                radDir = ABeamer.ExprOrNumToNum(sa.direction, 0, args) * Math.PI / 180;
-                len = ABeamer.ExprOrNumToNum(sa.length, 0, args);
+                radDir = BeamToIX.ExprOrNumToNum(sa.direction, 0, args) * Math.PI / 180;
+                len = BeamToIX.ExprOrNumToNum(sa.length, 0, args);
                 x = Math.cos(radDir) * len;
                 y = Math.sin(radDir) * len;
             }
@@ -152,9 +152,9 @@ var ABeamer;
             buildSvg(inTextHtml, 'line', Math.abs(x), Math.abs(y), [['x1', 0], ['y1', 0], ['x2', x], ['y2', y]], x0, y0);
         }
         switch (stage) {
-            case ABeamer.TS_INIT:
-                var sw = ABeamer.ExprOrNumToNum(params.strokeWidth, 0, args);
-                var shape = ABeamer.parseEnum(params.shape, Shapes, Shapes.rectangle);
+            case BeamToIX.TS_INIT:
+                var sw = BeamToIX.ExprOrNumToNum(params.strokeWidth, 0, args);
+                var shape = BeamToIX.parseEnum(params.shape, Shapes, Shapes.rectangle);
                 var inTextHtml_1 = ["<svg"];
                 switch (shape) {
                     case Shapes.rectangle:
@@ -164,7 +164,7 @@ var ABeamer;
                         buildArrow(inTextHtml_1, params, false);
                         break;
                     case Shapes.circle:
-                        var r = ABeamer.ExprOrNumToNum(params.radius, 0, args);
+                        var r = BeamToIX.ExprOrNumToNum(params.radius, 0, args);
                         var r_sw = r + sw;
                         buildSvg(inTextHtml_1, 'circle', 2 * r_sw, 2 * r_sw, [['cx', r_sw], ['cy', r_sw], ['r', r]]);
                         break;
@@ -172,7 +172,7 @@ var ABeamer;
                         buildSpeech(inTextHtml_1, sw, params);
                         break;
                     default:
-                        return ABeamer.TR_EXIT;
+                        return BeamToIX.TR_EXIT;
                 }
                 if (params.fill) {
                     inTextHtml_1.push(" fill=\"".concat(params.fill, "\""));
@@ -189,8 +189,8 @@ var ABeamer;
                     elAdapter.setProp('html', elAdapter.getProp('html') +
                         inTextHtml_1.join(''), args);
                 });
-                return ABeamer.TR_EXIT;
+                return BeamToIX.TR_EXIT;
         }
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=shape-tasks.js.map

@@ -111,7 +111,7 @@ duration?: TimeHandler;
 Defines the duration of the animation of a single cycle
 in terms of frames, seconds, minutes or milliseconds.  
 The total duration is `duration*(iterationCount + 1)`.  
-In case of numerical values, ABeamer uses `defaultUnit`  
+In case of numerical values, BeamToIX uses `defaultUnit`  
 to known what kind of unit is it.  
 
 _see_: [iterationCount](#iterationcount).  
@@ -169,7 +169,7 @@ of a `valueFormat`.
 This is the first stage of the Animation Pipeline.  
 The output value will be used to feed the [oscillator](oscillators.md#oscillator).  
 
-ABeamer includes a list of the most common easings by
+BeamToIX includes a list of the most common easings by
 bundling the jquery.easing plugin.  
 More can be added via plugins.  
 
@@ -281,7 +281,7 @@ export type AnimPropValue = string | number;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
-export type PropValueFunc = (args?: ABeamerArgs) => AnimPropValue;
+export type PropValueFunc = (args?: BeamToIXArgs) => AnimPropValue;
 ```
 
 ## PropValueStartHandler
@@ -302,7 +302,7 @@ export type PropValueHandler = PropValueStartHandler;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
-export type ValueTextFunc = (t: number, args?: ABeamerArgs) => string;
+export type ValueTextFunc = (t: number, args?: BeamToIXArgs) => string;
 ```
 
 <div class=class-interface-header>&nbsp;</div>
@@ -339,11 +339,11 @@ Animation Pipeline (easing➝oscillator➝path|valueText➝valueFormat).
 Easing interpolates from `valueStart` to `value`.  
 
 Use only if:  
-1. ABeamer can't get the value from the element property.  
+1. BeamToIX can't get the value from the element property.  
 2. There is no [Action Link](#Action Link) or you want to have a different start value.  
 3. Handle virtual elements.  
 
-- Always set this value CSS transforms, since ABeamer doesn't
+- Always set this value CSS transforms, since BeamToIX doesn't
 computes the CSS transform.  
 - For pixels, all write text with 'px' suffix unless
 is defined `valueFormat`.  
@@ -386,14 +386,14 @@ _example_: `100`
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[AnimationProp](animations.md#animationprop)]  
 ```js
-onSetValue?(value: AnimPropValue, args?: ABeamerArgs): boolean;
+onSetValue?(value: AnimPropValue, args?: BeamToIXArgs): boolean;
 ```
 
 
 This event is fired before modifying an element property during rending.  
 Use if you need to handle virtual elements.  
 or if you want to manually set an element value.  
-If returns `false`, ABeamer won't set the element property.  
+If returns `false`, BeamToIX won't set the element property.  
 
 **WARNING** Events aren't [teleported](teleporter.md),
 therefore it can't be used in remote rendering.
@@ -480,8 +480,8 @@ direction?: uint | string;
 Defines the direction of each iteration.  
 Same as CSS `animation-direction`.  
 _example_: `'alternate'`  
-_example_: `ABeamer.DI_ALTERNATE`  
-_example_: `ABeamer.DS_NORMAL`  
+_example_: `BeamToIX.DI_ALTERNATE`  
+_example_: `BeamToIX.DS_NORMAL`  
 ### AnimationProp.bypassForwardMode
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[AnimationProp](animations.md#animationprop)]  

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BuildGalleryLatest = void 0;
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 var sysFs = require("fs");
@@ -32,7 +32,7 @@ var BuildGalleryLatest;
             }
             var srcFullPath = "".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(folder);
             var dstFullPath = "".concat(cfg.paths.GALLERY_LATEST_PATH, "/").concat(folder);
-            var iniFileName = "".concat(srcFullPath, "/abeamer.ini");
+            var iniFileName = "".concat(srcFullPath, "/beamtoix.ini");
             if (sysFs.existsSync(iniFileName)) {
                 var ex_1 = {
                     width: 0,
@@ -51,7 +51,7 @@ var BuildGalleryLatest;
                 };
                 var prevNr_1 = 0;
                 var lastDescLine_1 = '';
-                fsix_js_1.fsix.readUtf8Sync(iniFileName).replace(/[\$@]abeamer-([a-z\-]+)(\d*)\s*:\s*"?([^";]+)"?/g, function (_all, id, nr, value) {
+                fsix_js_1.fsix.readUtf8Sync(iniFileName).replace(/[\$@]beamtoix-([a-z\-]+)(\d*)\s*:\s*"?([^";]+)"?/g, function (_all, id, nr, value) {
                     switch (id) {
                         case 'description':
                             nr = parseInt(nr || '1');
@@ -173,7 +173,7 @@ var BuildGalleryLatest;
                 return;
             }
             // if (example.folder === 'animate-attack-task') { // use to test one example only
-            runSpawn('npm', ['run', '--', 'render', '--dp', '--url', "".concat(cfg.webLinks.localServer, "/").concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/"), '--config', "./".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/abeamer.ini"),
+            runSpawn('npm', ['run', '--', 'render', '--dp', '--url', "".concat(cfg.webLinks.localServer, "/").concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/"), '--config', "./".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/beamtoix.ini"),
             ], function () {
                 runSpawn('npm', ['run', '--', 'gif', "".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/")], function () {
                     console.log("Done example: ".concat(example.folder));

@@ -4,12 +4,12 @@ group: main
 category: Pages
 ---
 
-Read a detailed description about the roadmap updates on the blog [post](https://abeamer.a-bentofreire.com/blog/2018/07/04/website-published-roadmap-updates.html#roadmap-updates).
+Read a detailed description about the roadmap updates on the blog [post](https://beamtoix.a-bentofreire.com/blog/2018/07/04/website-published-roadmap-updates.html#roadmap-updates).
 
 ## General
 
 - Research how to fix vsc max file watcher problem.
-- Research on the side-effects of no longer using `clip-path` on body to allow to add widgets and toolbars to the ABeamer.
+- Research on the side-effects of no longer using `clip-path` on body to allow to add widgets and toolbars to the BeamToIX.
 - Port core parts to plugins.
 
 ### Teleportation
@@ -18,7 +18,7 @@ Read a detailed description about the roadmap updates on the blog [post](https:/
 - Add video sync information to the teleported story.
 
 ### Client Rendering
-- Bypass frames if the time for that frame is too delayed, allowing ABeamer to be used as a real-time animator.
+- Bypass frames if the time for that frame is too delayed, allowing BeamToIX to be used as a real-time animator.
 - Implement reversibility to allow to reverse rendering from the end to beginning
 and to allow reverse bypass the pipeline to allow to repeat an animation.
 
@@ -29,7 +29,7 @@ and to allow reverse bypass the pipeline to allow to repeat an animation.
 - Research on distributed rendering.
 
 ### Builders
-- Add abeamer library and plugins to each gallery/latest.
+- Add beamtoix library and plugins to each gallery/latest.
 
 ### Documentation
 - Fix the JSDocs parser bug in the documentation generator.
@@ -103,7 +103,7 @@ as `t` iterator increases.
 - Cut parameters for harmonic oscillator.
 
 ### Gallery
-- animate-abeamer: fix the text centering.
+- animate-beamtoix: fix the text centering.
 - easings-gallery: add a tracer to improve the visibility of the path followed by the easing.
 - animate-pulsar: add a tracer to improve the visibility of the path followed by the pulsar.
 - animate-transition: improve the generate quality of this example.

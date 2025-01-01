@@ -1,17 +1,17 @@
 // 
 //
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 //
-@import "./../abeamer.ini";
+@import "./../beamtoix.ini";
 body,
 html,
-.abeamer-story,
-.abeamer-scene {
-  width: $abeamer-width + px;
-  height: $abeamer-height + px;
+.beamtoix-story,
+.beamtoix-scene {
+  width: $beamtoix-width + px;
+  height: $beamtoix-height + px;
 }
 
 .bkg {

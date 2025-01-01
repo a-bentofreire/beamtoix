@@ -1,10 +1,10 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 10);
+    var story = BeamToIX.createStory(/*FPS:*/ 10);
     // ------------------------------------------------------------------------
     //                               Charts
     // ------------------------------------------------------------------------
@@ -19,7 +19,7 @@ $(window).on("load", function () {
         captions: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
     };
     var charts = [{
-            chartType: ABeamer.ChartTypes.bar,
+            chartType: BeamToIX.ChartTypes.bar,
             labelsX: defLabelsX,
             title: '2017 Sales',
             data: [[23000, 32000, 45000, 15000, 50400, 58000]],
@@ -37,7 +37,7 @@ $(window).on("load", function () {
                     value: 1,
                 }],
         }, {
-            chartType: ABeamer.ChartTypes.area,
+            chartType: BeamToIX.ChartTypes.area,
             data: [
                 [30, 42, 50, 50, 45, 60, 40],
                 [13, 32, 35, 85, 35, 70, 65],
@@ -56,7 +56,7 @@ $(window).on("load", function () {
                     value: 1,
                 }],
         }, {
-            chartType: ABeamer.ChartTypes.line,
+            chartType: BeamToIX.ChartTypes.line,
             labelsX: "=2012 + v",
             data: [
                 [230, 320, 450, 150, 504, 600],
@@ -72,9 +72,9 @@ $(window).on("load", function () {
                     value: 1,
                 }],
         }, {
-            chartType: ABeamer.ChartTypes.mixed,
+            chartType: BeamToIX.ChartTypes.mixed,
             data: defData,
-            chartTypes: [ABeamer.ChartTypes.bar, ABeamer.ChartTypes.bar, ABeamer.ChartTypes.line],
+            chartTypes: [BeamToIX.ChartTypes.bar, BeamToIX.ChartTypes.bar, BeamToIX.ChartTypes.line],
             labelsX: defLabelsX,
             fillColors: ['#11ecad', '#adffb9', ''],
             strokeColors: ['#9c9c9c', '#9c9c9c', '#d05858'],
@@ -91,7 +91,7 @@ $(window).on("load", function () {
                 }],
             chartWidth: 320,
         }, {
-            chartType: ABeamer.ChartTypes.pie,
+            chartType: BeamToIX.ChartTypes.pie,
             // labelsX: defLabelsX,
             title: 'Government expenditure',
             data: [[36.7, 17.1, 13.8, 12.9, 8.2, 4.0, 2.7]],
@@ -108,7 +108,7 @@ $(window).on("load", function () {
                     value: 1,
                 }],
         }, {
-            chartType: ABeamer.ChartTypes.bar,
+            chartType: BeamToIX.ChartTypes.bar,
             labelsX: defLabelsX,
             title: '2017 Revenue',
             data: [[23000, 32000, 45000, -15000, 10000, 60000]],
@@ -119,7 +119,7 @@ $(window).on("load", function () {
             strokeWidth: 1,
             markers: {
                 visible: [[false, false, false, false, true, false]],
-                shape: ABeamer.ChartPointShape.diamond,
+                shape: BeamToIX.ChartPointShape.diamond,
                 color: 'blue',
                 size: 10,
             },
@@ -129,11 +129,11 @@ $(window).on("load", function () {
                     value: 1,
                 }],
         }, {
-            chartType: ABeamer.ChartTypes.marker,
+            chartType: BeamToIX.ChartTypes.marker,
             labelsX: defLabelsX,
             data: [[23000, 32000, 45000, 15000, 50400, 60000]],
             markers: {
-                shape: ABeamer.ChartPointShape.circle,
+                shape: BeamToIX.ChartPointShape.circle,
                 size: 10,
                 color: 'red',
             },
@@ -150,7 +150,7 @@ $(window).on("load", function () {
     //                               Add Charts
     // ------------------------------------------------------------------------
     $('#story').html(charts.map(function () {
-        return "<div class=abeamer-scene><div class=gallery></div></div>";
+        return "<div class=beamtoix-scene><div class=gallery></div></div>";
     }).join('\n'));
     story.addDefaultScenes();
     charts.forEach(function (chart, i) {

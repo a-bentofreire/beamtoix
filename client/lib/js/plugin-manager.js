@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -17,7 +17,7 @@
  * - Set the `pluginInfo.teleportable = true`.
  * - Follow the [Developer Guideline Rules](../../../../../developer/dev-docs/coding-style).
  *
- * ABeamer allows plugins to add the following functionality types:
+ * BeamToIX allows plugins to add the following functionality types:
  *
  * - [](easings)
  * - [](oscillators)
@@ -31,15 +31,15 @@
  * To add a functionality use: `pluginManager.add<functionality-type>`.
  *
  * In most cases, a functionality is a function that receives a set of parameters
- * followed by `args?:ABeamerArgs`.
+ * followed by `args?:BeamToIXArgs`.
  * This last parameter will provide information regarding the state of the system.
  *
  * Plugins should try to be independent of DOM in order to work
  * with virtual elements such as WebGL and canvas. However, in some cases is
  * required to work with DOM only.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Plugin Manager
@@ -54,17 +54,17 @@ var ABeamer;
         Functionalities[Functionalities["tasks"] = 4] = "tasks";
         Functionalities[Functionalities["flyovers"] = 5] = "flyovers";
         Functionalities[Functionalities["functions"] = 6] = "functions";
-    })(Functionalities = ABeamer.Functionalities || (ABeamer.Functionalities = {}));
+    })(Functionalities = BeamToIX.Functionalities || (BeamToIX.Functionalities = {}));
     // #export-section-end: release
     // -------------------------------
     var _FunctionalitiesContainers = [
-        ABeamer._easingFunctions,
-        ABeamer._easingFunctions,
-        ABeamer._pathFunctions,
-        ABeamer._taskFunctions,
-        ABeamer._transitionFunctions,
-        ABeamer._flyoverFunctions,
-        ABeamer._exFunctions,
+        BeamToIX._easingFunctions,
+        BeamToIX._easingFunctions,
+        BeamToIX._pathFunctions,
+        BeamToIX._taskFunctions,
+        BeamToIX._transitionFunctions,
+        BeamToIX._flyoverFunctions,
+        BeamToIX._exFunctions,
     ];
     /**
      * Allows 3rd-party to add easings, oscillators, paths, etc.
@@ -79,53 +79,53 @@ var ABeamer;
         };
         _PluginManager.prototype.addEasings = function (easings) {
             easings.forEach(function (easing) {
-                ABeamer._easingFunctions[easing[0]] = easing[1];
+                BeamToIX._easingFunctions[easing[0]] = easing[1];
             });
         };
         _PluginManager.prototype.addOscillators = function (oscillators) {
             oscillators.forEach(function (oscillator) {
-                ABeamer._easingFunctions[oscillator[0]] = oscillator[1];
+                BeamToIX._easingFunctions[oscillator[0]] = oscillator[1];
             });
         };
         _PluginManager.prototype.addPaths = function (paths) {
             paths.forEach(function (path) {
-                ABeamer._pathFunctions[path[0]] = path[1];
+                BeamToIX._pathFunctions[path[0]] = path[1];
             });
         };
         _PluginManager.prototype.addTasks = function (tasks) {
             tasks.forEach(function (task) {
-                ABeamer._taskFunctions[task[0]] = task[1];
+                BeamToIX._taskFunctions[task[0]] = task[1];
             });
         };
         _PluginManager.prototype.addTransitions = function (transitions) {
             transitions.forEach(function (transition) {
-                ABeamer._transitionFunctions[transition[0]] = transition[1];
+                BeamToIX._transitionFunctions[transition[0]] = transition[1];
             });
         };
         _PluginManager.prototype.addFlyovers = function (flyovers) {
             flyovers.forEach(function (flyover) {
-                ABeamer._flyoverFunctions[flyover[0]] = flyover[1];
+                BeamToIX._flyoverFunctions[flyover[0]] = flyover[1];
             });
         };
         _PluginManager.prototype.addFunctions = function (functions) {
             functions.forEach(function (exprFunction) {
-                ABeamer._exFunctions[exprFunction[0]] = exprFunction[1];
+                BeamToIX._exFunctions[exprFunction[0]] = exprFunction[1];
             });
         };
         _PluginManager.prototype.addLocalization = function (localeInfo) {
             this._locale = localeInfo.locale;
             if (!this._locale) {
-                ABeamer.throwErr('The localization locale can not be empty');
+                BeamToIX.throwErr('The localization locale can not be empty');
             }
             if (localeInfo.charRanges) {
                 localeInfo.charRanges.forEach(function (charRange) {
-                    ABeamer.CharRanges.push(charRange);
+                    BeamToIX.CharRanges.push(charRange);
                 });
             }
             var msgs = localeInfo.messages;
             if (msgs) {
                 Object.keys(msgs).forEach(function (srcMsg) {
-                    ABeamer.Msgs[srcMsg] = msgs[srcMsg];
+                    BeamToIX.Msgs[srcMsg] = msgs[srcMsg];
                 });
             }
             if (localeInfo.functionalities) {
@@ -144,7 +144,7 @@ var ABeamer;
         };
         return _PluginManager;
     }());
-    ABeamer._PluginManager = _PluginManager;
-    ABeamer.pluginManager = new _PluginManager();
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._PluginManager = _PluginManager;
+    BeamToIX.pluginManager = new _PluginManager();
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=plugin-manager.js.map

@@ -5,7 +5,7 @@ category: Pages
 ---
 ## Description
   
-ABeamer implements the animation direction in a similar way of the
+BeamToIX implements the animation direction in a similar way of the
 CSS `animation-direction` property.  
 Currently is supported: `normal`, `reverse`, `alternate`, `alternate-reverse`  
   

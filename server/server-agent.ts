@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -179,7 +179,7 @@ export namespace ServerAgent {
 
       const cfgConfigData = cfg['config'];
       if (cfgConfigData) {
-        const pCfg = cfgConfigData['abeamer'];
+        const pCfg = cfgConfigData['beamtoix'];
         if (pCfg) {
           args.splice(0, argI + 1);
           argI = 0;
@@ -216,7 +216,7 @@ export namespace ServerAgent {
       // very basic .ini variables parser
       // @TODO: place this code in a external module so it can be used by the library and the cli
       cfgText.split(/\n/).forEach(line =>
-        line.replace(/^\s*[\$@]abeamer-([\w+-]+)\s*:\s*"?([^\n"]+)"?\s*;\s*$/,
+        line.replace(/^\s*[\$@]beamtoix-([\w+-]+)\s*:\s*"?([^\n"]+)"?\s*;\s*$/,
           (_all, p1, p2) => {
             if (this.isVerbose) { console.log(`config: ${p1}=[${p2}]`); }
             cfg[p1] = p2;
@@ -232,7 +232,7 @@ export namespace ServerAgent {
 
       return this.parseJsonConfig(args, configFileName.match(/\.json$/)
         ? JSON.parse(cfgText)
-        : { config: { abeamer: this.parseIniCfgContent(cfgText) } },
+        : { config: { beamtoix: this.parseIniCfgContent(cfgText) } },
         configFileName, argI);
     }
 
@@ -250,7 +250,7 @@ export namespace ServerAgent {
         if (!configFileName) { return ''; }
 
         if (self.existsSync(configFileName) && self.isDirectory(configFileName)) {
-          configFileName = self.posixPathJoin(configFileName, 'abeamer.ini');
+          configFileName = self.posixPathJoin(configFileName, 'beamtoix.ini');
         }
 
         if (!self.existsSync(configFileName)) {

@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@
  *
  * Computes the delay between each item.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   export interface _ItemDelay {
     /**
@@ -39,7 +39,7 @@ namespace ABeamer {
 
 
   export function _parseItemDelay(values: AnimationCommonParams,
-    args: ABeamerArgs): _ItemDelay {
+    args: BeamToIXArgs): _ItemDelay {
 
     if (!values.itemDelayDuration) {
       return { duration: 0 };

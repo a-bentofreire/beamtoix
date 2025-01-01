@@ -43,10 +43,10 @@ the rest of the time are motionless.
   
   
 ## Core oscillators
-**WARNING!** In the ABeamer 2.x these core oscillators will move `core-oscillators` plugin.  
+**WARNING!** In the BeamToIX 2.x these core oscillators will move `core-oscillators` plugin.  
 To prevent breaking changes include now the js script `core-oscillators.js` on the html file.  
   
- ABeamer has the following core oscillators:  
+ BeamToIX has the following core oscillators:  
   
 - `harmonic` - it generates a sinusoidal function that repeats it self every
 duration / cycles.  
@@ -54,7 +54,7 @@ _see_: [animate-oscillator](/gallery/latest/#animate-oscillator).
   
 - `damped` - it's a sinusoidal function that reduces its amplitude due friction in
 every cycle.  
-To reduce the user's effort, ABeamer uses cycles parameter to compute the friction.  
+To reduce the user's effort, BeamToIX uses cycles parameter to compute the friction.  
   
 - `pulsar` - outside the range of [midpoint - spread, midpoint + spread]
 it will return 0, and inside the range will generate a function depending of
@@ -72,7 +72,7 @@ _see_: [animate-pulsar](/gallery/latest/#animate-pulsar).
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
 export type OscillatorFunc = (t: number, params: OscillatorParams,
-    args?: ABeamerArgs) => number;
+    args?: BeamToIXArgs) => number;
 ```
 
 

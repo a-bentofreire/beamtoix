@@ -2,12 +2,12 @@
 # 
 
 # ------------------------------------------------------------------------
-# Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+# Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 # Licensed under the MIT License.
 # ------------------------------------------------------------------------
 
 # this script is designed only for testing teleport in a bash enviroment
-# using `abeamer serve` as a live server.
+# using `beamtoix serve` as a live server.
 # e.g. ./teleport.sh ./gallery/animate-colors
 
 if [ "$1" == "" ]; then
@@ -55,15 +55,15 @@ else
   URL="http://localhost:$PORT/$DRS_FOLDER/"
   CONFIG="$RS_FOLDER/story.json"
 
-  echo node ./cli/abeamer-cli.js render "$@" --dp --url "$URL" --config "$CONFIG" \
+  echo node ./cli/beamtoix-cli.js render "$@" --dp --url "$URL" --config "$CONFIG" \
   --allowed-plugins "$RS_FOLDER/.allowed-plugins.json" \
   --inject-page "$RS_FOLDER/index.html"
 
-  node ./cli/abeamer-cli.js render "$@" --dp --url "$URL" --config "$CONFIG" \
+  node ./cli/beamtoix-cli.js render "$@" --dp --url "$URL" --config "$CONFIG" \
   --allowed-plugins "$RS_FOLDER/.allowed-plugins.json" \
   --inject-page "$RS_FOLDER/index.html"
 
   if [ $GEN_GIF == 1 ]; then
-    node ./cli/abeamer-cli.js gif "$RS_FOLDER/"
+    node ./cli/beamtoix-cli.js gif "$RS_FOLDER/"
   fi
 fi

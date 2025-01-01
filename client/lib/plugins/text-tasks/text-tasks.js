@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of built-in text Tasks
@@ -20,8 +20,8 @@
  *
  * - `decipher` - Generates a random list of texts that gradually reveal the hidden text.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Text Tasks
@@ -35,17 +35,17 @@ var ABeamer;
         RevealDir[RevealDir["toRight"] = 1] = "toRight";
         RevealDir[RevealDir["toLeft"] = 2] = "toLeft";
         RevealDir[RevealDir["toCenter"] = 3] = "toCenter";
-    })(RevealDir = ABeamer.RevealDir || (ABeamer.RevealDir = {}));
+    })(RevealDir = BeamToIX.RevealDir || (BeamToIX.RevealDir = {}));
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addPlugin({
-        id: 'abeamer.text-tasks',
+    BeamToIX.pluginManager.addPlugin({
+        id: 'beamtoix.text-tasks',
         uuid: '8b547eff-a0de-446a-9753-fb8b39d8031a',
         author: 'Alexandre Bento Freire',
-        email: 'abeamer@a-bentofreire.com',
+        email: 'beamtoix@a-bentofreire.com',
         jsUrls: ['plugins/text-tasks/text-tasks.js'],
         teleportable: true,
     });
@@ -60,11 +60,11 @@ var ABeamer;
     // ------------------------------------------------------------------------
     //                               text-split Task
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addTasks([['text-split', _textSplit]]);
+    BeamToIX.pluginManager.addTasks([['text-split', _textSplit]]);
     /** Implements the Text Split Task */
     function _textSplit(anime, _wkTask, params, stage, args) {
         switch (stage) {
-            case ABeamer.TS_INIT:
+            case BeamToIX.TS_INIT:
                 var inTextArray = _textSplitter(params);
                 var elAdapters = args.scene.getElementAdapters(anime.selector);
                 var inTextHtml_1 = inTextArray.map(function (item, index) {
@@ -82,17 +82,17 @@ var ABeamer;
                         });
                     }
                 });
-                return ABeamer.TR_EXIT;
+                return BeamToIX.TR_EXIT;
         }
     }
     // ------------------------------------------------------------------------
     //                               typewriter Task
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addTasks([['typewriter', _typewriter]]);
+    BeamToIX.pluginManager.addTasks([['typewriter', _typewriter]]);
     /** Implements the Typewriter Task */
     function _typewriter(anime, _wkTask, params, stage, _args) {
         switch (stage) {
-            case ABeamer.TS_INIT:
+            case BeamToIX.TS_INIT:
                 var textInter = [];
                 var inTextArray = _textSplitter(params);
                 var len = inTextArray.length;
@@ -110,13 +110,13 @@ var ABeamer;
                     anime.props = [];
                 }
                 anime.props.push({ prop: 'text', valueText: textInter });
-                return ABeamer.TR_DONE;
+                return BeamToIX.TR_DONE;
         }
     }
     // ------------------------------------------------------------------------
     //                               decipher Task
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addTasks([['decipher', _decipherTask]]);
+    BeamToIX.pluginManager.addTasks([['decipher', _decipherTask]]);
     /** Implements the Decipher Task */
     function _decipherTask(anime, _wkTask, params, stage, _args) {
         function isInsideRange(code, ranges) {
@@ -139,7 +139,7 @@ var ABeamer;
             return scale;
         }
         switch (stage) {
-            case ABeamer.TS_INIT:
+            case BeamToIX.TS_INIT:
                 var cc_A = 'A'.charCodeAt(0);
                 var cc_Z = 'Z'.charCodeAt(0);
                 var cc_a = 'a'.charCodeAt(0);
@@ -153,9 +153,9 @@ var ABeamer;
                 var lowerCharRanges = params.lowerCharRanges || [[cc_a, cc_z]];
                 var digitRanges = [[cc_0, cc_9]];
                 var revealCharIterations = params.revealCharIterations || 1;
-                var revealDir = ABeamer.parseEnum(params.revealDirection, RevealDir, RevealDir.disabled);
-                ABeamer.throwIfI8n(!ABeamer.isPositiveNatural(iterations), ABeamer.Msgs.MustNatPositive, { p: 'iterations' });
-                ABeamer.throwIfI8n(!textLen, ABeamer.Msgs.NoEmptyField, { p: 'text' });
+                var revealDir = BeamToIX.parseEnum(params.revealDirection, RevealDir, RevealDir.disabled);
+                BeamToIX.throwIfI8n(!BeamToIX.isPositiveNatural(iterations), BeamToIX.Msgs.MustNatPositive, { p: 'iterations' });
+                BeamToIX.throwIfI8n(!textLen, BeamToIX.Msgs.NoEmptyField, { p: 'text' });
                 // let usableCharsCount = 0;
                 var rangesByIndex = [];
                 for (var charI = 0; charI < textLen; charI++) {
@@ -211,8 +211,8 @@ var ABeamer;
                     anime.props = [];
                 }
                 anime.props.push({ prop: 'text', valueText: textInter.map(function (inter) { return inter.join(''); }) });
-                return ABeamer.TR_DONE;
+                return BeamToIX.TR_DONE;
         }
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=text-tasks.js.map

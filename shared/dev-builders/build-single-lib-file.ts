@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -36,10 +36,10 @@ export namespace BuildSingleLibFile {
       outputList.push(fsix.readUtf8Sync(srcFileName));
     });
 
-    let output = WARN_MSG + '\nnamespace ABeamer {'
+    let output = WARN_MSG + '\nnamespace BeamToIX {'
       + outputList.join('\n')
         .replace(/}\s*\n+\s*"use strict";/g, '') // removes the inter namespaces
-        .replace(/namespace ABeamer\s*{/g, '')
+        .replace(/namespace BeamToIX\s*{/g, '')
         .replace(/export\s+(\w+)\s+_(\w+)/g, (all, tokType, id) =>
           excludeIdList.indexOf(id) === -1 ? `${tokType} _${id}` : all,
         );

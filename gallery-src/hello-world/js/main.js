@@ -1,5 +1,5 @@
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 20);
+    var story = BeamToIX.createStory(/*FPS:*/ 20);
     var scene1 = story.scenes[0];
     scene1.addAnimations([{
             selector: '#hello',

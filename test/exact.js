@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Exact = void 0;
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module developer | This module won't be part of release version */
@@ -18,9 +18,9 @@ var dev_config_js_1 = require("../shared/dev-config.js");
 /**
  * ## Description
  *
- * **Exact** is a test framework created to test ABeamer functionality.
+ * **Exact** is a test framework created to test BeamToIX functionality.
  * It makes a copy of the template, modifying its data.
- * It executes abeamer under headless browser and captures its output.
+ * It executes beamtoix under headless browser and captures its output.
  *
  */
 var Exact;
@@ -177,7 +177,7 @@ var Exact;
                 opts.sceneMarkers[sceneIndex] === i) {
                 sceneIndex++;
                 res.push('    </div>');
-                res.push("    <div class=\"abeamer-scene\" id=scene".concat(sceneIndex + 1, ">"));
+                res.push("    <div class=\"beamtoix-scene\" id=scene".concat(sceneIndex + 1, ">"));
             }
             res.push("        <".concat(opts.htmlTag, " class='").concat(opts.cssClass, "' ")
                 + "id='".concat(opts.idPrefix).concat(i, "'>").concat(opts.textPrefix).concat(i, "</").concat(opts.htmlTag, ">"));
@@ -584,7 +584,7 @@ var Exact;
             + " --ll ".concat(params.logLevel !== undefined ? params.logLevel : consts_js_1.Consts.LL_VERBOSE)
             + (params.toDelPreviousFrames !== false ? ' --dp' : '')
             + (params.toGenFrames ? '' : ' --noframes')
-            + " --config \"".concat(rd.outFolder, "/abeamer.ini\"");
+            + " --config \"".concat(rd.outFolder, "/beamtoix.ini\"");
         if (params.onCmdLine) {
             cmdLine = params.onCmdLine(cmdLine);
         }

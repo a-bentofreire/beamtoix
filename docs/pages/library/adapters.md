@@ -5,10 +5,10 @@ category: Pages
 ---
 ## Description
   
-An **adapter** allows ABeamer to decouple from DOM by serving as an agent
-between the ABeamer library and elements and scenes.  
+An **adapter** allows BeamToIX to decouple from DOM by serving as an agent
+between the BeamToIX library and elements and scenes.  
   
-For DOM adapters, ABeamer uses `jQuery` to query DOM and
+For DOM adapters, BeamToIX uses `jQuery` to query DOM and
 maps special properties such `text` and `html` to
 `textContent` and `innerHTML`.  
   
@@ -20,7 +20,7 @@ For CSS Properties, it uses `element.style`, but if it's empty,
 it retrieves all the computed CSS properties via `window.getComputedStyle`  
 and caches its content.  
   
-DOM Adapters use the attribute `data-abeamer-display` to define which
+DOM Adapters use the attribute `data-beamtoix-display` to define which
 value will be used in `display` when visible is set to true.  
 If it's not defined, it will be set to `inline` for `span` tags,
 and `block` for all the other tags.  
@@ -85,7 +85,7 @@ onAnimateProp: (name: PropName, value: PropValue) => void;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[SimpleVirtualAnimator](adapters.md#simplevirtualanimator)]  
 ```js
-onAnimateProps: (args?: ABeamerArgs) => void;
+onAnimateProps: (args?: BeamToIXArgs) => void;
 ```
 
 ### SimpleVirtualAnimator.animateProp()
@@ -104,7 +104,7 @@ each property is updated, otherwise use animateProps.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[SimpleVirtualAnimator](adapters.md#simplevirtualanimator)]  
 ```js
-animateProps(args?: ABeamerArgs): void;
+animateProps(args?: BeamToIXArgs): void;
 ```
 
 
@@ -130,7 +130,7 @@ setProp(name: PropName, value: PropValue): void;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[SimpleVirtualAnimator](adapters.md#simplevirtualanimator)]  
 ```js
-frameRendered(args?: ABeamerArgs);
+frameRendered(args?: BeamToIXArgs);
 ```
 
 <div class=class-interface-header>&nbsp;</div>
@@ -156,14 +156,14 @@ isVirtual: boolean;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[AbstractAdapter](adapters.md#abstractadapter)]  
 ```js
-getProp(name: PropName, args?: ABeamerArgs): PropValue;
+getProp(name: PropName, args?: BeamToIXArgs): PropValue;
 ```
 
 ### AbstractAdapter.setProp()
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[AbstractAdapter](adapters.md#abstractadapter)]  
 ```js
-setProp(name: PropName, value: PropValue, args?: ABeamerArgs): void;
+setProp(name: PropName, value: PropValue, args?: BeamToIXArgs): void;
 ```
 
 <div class=class-interface-header>&nbsp;</div>
@@ -181,7 +181,7 @@ Base class for Element adapters both DOM and virtual.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[ElementAdapter](adapters.md#elementadapter)]  
 ```js
-getId(args?: ABeamerArgs): string;
+getId(args?: BeamToIXArgs): string;
 ```
 
 <div class=class-interface-header>&nbsp;</div>
@@ -195,7 +195,7 @@ export interface DOMElementAdapter extends ElementAdapter{ }
 
 DOM Element adapter.  
 Gets and sets attributes from HTMLElements.  
-Maps the ABeamer animation property names into DOM attributes.
+Maps the BeamToIX animation property names into DOM attributes.
 
 ### DOMElementAdapter.htmlElement
 
@@ -225,14 +225,14 @@ Requests the DOM engine the calculated information for CSS property.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[DOMElementAdapter](adapters.md#domelementadapter)]  
 ```js
-getProp(propName: PropName, args?: ABeamerArgs): PropValue;
+getProp(propName: PropName, args?: BeamToIXArgs): PropValue;
 ```
 
 ### DOMElementAdapter.setProp()
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[DOMElementAdapter](adapters.md#domelementadapter)]  
 ```js
-setProp(propName: PropName, value: PropValue, args?: ABeamerArgs): void;
+setProp(propName: PropName, value: PropValue, args?: BeamToIXArgs): void;
 ```
 
 <div class=class-interface-header>&nbsp;</div>
@@ -245,7 +245,7 @@ export interface SceneAdapter extends AbstractAdapter{ }
 
 
 Virtual Scene adapter.  
-Allows ABeamer to decouple from the details of any virtual scene.
+Allows BeamToIX to decouple from the details of any virtual scene.
 
 ### SceneAdapter.query()
 
@@ -297,14 +297,14 @@ Requests the DOM engine the calculated information for CSS property.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[DOMSceneAdapter](adapters.md#domsceneadapter)]  
 ```js
-getProp(propName: PropName, args?: ABeamerArgs): PropValue;
+getProp(propName: PropName, args?: BeamToIXArgs): PropValue;
 ```
 
 ### DOMSceneAdapter.setProp()
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[DOMSceneAdapter](adapters.md#domsceneadapter)]  
 ```js
-setProp(propName: PropName, value: PropValue, args?: ABeamerArgs): void;
+setProp(propName: PropName, value: PropValue, args?: BeamToIXArgs): void;
 ```
 
 ### DOMSceneAdapter.query()
@@ -332,7 +332,7 @@ export type SpecialAdapterPropName =
     // modifies outerHTML attribute.
     | 'outerHTML'
     // changes the style.display CSS property for DOM Elements/Scenes.
-    // Uses DOM attribute `data-abeamer-display`.
+    // Uses DOM attribute `data-beamtoix-display`.
     | 'visible'
     // modifies the attribute `src`.
     | 'src'
@@ -366,7 +366,7 @@ export type ElPropName = string
     | 'id'
     | 'visible'
     | 'uid'
-    | 'data-abeamer-display';
+    | 'data-beamtoix-display';
 ```
 
 
@@ -383,7 +383,7 @@ export type ScenePropName = string
     | 'width'
     | 'height'
     /** If this value is set, it will for `Visible=true` */
-    | 'data-abeamer-display';
+    | 'data-beamtoix-display';
 ```
 
 
@@ -483,28 +483,28 @@ Base interface for virtual elements such as WebGL, Canvas or Task animator.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[VirtualElement](adapters.md#virtualelement)]  
 ```js
-getProp(name: PropName, args?: ABeamerArgs): PropValue;
+getProp(name: PropName, args?: BeamToIXArgs): PropValue;
 ```
 
 ### VirtualElement.setProp()
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[VirtualElement](adapters.md#virtualelement)]  
 ```js
-setProp(name: PropName, value: PropValue, args?: ABeamerArgs): void;
+setProp(name: PropName, value: PropValue, args?: BeamToIXArgs): void;
 ```
 
 ### VirtualElement.waitFor
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[VirtualElement](adapters.md#virtualelement)]  
 ```js
-waitFor?(waitFor: WaitFor, onDone: DoneFunc, args?: ABeamerArgs): void;
+waitFor?(waitFor: WaitFor, onDone: DoneFunc, args?: BeamToIXArgs): void;
 ```
 
 ### VirtualElement.frameRendered
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[VirtualElement](adapters.md#virtualelement)]  
 ```js
-frameRendered?(args?: ABeamerArgs): void;
+frameRendered?(args?: BeamToIXArgs): void;
 ```
 
 
@@ -586,7 +586,7 @@ onAnimateProp: (name: PropName, value: PropValue) => void;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[SimpleVirtualAnimator](adapters.md#simplevirtualanimator)]  
 ```js
-onAnimateProps: (args?: ABeamerArgs) => void;
+onAnimateProps: (args?: BeamToIXArgs) => void;
 ```
 
 ### SimpleVirtualAnimator.animateProp()
@@ -605,7 +605,7 @@ each property is updated, otherwise use animateProps.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[SimpleVirtualAnimator](adapters.md#simplevirtualanimator)]  
 ```js
-animateProps(args?: ABeamerArgs): void;
+animateProps(args?: BeamToIXArgs): void;
 ```
 
 
@@ -631,7 +631,7 @@ setProp(name: PropName, value: PropValue): void;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[SimpleVirtualAnimator](adapters.md#simplevirtualanimator)]  
 ```js
-frameRendered(args?: ABeamerArgs);
+frameRendered(args?: BeamToIXArgs);
 ```
 
 <div class=class-interface-header>&nbsp;</div>
@@ -649,7 +649,7 @@ Base interface for virtual scenes such as WebGL, Canvas.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[VirtualScene](adapters.md#virtualscene)]  
 ```js
-getProp(name: PropName, args?: ABeamerArgs): string;
+getProp(name: PropName, args?: BeamToIXArgs): string;
 ```
 
 
@@ -659,7 +659,7 @@ Must support `id` and `visible` attributes.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-method">method</span>  [[VirtualScene](adapters.md#virtualscene)]  
 ```js
-setProp(name: PropName, value: string, args?: ABeamerArgs): void;
+setProp(name: PropName, value: string, args?: BeamToIXArgs): void;
 ```
 
 
@@ -712,7 +712,7 @@ Virtual selectors start with `%`.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
-export type ElSelectorFunc = (args?: ABeamerArgs) => ElSelector;
+export type ElSelectorFunc = (args?: BeamToIXArgs) => ElSelector;
 ```
 
 

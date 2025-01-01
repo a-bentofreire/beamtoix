@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@
  * **ActionRg** is used to monitor what was the previous value of a property,
  * and each frames it can bypassed.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // ------------------------------------------------------------------------
   //                               Actions
@@ -134,7 +134,7 @@ namespace ABeamer {
     propName: string,
     startFrame: uint,
     endFrame: uint,
-    args: ABeamerArgs): _ElActionRg {
+    args: BeamToIXArgs): _ElActionRg {
 
     const propValue = elementAdpt.getProp('uid', args) as string;
     let index = propValue !== undefined ? parseInt(propValue) : -1;

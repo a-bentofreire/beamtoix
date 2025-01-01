@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // This file includes the list of all CSS properties that aren't pixel properties,
@@ -16,8 +16,8 @@
  *
  * `ServerFeatures` provides information regarding the server.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Server
@@ -42,9 +42,9 @@ var ABeamer;
      */
     function _setServer(serverName) {
         var serverInfo = INFO_PER_SERVER[serverName] || INFO_PER_SERVER._default;
-        ABeamer._addServerDOMPropMaps(serverInfo.map);
+        BeamToIX._addServerDOMPropMaps(serverInfo.map);
         return serverInfo.features;
     }
-    ABeamer._setServer = _setServer;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._setServer = _setServer;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=server-features.js.map

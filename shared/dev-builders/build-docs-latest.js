@@ -11,7 +11,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BuildDocsLatest = void 0;
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 var globule = require("globule");
@@ -628,7 +628,7 @@ var BuildDocsLatest;
                 });
             });
             // builds markdown files
-            __spreadArray(__spreadArray([['abeamer-cli', 'cli/abeamer-cli.ts', ''],
+            __spreadArray(__spreadArray([['beamtoix-cli', 'cli/beamtoix-cli.ts', ''],
                 ['server-agent', 'server/server-agent.ts', 'Server'],
                 ['exact', 'test/exact.ts', 'Testing']], libModules
                 .map(function (fileTitle) { return [fileTitle, "".concat(cfg.paths.JS_PATH, "/").concat(fileTitle, ".ts"), 'Library']; }), true), pluginModules

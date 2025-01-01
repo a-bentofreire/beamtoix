@@ -15,7 +15,7 @@ To build the animation pipeline use the methods:
 - `addStills`  
   
 A scene usually is associated with a `div` in the html file.  
-Scenes with `class=abeamer-class` are automatically added to story upon story creation.  
+Scenes with `class=beamtoix-class` are automatically added to story upon story creation.  
 But it can also be a virtual scene.  
   
 Only one scene can be active at a certain point in time,

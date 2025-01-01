@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
-// @WARN: This test should be review if ABeamer is capable of linking
+// @WARN: This test should be review if BeamToIX is capable of linking
 // the end of a property animation with the next and bypass the end frame of
 // the first animation
 var exact_js_1 = require("../exact.js");

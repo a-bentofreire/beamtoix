@@ -1,0 +1,40 @@
+// 
+//
+// ------------------------------------------------------------------------
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
+// Licensed under the MIT License.
+// ------------------------------------------------------------------------
+//
+body,
+html,
+.beamtoix-story {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  overflow: hidden;
+}
+
+.beamtoix-scene {
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  display: none;
+  box-sizing: border-box;
+}
+
+.abs-elem {
+  position: absolute;
+}
+.abs-elem-lt,
+.beamtoix-story,
+.beamtoix-scene {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.info-flyover,
+.beamtoix-flyover {
+  position: absolute;
+  z-index: 1000;
+}

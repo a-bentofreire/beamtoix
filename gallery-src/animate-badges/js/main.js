@@ -1,17 +1,17 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 20);
+    var story = BeamToIX.createStory(/*FPS:*/ 20);
     // ------------------------------------------------------------------------
     //                               Scene
     // ------------------------------------------------------------------------
     /**
      * For command line rendering use '-' notation.
      * e.g.:
-     * abeamer render --var name-background-color=blue
+     * beamtoix render --var name-background-color=blue
      */
     var scene1 = story.scenes[0];
     scene1

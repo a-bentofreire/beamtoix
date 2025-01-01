@@ -15,11 +15,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 20);
+    var story = BeamToIX.createStory(/*FPS:*/ 20);
     var canvas = document.getElementById('canvas');
     var ctx = canvas.getContext('2d');
     // let drawCallTimes = 0;
@@ -65,7 +65,7 @@ $(window).on("load", function () {
             // console.log(`drawCallTimes: ${drawCallTimes}`);
         };
         return CanvasAnimator;
-    }(ABeamer.SimpleVirtualAnimator));
+    }(BeamToIX.SimpleVirtualAnimator));
     // ------------------------------------------------------------------------
     //                               Scene1
     // ------------------------------------------------------------------------

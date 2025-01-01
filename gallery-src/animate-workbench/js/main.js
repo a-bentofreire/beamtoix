@@ -1,10 +1,10 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 10);
+    var story = BeamToIX.createStory(/*FPS:*/ 10);
     // ------------------------------------------------------------------------
     //                               Scene1
     // ------------------------------------------------------------------------
@@ -15,11 +15,11 @@ $(window).on("load", function () {
             enabled: true,
             label: 'easeInQuart',
             // easing by Id
-            easing: ABeamer.EasingName.easeInQuart,
+            easing: BeamToIX.EasingName.easeInQuart,
         }, {
             label: 'Harmonic',
             oscillator: {
-                handler: ABeamer.OscillatorName.harmonic,
+                handler: BeamToIX.OscillatorName.harmonic,
                 params: {
                 // shift: 0.25,
                 },

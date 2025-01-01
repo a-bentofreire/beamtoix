@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -11,7 +11,7 @@
 /**
  * ## Description
  *
- * ABeamer implements the animation direction in a similar way of the
+ * BeamToIX implements the animation direction in a similar way of the
  * CSS `animation-direction` property.
  * Currently is supported: `normal`, `reverse`, `alternate`, `alternate-reverse`
  *
@@ -24,7 +24,7 @@
  *
  * @see gallery/animate-loop
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------

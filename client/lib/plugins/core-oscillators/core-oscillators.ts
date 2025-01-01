@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -10,21 +10,21 @@
 
 /**
  * ## Description
- * In the ABeamer 2.x the core oscillators will move into this plugin.
+ * In the BeamToIX 2.x the core oscillators will move into this plugin.
  * To prevent breaking changes include now the js script `core-oscillators.js` on the html file.
  *
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // ------------------------------------------------------------------------
   //                               Implementation
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.core-oscillators',
+    id: 'beamtoix.core-oscillators',
     uuid: 'bb845fdf-7493-4000-8b04-6ec2a386ea21',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/core-oscillators/core-oscillators.js'],
     teleportable: true,
   });

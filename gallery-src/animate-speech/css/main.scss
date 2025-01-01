@@ -1,17 +1,17 @@
 // 
 //
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 //
-@import "./../abeamer.ini";
+@import "./../beamtoix.ini";
 body,
 html,
-.abeamer-story,
-.abeamer-scene {
-  width: $abeamer-width + px;
-  height: $abeamer-height + px;
+.beamtoix-story,
+.beamtoix-scene {
+  width: $beamtoix-width + px;
+  height: $beamtoix-height + px;
 }
 
 $img-height: 275;
@@ -28,7 +28,7 @@ $padding: 4px;
     box-sizing: border-box;
   }
   #write-area {
-    height: ($abeamer-height - $img-height - 2) + px;
+    height: ($beamtoix-height - $img-height - 2) + px;
     background: #fffdfd;
     color: rgb(44, 44, 44);
     display: flex;
@@ -38,7 +38,7 @@ $padding: 4px;
   }
   #write {
     padding: $padding;
-    width: ($abeamer-width - 2 * $padding);
+    width: ($beamtoix-width - 2 * $padding);
     box-sizing: border-box;
     border: 1px solid darkgray;
     border-radius: 5px;

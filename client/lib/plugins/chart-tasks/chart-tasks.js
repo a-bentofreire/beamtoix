@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of built-in chart Tasks
@@ -43,16 +43,16 @@ var __extends = (this && this.__extends) || (function () {
  * ## Get started
  * How to create a simple bar chart:
  *
- * The bare-bones of a `abeamer.ini` file:
+ * The bare-bones of a `beamtoix.ini` file:
  * ```scss
- * $abeamer-width: 300;
- * $abeamer-height: 150;
+ * $beamtoix-width: 300;
+ * $beamtoix-height: 150;
  * ```
  *
  *  The bare-bones of a `html` file:
  * ```html
- * <div class="abeamer-story" id=story>
- *     <div class=abeamer-scene id=scene1>
+ * <div class="beamtoix-story" id=story>
+ *     <div class=beamtoix-scene id=scene1>
  *       <canvas id=chart width=300 height=150></canvas>
  *     </div>
  * </div>
@@ -65,11 +65,11 @@ var __extends = (this && this.__extends) || (function () {
  *    tasks: [{
  *      handler: 'chart', // is always 'chart' for charts.
  *      params: {
- *        chartType: ABeamer.ChartTypes.bar, // or 'bar' if you are using javascript
+ *        chartType: BeamToIX.ChartTypes.bar, // or 'bar' if you are using javascript
  *        labelsX: { captions: ['A', 'B', 'C', 'D', 'E'] },
  *        title: 'My first Chart',
  *        data: [[100, 200, 50, 140, 300]],
- *      } as ABeamer.AxisChartTaskParams, // comment as ... if you are using javascript
+ *      } as BeamToIX.AxisChartTaskParams, // comment as ... if you are using javascript
  *    }],
  *  }]);
  * ```
@@ -81,14 +81,14 @@ var __extends = (this && this.__extends) || (function () {
  *   tasks: [{
  *     handler: 'chart',
  *     params: {
- *       chartType: ABeamer.ChartTypes.bar,
+ *       chartType: BeamToIX.ChartTypes.bar,
  *       labelsX: { captions: ['A', 'B', 'C', 'D', 'E'] },
  *       title: 'My first Chart',
  *       data: [[100, 200, 50, 140, 300]],
  *       // animation parameters
  *       pointHeightStart: 0.1,    // defined the initial value for the animation point-height property
  *       animeSelector: 'chart-anime-01', // unique animation selector to be used by the animator
- *     } as ABeamer.AxisChartTaskParams,
+ *     } as BeamToIX.AxisChartTaskParams,
  *   }],
  * }])
  *   .addAnimations([{
@@ -101,8 +101,8 @@ var __extends = (this && this.__extends) || (function () {
  *   }]);
  * ```
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Chart Tasks
@@ -119,45 +119,45 @@ var ABeamer;
         ChartTypes[ChartTypes["line"] = 3] = "line";
         ChartTypes[ChartTypes["marker"] = 4] = "marker";
         ChartTypes[ChartTypes["mixed"] = 5] = "mixed";
-    })(ChartTypes = ABeamer.ChartTypes || (ABeamer.ChartTypes = {}));
+    })(ChartTypes = BeamToIX.ChartTypes || (BeamToIX.ChartTypes = {}));
     var ChartCaptionOrientation;
     (function (ChartCaptionOrientation) {
         ChartCaptionOrientation[ChartCaptionOrientation["horizontal"] = 0] = "horizontal";
         ChartCaptionOrientation[ChartCaptionOrientation["vertical"] = 1] = "vertical";
-    })(ChartCaptionOrientation = ABeamer.ChartCaptionOrientation || (ABeamer.ChartCaptionOrientation = {}));
+    })(ChartCaptionOrientation = BeamToIX.ChartCaptionOrientation || (BeamToIX.ChartCaptionOrientation = {}));
     var ChartCaptionPosition;
     (function (ChartCaptionPosition) {
         ChartCaptionPosition[ChartCaptionPosition["top"] = 0] = "top";
         ChartCaptionPosition[ChartCaptionPosition["bottom"] = 1] = "bottom";
         ChartCaptionPosition[ChartCaptionPosition["left"] = 2] = "left";
         ChartCaptionPosition[ChartCaptionPosition["right"] = 3] = "right";
-    })(ChartCaptionPosition = ABeamer.ChartCaptionPosition || (ABeamer.ChartCaptionPosition = {}));
+    })(ChartCaptionPosition = BeamToIX.ChartCaptionPosition || (BeamToIX.ChartCaptionPosition = {}));
     var ChartCaptionAlignment;
     (function (ChartCaptionAlignment) {
         ChartCaptionAlignment[ChartCaptionAlignment["left"] = 0] = "left";
         ChartCaptionAlignment[ChartCaptionAlignment["center"] = 1] = "center";
         ChartCaptionAlignment[ChartCaptionAlignment["right"] = 2] = "right";
-    })(ChartCaptionAlignment = ABeamer.ChartCaptionAlignment || (ABeamer.ChartCaptionAlignment = {}));
+    })(ChartCaptionAlignment = BeamToIX.ChartCaptionAlignment || (BeamToIX.ChartCaptionAlignment = {}));
     var ChartPointShape;
     (function (ChartPointShape) {
         ChartPointShape[ChartPointShape["circle"] = 0] = "circle";
         ChartPointShape[ChartPointShape["square"] = 1] = "square";
         ChartPointShape[ChartPointShape["diamond"] = 2] = "diamond";
-    })(ChartPointShape = ABeamer.ChartPointShape || (ABeamer.ChartPointShape = {}));
+    })(ChartPointShape = BeamToIX.ChartPointShape || (BeamToIX.ChartPointShape = {}));
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addPlugin({
-        id: 'abeamer.chart-tasks',
+    BeamToIX.pluginManager.addPlugin({
+        id: 'beamtoix.chart-tasks',
         uuid: '73631f28-df71-4b4d-88e1-c99a858e0fd3',
         author: 'Alexandre Bento Freire',
-        email: 'abeamer@a-bentofreire.com',
+        email: 'beamtoix@a-bentofreire.com',
         jsUrls: ['plugins/chart-tasks/chart-tasks.js'],
         teleportable: true,
     });
-    var _defValues = ABeamer.getVars()['chart'] = {
+    var _defValues = BeamToIX.getVars()['chart'] = {
         labelsX: {
             fontFamily: 'sans-serif',
             fontColor: 'black',
@@ -246,7 +246,7 @@ var ABeamer;
             });
         };
         return _ChartVirtualAnimator;
-    }(ABeamer.SimpleVirtualAnimator));
+    }(BeamToIX.SimpleVirtualAnimator));
     function _setUpCaptionsFont(l, ctx) {
         ctx.font = "".concat(l.fontSize, "px ").concat(l.fontFamily);
         ctx.fillStyle = l.fontColor;
@@ -358,7 +358,7 @@ var ABeamer;
         _WkChart.prototype._init = function (elAdapter, chartType, animator) {
             this.canvas = elAdapter.getProp('element', this.args);
             if (!this.canvas) {
-                ABeamer.throwErr("Didn't find the ".concat(elAdapter.getId()));
+                BeamToIX.throwErr("Didn't find the ".concat(elAdapter.getId()));
             }
             this.context = this.canvas.getContext('2d');
             this.chartWidth = this.canvas.width;
@@ -387,7 +387,7 @@ var ABeamer;
                     _this.args.vars.n = nrPts;
                     for (var i = 0; i < nrPts; i++) {
                         _this.args.vars.v = i * step + v0;
-                        var v1 = ABeamer.calcExpr(exprSeries.expr, _this.args);
+                        var v1 = BeamToIX.calcExpr(exprSeries.expr, _this.args);
                         res.push(typeof v1 === 'number' ? v1 : parseFloat(v1));
                     }
                 }
@@ -396,7 +396,7 @@ var ABeamer;
                 }
                 else {
                     if (res.length !== nrPoints) {
-                        ABeamer.throwErr("Every Series must have the same number of points");
+                        BeamToIX.throwErr("Every Series must have the same number of points");
                     }
                 }
                 return res;
@@ -417,14 +417,14 @@ var ABeamer;
         _WkChart.prototype._initCaptions = function (defaults, captions, labThis, labOther) {
             var _this = this;
             var res = {
-                fontColor: ABeamer.ExprOrStrToStr(labThis.fontColor || labOther.fontColor, defaults.fontColor, this.args),
-                fontFamily: ABeamer.ExprOrStrToStr(labThis.fontFamily || labOther.fontFamily, defaults.fontFamily, this.args),
-                fontSize: ABeamer.ExprOrNumToNum(labThis.fontSize || labOther.fontSize, defaults.fontSize, this.args),
-                alignment: ABeamer.parseEnum(labThis.alignment, ChartCaptionAlignment, defaults.alignment),
-                position: ABeamer.parseEnum(labThis.position, ChartCaptionPosition, defaults.position),
-                orientation: ABeamer.parseEnum(labThis.orientation, ChartCaptionOrientation, defaults.orientation),
-                marginBefore: ABeamer.ExprOrNumToNum(labThis.marginBefore, defaults.marginBefore, this.args),
-                marginAfter: ABeamer.ExprOrNumToNum(labThis.marginAfter, defaults.marginAfter, this.args),
+                fontColor: BeamToIX.ExprOrStrToStr(labThis.fontColor || labOther.fontColor, defaults.fontColor, this.args),
+                fontFamily: BeamToIX.ExprOrStrToStr(labThis.fontFamily || labOther.fontFamily, defaults.fontFamily, this.args),
+                fontSize: BeamToIX.ExprOrNumToNum(labThis.fontSize || labOther.fontSize, defaults.fontSize, this.args),
+                alignment: BeamToIX.parseEnum(labThis.alignment, ChartCaptionAlignment, defaults.alignment),
+                position: BeamToIX.parseEnum(labThis.position, ChartCaptionPosition, defaults.position),
+                orientation: BeamToIX.parseEnum(labThis.orientation, ChartCaptionOrientation, defaults.orientation),
+                marginBefore: BeamToIX.ExprOrNumToNum(labThis.marginBefore, defaults.marginBefore, this.args),
+                marginAfter: BeamToIX.ExprOrNumToNum(labThis.marginAfter, defaults.marginAfter, this.args),
             };
             _setUpCaptionsFont(res, this.context);
             var isHorizontal = res.position === ChartCaptionPosition.top ||
@@ -477,7 +477,7 @@ var ABeamer;
             }
             if (title.caption) {
                 this.title = this._initCaptions(_defValues.title, [title.caption], title, title);
-                this.title.caption = ABeamer.ExprOrStrToStr(title.caption, '', this.args);
+                this.title.caption = BeamToIX.ExprOrStrToStr(title.caption, '', this.args);
             }
         };
         _WkChart.prototype._initLegend = function (params) {
@@ -489,9 +489,9 @@ var ABeamer;
                 var defMark = _defValues.legend.mark;
                 var pMark = pLegend.mark || {};
                 this.legend.mark = {
-                    width: ABeamer.ExprOrNumToNum(pMark.width, defMark.width, this.args),
-                    height: ABeamer.ExprOrNumToNum(pMark.height, defMark.height, this.args),
-                    spacing: ABeamer.ExprOrNumToNum(pMark.spacing, defMark.spacing, this.args),
+                    width: BeamToIX.ExprOrNumToNum(pMark.width, defMark.width, this.args),
+                    height: BeamToIX.ExprOrNumToNum(pMark.height, defMark.height, this.args),
+                    spacing: BeamToIX.ExprOrNumToNum(pMark.spacing, defMark.spacing, this.args),
                 };
                 var markWidAndSpace = this.legend.mark.width + this.legend.mark.spacing;
                 switch (this.legend.position) {
@@ -562,14 +562,14 @@ var ABeamer;
         _WkAxisChart.prototype._calcCaptions = function (captions, count, min, max) {
             var strCaption = captions;
             if (!strCaption || !Array.isArray(strCaption)) {
-                var isCaptionsExpr = ABeamer.isExpr(strCaption);
+                var isCaptionsExpr = BeamToIX.isExpr(strCaption);
                 var newCaptions = [];
                 var delta = (max - min) / (count - 1);
                 for (var i = 0; i < count; i++) {
                     var v = min + i * delta;
                     if (isCaptionsExpr) {
                         this.args.vars['v'] = v;
-                        var v1 = ABeamer.calcExpr(strCaption, this.args);
+                        var v1 = BeamToIX.calcExpr(strCaption, this.args);
                         newCaptions.push(v1.toString());
                     }
                     else {
@@ -610,8 +610,8 @@ var ABeamer;
         _WkAxisChart.prototype._initLine = function (line) {
             return {
                 visible: line.visible !== undefined ? line.visible : true,
-                color: ABeamer.ExprOrStrToStr(line.color, '#7c7c7c', this.args),
-                width: ABeamer.ExprOrNumToNum(line.width, 1, this.args),
+                color: BeamToIX.ExprOrStrToStr(line.color, '#7c7c7c', this.args),
+                width: BeamToIX.ExprOrNumToNum(line.width, 1, this.args),
             };
         };
         _WkAxisChart.prototype._initMarkers = function (params) {
@@ -674,13 +674,13 @@ var ABeamer;
         };
         _WkAxisChart.prototype._computeDrawPoints = function (params) {
             var _this = this;
-            this.pointMaxHeight = ABeamer.ExprOrNumToNum(params.pointMaxHeight, _defValues.pointMaxHeight, this.args);
+            this.pointMaxHeight = BeamToIX.ExprOrNumToNum(params.pointMaxHeight, _defValues.pointMaxHeight, this.args);
             var x0 = this.graphX0 + this.overflow;
             var x1 = this.graphX1 - this.overflow;
             var xWidth = x1 - x0;
             var nrPoints = this.nrPoints;
             var pointArea = xWidth / nrPoints;
-            var pointDistance = ABeamer.ExprOrNumToNum(params.pointDistance, _defValues.pointDistance, this.args);
+            var pointDistance = BeamToIX.ExprOrNumToNum(params.pointDistance, _defValues.pointDistance, this.args);
             pointDistance = pointDistance || pointArea;
             var x = x0;
             var barChartCount = this.chartTypes.reduce(function (acc, v) {
@@ -706,8 +706,8 @@ var ABeamer;
             }
             else {
                 // charts with bars required a special calculation
-                var barWidth_1 = ABeamer.ExprOrNumToNum(params.barWidth, _defValues.barWidth, this.args);
-                var seriesSpacing_1 = ABeamer.ExprOrNumToNum(params.seriesSpacing, _defValues.seriesSpacing, this.args);
+                var barWidth_1 = BeamToIX.ExprOrNumToNum(params.barWidth, _defValues.barWidth, this.args);
+                var seriesSpacing_1 = BeamToIX.ExprOrNumToNum(params.seriesSpacing, _defValues.seriesSpacing, this.args);
                 if (!barWidth_1) {
                     barWidth_1 = (pointDistance / barChartCount) - seriesSpacing_1;
                 }
@@ -748,7 +748,7 @@ var ABeamer;
                 if (!params.chartTypes || params.chartTypes.length <= seriesIndex) {
                     return ChartTypes.bar;
                 }
-                return ABeamer.parseEnum(params.chartTypes[seriesIndex], ChartTypes, ChartTypes.bar);
+                return BeamToIX.parseEnum(params.chartTypes[seriesIndex], ChartTypes, ChartTypes.bar);
             });
             // axis
             this.xAxis = this._initLine(params.xAxis || {});
@@ -756,8 +756,8 @@ var ABeamer;
             this.y0Line = this._initLine(params.y0Line || {});
             // limits
             this._computeBestValues();
-            this.maxValue = ABeamer.ExprOrNumToNum(params.maxValue, this.bestMaxValue, this.args);
-            this.minValue = ABeamer.ExprOrNumToNum(params.minValue, Math.min(this.min, 0), this.args);
+            this.maxValue = BeamToIX.ExprOrNumToNum(params.maxValue, this.bestMaxValue, this.args);
+            this.minValue = BeamToIX.ExprOrNumToNum(params.minValue, Math.min(this.min, 0), this.args);
             this.avgValue = this.avg;
             _super.prototype._initChart.call(this, params);
             // colors
@@ -767,9 +767,9 @@ var ABeamer;
             this._initLabels(params);
             this._computeDrawPoints(params);
             // animation
-            this.props['point-height'] = ABeamer.ExprOrNumToNum(params.pointHeightStart, 1, this.args);
-            this.props['deviation'] = ABeamer.ExprOrNumToNum(params.deviationStart, 1, this.args);
-            this.props['sweep'] = ABeamer.ExprOrNumToNum(params.sweepStart, 1, this.args);
+            this.props['point-height'] = BeamToIX.ExprOrNumToNum(params.pointHeightStart, 1, this.args);
+            this.props['deviation'] = BeamToIX.ExprOrNumToNum(params.deviationStart, 1, this.args);
+            this.props['sweep'] = BeamToIX.ExprOrNumToNum(params.sweepStart, 1, this.args);
         };
         /** Implements Axis Chart animation. */
         _WkAxisChart.prototype._drawChart = function (params) {
@@ -947,8 +947,8 @@ var ABeamer;
         _WkPieChart.prototype._initChart = function (params) {
             _super.prototype._initChart.call(this, params);
             // animation
-            this.props['angle'] = ABeamer.ExprOrNumToNum(params.angleStart, 0, this.args);
-            this.props['dispersion'] = ABeamer.ExprOrNumToNum(params.dispersionStart, 1, this.args);
+            this.props['angle'] = BeamToIX.ExprOrNumToNum(params.angleStart, 0, this.args);
+            this.props['dispersion'] = BeamToIX.ExprOrNumToNum(params.dispersionStart, 1, this.args);
         };
         _WkPieChart.prototype._drawChart = function (params) {
             var _this = this;
@@ -997,18 +997,18 @@ var ABeamer;
     // ------------------------------------------------------------------------
     //                               Chart Task
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addTasks([['chart', _chartTask]]);
+    BeamToIX.pluginManager.addTasks([['chart', _chartTask]]);
     /** Implements the Chart Task */
     function _chartTask(anime, _wkTask, params, stage, args) {
         switch (stage) {
-            case ABeamer.TS_INIT:
+            case BeamToIX.TS_INIT:
                 var cType_1 = params.chartType;
                 if (typeof cType_1 === 'string') {
                     cType_1 = ChartTypes[cType_1];
                 }
                 var data_1 = params.data;
                 if (!data_1.length) {
-                    ABeamer.throwErr("Series have empty data");
+                    BeamToIX.throwErr("Series have empty data");
                 }
                 var animator_1;
                 if (params.animeSelector) {
@@ -1034,7 +1034,7 @@ var ABeamer;
                             chart = new _WkAxisChart(args);
                             break;
                         default:
-                            ABeamer.throwI8n(ABeamer.Msgs.UnknownType, { p: params.chartType });
+                            BeamToIX.throwI8n(BeamToIX.Msgs.UnknownType, { p: params.chartType });
                     }
                     chart._init(elAdapter, cType_1, animator_1);
                     chart._initData(data_1);
@@ -1046,7 +1046,7 @@ var ABeamer;
                 });
                 break;
         }
-        return ABeamer.TR_EXIT;
+        return BeamToIX.TR_EXIT;
     }
     // ------------------------------------------------------------------------
     //                               Testing
@@ -1058,5 +1058,5 @@ var ABeamer;
     testValues.forEach(v => {
       _calcBestMax(v);
     }); */
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=chart-tasks.js.map

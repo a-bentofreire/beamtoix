@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@ import * as globule from "globule";
 import { exec as sysExec } from "child_process";
 const { series, parallel } = require('gulp');
 import { fsix } from "./shared/vendor/fsix.js";
-import { BuildDTsFilesABeamer } from "./shared/dev-builders/build-d-ts-abeamer.js";
+import { BuildDTsFilesBeamToIX } from "./shared/dev-builders/build-d-ts-beamtoix.js";
 import { BuildShared } from "./shared/dev-builders/build-shared.js";
 import { BuildSingleLibFile } from "./shared/dev-builders/build-single-lib-file.js";
 import { BuildDocsLatest } from "./shared/dev-builders/build-docs-latest.js";
@@ -41,7 +41,7 @@ sysProcess.chdir(__dirname);
 // const PRESERVE_FILES = ['README.md', 'README-dev.md', '.git', '.gitignore'];
 const COPYRIGHTS = `
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 `;
@@ -187,7 +187,7 @@ function updateHtmlPages(srcPath: string, destPath: string,
         }))
 
         .pipe(gulpReplace(/^(?:.|\n)+$/, (all: string) =>
-            setReleaseLinks ? all.replace(/\.\.\/\.\.\/client\/lib/g, 'abeamer') : all,
+            setReleaseLinks ? all.replace(/\.\.\/\.\.\/client\/lib/g, 'beamtoix') : all,
         ))
 
         .pipe(gulp.dest(destPath));
@@ -217,7 +217,7 @@ exports.bump_version = function (cb) {
     console.log(`${SRC_FILENAME} version is ${version}`);
     sysFs.writeFileSync('./shared/version.ts', WARN_MSG + VERSION_OUT + '\n');
     sysFs.writeFileSync(`./${cfg.paths.JS_PATH}/version.ts`,
-        WARN_MSG + `namespace ABeamer {\n  ${VERSION_OUT}\n}\n`);
+        WARN_MSG + `namespace BeamToIX {\n  ${VERSION_OUT}\n}\n`);
 
     fsix.runExternal('npx gulp build_shared_lib', () => {
         fsix.runExternal('npm run compile', () => {
@@ -257,7 +257,7 @@ const bs_copy = function (mode) {
 const bs_build_single_ts = function (mode) {
     return function build_single_ts(cb) {
         BuildSingleLibFile.build(libModules, cfg.paths.JS_PATH,
-            `${mode.path}`, `${mode.path}/abeamer${mode.suffix}.ts`,
+            `${mode.path}`, `${mode.path}/beamtoix${mode.suffix}.ts`,
             'npx gulp build_release_latest', [
             exports.Story, // story must always be exported
         ], mode.isDebug);
@@ -302,7 +302,7 @@ const rel_jquery_typings = function () {
 }
 
 const rel_client_js_join = function () {
-    return gulp.src(`${cfg.paths.SINGLE_LIB_PATH}/*/abeamer*.js`)
+    return gulp.src(`${cfg.paths.SINGLE_LIB_PATH}/*/beamtoix*.js`)
         .pipe(gulpMinify({ noSource: true, ext: { min: '.min.js' } }))
         .pipe(gulpRename({ dirname: '' }))
         .pipe(gulpReplace(/^(.)/, COPYRIGHTS + '$1'))
@@ -335,7 +335,7 @@ const rel_minify = function () {
     return gulp.src(DevCfg.expandArray(cfg.jsFiles), { base: '.' })
         .pipe(gulpMinify({
             noSource: true, ext: { min: '.js' },
-            ignoreFiles: ['abeamer-cli.js']
+            ignoreFiles: ['beamtoix-cli.js']
         }))
         .pipe(gulp.dest(`${cfg.paths.RELEASE_LATEST_PATH}`));
 }
@@ -372,7 +372,7 @@ const rel_build_package_json = function (cb) {
 
             // removes unnecessary scripts
             const scripts = {};
-            [exports.compile, exports.watch, exports.abeamer, exports.serve].forEach(key => {
+            [exports.compile, exports.watch, exports.beamtoix, exports.serve].forEach(key => {
                 scripts[key] = pkg.scripts[key];
             });
             pkg.scripts = scripts;
@@ -415,13 +415,13 @@ const rel_build_plugins_list_json = function (cb) {
     cb();
 }
 
-// joins abeamer.d.ts and abeamer-release.d.ts in a single file
-const rel_build_abeamer_d_ts = function (cb) {
-    return gulp.src(`${cfg.paths.TYPINGS_PATH}/abeamer.d.ts`)
-        .pipe(gulpReplace(/declare namespace ABeamer \{/, (all) => {
-            const releaseDTs = fsix.readUtf8Sync(`${cfg.paths.TYPINGS_PATH}/release/abeamer-release.d.ts`);
+// joins beamtoix.d.ts and beamtoix-release.d.ts in a single file
+const rel_build_beamtoix_d_ts = function (cb) {
+    return gulp.src(`${cfg.paths.TYPINGS_PATH}/beamtoix.d.ts`)
+        .pipe(gulpReplace(/declare namespace BeamToIX \{/, (all) => {
+            const releaseDTs = fsix.readUtf8Sync(`${cfg.paths.TYPINGS_PATH}/release/beamtoix-release.d.ts`);
             return all + releaseDTs
-                .replace(/^(?:.|\n)*declare namespace ABeamer \{/, '').replace(/}(?:\s|\n)*$/, '');
+                .replace(/^(?:.|\n)*declare namespace BeamToIX \{/, '').replace(/}(?:\s|\n)*$/, '');
         }))
         .pipe(gulp.dest(`${cfg.paths.RELEASE_LATEST_PATH}/${cfg.paths.TYPINGS_PATH}`))
         .pipe(gulpPreserveTime());
@@ -431,8 +431,8 @@ const rel_build_abeamer_d_ts = function (cb) {
 const rel_gen_bundle_en = function () {
     const JS_PATH = `${cfg.paths.RELEASE_LATEST_PATH}/client/lib/js`;
     return gulp.src([`${JS_PATH}/vendor/jquery-easing/jquery.easing.min.js`,
-    `${JS_PATH}/../messages/messages-en.js`, `${JS_PATH}/abeamer.min.js`])
-        .pipe(gulpConcat('abeamer-bundle-en.min.js'))
+    `${JS_PATH}/../messages/messages-en.js`, `${JS_PATH}/beamtoix.min.js`])
+        .pipe(gulpConcat('beamtoix-bundle-en.min.js'))
         .pipe(gulp.dest(JS_PATH));
 }
 
@@ -449,7 +449,7 @@ exports.build_release_latest = series(
     rel_add_copyrights,
     rel_build_package_json,
     series(...cfg.release.demos.map(demo => rel_build_tsconfig_ts(demo))),
-    rel_build_abeamer_d_ts,
+    rel_build_beamtoix_d_ts,
     rel_build_plugins_list_json,
     rel_gen_bundle_en
 );
@@ -468,7 +468,7 @@ exports.build_shared_lib = function (cb) {
 // ------------------------------------------------------------------------
 
 exports.build_definition_files = function (cb) {
-    BuildDTsFilesABeamer.build(libModules, pluginModules, '', COPYRIGHTS, cfg);
+    BuildDTsFilesBeamToIX.build(libModules, pluginModules, '', COPYRIGHTS, cfg);
     cb();
 }
 
@@ -530,7 +530,7 @@ function gal_rel_update_html_files(index) {
     return function rel_update_html_files(cb) {
         const ex = BuildGalRel.releaseExamples[index];
         return updateHtmlPages(`${ex.srcFullPath}/*.html`, ex.dstFullPath,
-            [`../../${cfg.paths.JS_PATH}/abeamer.min`], true);
+            [`../../${cfg.paths.JS_PATH}/beamtoix.min`], true);
     }
 }
 
@@ -541,7 +541,7 @@ function gal_rel_online_html_files(index) {
         return gulp.src([`${ex.dstFullPath}/index.html`])
             .pipe(gulpReplace(/^(?:.|\n)+$/, (all: string) =>
                 all
-                    .replace(/"abeamer\//g, `"${onlineLink}/`)
+                    .replace(/"beamtoix\//g, `"${onlineLink}/`)
                     .replace(/(<head>)/g, '<!-- This file was created to be used online only. -->\n$1'),
             ))
             .pipe(gulpRename('index-online.html'))
@@ -721,5 +721,5 @@ function changeReadmeLinks(toLocal: boolean, cb): void {
     cb();
 }
 
-exports.README_to_online = function (cb) { changeReadmeLinks(false, cb); };
-exports.README_to_local = function (cb) { changeReadmeLinks(true, cb); };
+exports.readme_to_online = function (cb) { changeReadmeLinks(false, cb); };
+exports.readme_to_local = function (cb) { changeReadmeLinks(true, cb); };

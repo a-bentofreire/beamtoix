@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // This file is executed within the context of phantomjs/slimerjs
@@ -26,7 +26,7 @@ var Server;
     var phantomSystem = require('system');
     var phantomFs = require('fs');
     var phantomWebPage = require('webpage');
-    var baseServerAgent /* : ABeamerServer.BaseServer */;
+    var baseServerAgent /* : BeamToIXServer.BaseServer */;
     // @HINT: Must surround with try/catch otherwise it will block in case of error
     try {
         baseServerAgent = require('./server-agent.js').ServerAgent;
@@ -52,7 +52,7 @@ var Server;
             /** Sends Messages to the client */
             function sendClientMsg(cmd, value) {
                 if (value === void 0) { value = ''; }
-                var script = "function(){_abeamer._internalGetServerMsg.call(_abeamer, '".concat(cmd, "', '").concat(value, "'); }");
+                var script = "function(){_beamtoix._internalGetServerMsg.call(_beamtoix, '".concat(cmd, "', '").concat(value, "'); }");
                 page.evaluateJavaScript(script);
             }
             /** Receives Client Messages */

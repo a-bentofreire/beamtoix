@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -12,15 +12,15 @@
  * Users are encouraged to include the messages/messages-en.js on their index.html
  * even though for now it's an empty file to prevent breaking changes.
  *
- * ABeamer allows to localize the name of functions and other functionalities
+ * BeamToIX allows to localize the name of functions and other functionalities
  * such the names of tasks, flyovers and scene transitions.
  * The names can include non-latin characters.
  *
  * Fill Localization with the localize data, and add it
- * via `ABeamer.pluginManager.addLocalization`.
+ * via `BeamToIX.pluginManager.addLocalization`.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Messages
@@ -53,7 +53,7 @@ var ABeamer;
         Msgs["pos"] = "position";
         Msgs["startScene"] = "startScene";
         Msgs["endScene"] = "endScene";
-    })(Msgs = ABeamer.Msgs || (ABeamer.Msgs = {}));
+    })(Msgs = BeamToIX.Msgs || (BeamToIX.Msgs = {}));
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
@@ -65,6 +65,6 @@ var ABeamer;
         }
         return msg;
     }
-    ABeamer.i8nMsg = i8nMsg;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX.i8nMsg = i8nMsg;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=i18n.js.map

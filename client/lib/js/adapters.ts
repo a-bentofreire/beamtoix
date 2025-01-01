@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -12,10 +12,10 @@
 /**
  * ## Description
  *
- * An **adapter** allows ABeamer to decouple from DOM by serving as an agent
- * between the ABeamer library and elements and scenes.
+ * An **adapter** allows BeamToIX to decouple from DOM by serving as an agent
+ * between the BeamToIX library and elements and scenes.
  *
- * For DOM adapters, ABeamer uses `jQuery` to query DOM and
+ * For DOM adapters, BeamToIX uses `jQuery` to query DOM and
  * maps special properties such `text` and `html` to
  * `textContent` and `innerHTML`.
  *
@@ -27,7 +27,7 @@
  * it retrieves all the computed CSS properties via `window.getComputedStyle`
  * and caches its content.
  *
- * DOM Adapters use the attribute `data-abeamer-display` to define which
+ * DOM Adapters use the attribute `data-beamtoix-display` to define which
  * value will be used in `display` when visible is set to true.
  * If it's not defined, it will be set to `inline` for `span` tags,
  * and `block` for all the other tags.
@@ -43,7 +43,7 @@
  * Unlike DOM elements which only provide textual values, Virtual Elements can
  * get and set numerical values.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -71,7 +71,7 @@ namespace ABeamer {
     // modifies outerHTML attribute.
     | 'outerHTML'
     // changes the style.display CSS property for DOM Elements/Scenes.
-    // Uses DOM attribute `data-abeamer-display`.
+    // Uses DOM attribute `data-beamtoix-display`.
     | 'visible'
     // modifies the attribute `src`.
     | 'src'
@@ -98,7 +98,7 @@ namespace ABeamer {
     | 'id'
     | 'visible'
     | 'uid'
-    | 'data-abeamer-display'
+    | 'data-beamtoix-display'
     ;
 
 
@@ -112,7 +112,7 @@ namespace ABeamer {
     | 'width'
     | 'height'
     /** If this value is set, it will for `Visible=true` */
-    | 'data-abeamer-display'
+    | 'data-beamtoix-display'
     ;
 
 
@@ -171,9 +171,9 @@ namespace ABeamer {
    */
   export interface VirtualElement {
 
-    getProp(name: PropName, args?: ABeamerArgs): PropValue;
-    setProp(name: PropName, value: PropValue, args?: ABeamerArgs): void;
-    waitFor?(waitFor: WaitFor, onDone: DoneFunc, args?: ABeamerArgs): void;
+    getProp(name: PropName, args?: BeamToIXArgs): PropValue;
+    setProp(name: PropName, value: PropValue, args?: BeamToIXArgs): void;
+    waitFor?(waitFor: WaitFor, onDone: DoneFunc, args?: BeamToIXArgs): void;
 
 
     /**
@@ -181,7 +181,7 @@ namespace ABeamer {
      * This method is called even if no property changed.
      * It's an optional method, but future version might require its implementation.
      */
-    frameRendered?(args?: ABeamerArgs): void;
+    frameRendered?(args?: BeamToIXArgs): void;
   }
 
 
@@ -216,7 +216,7 @@ namespace ABeamer {
     propsChanged: boolean = false;
 
     onAnimateProp: (name: PropName, value: PropValue) => void;
-    onAnimateProps: (args?: ABeamerArgs) => void;
+    onAnimateProps: (args?: BeamToIXArgs) => void;
 
 
     /**
@@ -236,7 +236,7 @@ namespace ABeamer {
      * Use this method instead animateProp, if the animation has multiple virtual properties and
      * each animation can be done after all are updated.
      */
-    animateProps(args?: ABeamerArgs): void {
+    animateProps(args?: BeamToIXArgs): void {
       if (this.onAnimateProps) {
         this.onAnimateProps(args);
       }
@@ -257,7 +257,7 @@ namespace ABeamer {
     }
 
 
-    frameRendered(args?: ABeamerArgs) {
+    frameRendered(args?: BeamToIXArgs) {
       if (this.propsChanged) {
         this.animateProps(args);
         this.propsChanged = false;
@@ -278,13 +278,13 @@ namespace ABeamer {
     /**
      * Must support `id` and `visible` attributes.
      */
-    getProp(name: PropName, args?: ABeamerArgs): string;
+    getProp(name: PropName, args?: BeamToIXArgs): string;
 
 
     /**
      * Must support `visible` and `uid` attributes.
      */
-    setProp(name: PropName, value: string, args?: ABeamerArgs): void;
+    setProp(name: PropName, value: string, args?: BeamToIXArgs): void;
 
 
     /**
@@ -328,7 +328,7 @@ namespace ABeamer {
    * User defined function that return an Element Selector.
    * Doesn't supports remote rendering.
    */
-  export type ElSelectorFunc = (args?: ABeamerArgs) => ElSelector;
+  export type ElSelectorFunc = (args?: BeamToIXArgs) => ElSelector;
 
 
   /**
@@ -382,7 +382,7 @@ namespace ABeamer {
    */
   const domPropMapper: { [name: string]: [uint, any] } = {
     'element': [DPT_ELEMENT, ''],
-    'uid': [DPT_ATTR_FUNC, 'data-abeamer'],
+    'uid': [DPT_ATTR_FUNC, 'data-beamtoix'],
     'id': [DPT_ATTR, 'id'],
     'html': [DPT_ATTR, 'innerHTML'],
     'text': [DPT_ATTR, 'textContent'],
@@ -439,10 +439,10 @@ namespace ABeamer {
 
     isVirtual: boolean;
 
-    abstract getProp(name: PropName, args?: ABeamerArgs): PropValue;
-    abstract setProp(name: PropName, value: PropValue, args?: ABeamerArgs): void;
-    waitFor?(waitItem: WaitFor, onDone: DoneFunc, args?: ABeamerArgs): void { }
-    frameRendered?(args?: ABeamerArgs): void { }
+    abstract getProp(name: PropName, args?: BeamToIXArgs): PropValue;
+    abstract setProp(name: PropName, value: PropValue, args?: BeamToIXArgs): void;
+    waitFor?(waitItem: WaitFor, onDone: DoneFunc, args?: BeamToIXArgs): void { }
+    frameRendered?(args?: BeamToIXArgs): void { }
   }
 
   // ------------------------------------------------------------------------
@@ -455,7 +455,7 @@ namespace ABeamer {
   export abstract class _ElementAdapter extends _AbstractAdapter implements ElementAdapter {
 
     constructor(element: PElement) { super(); }
-    getId(args?: ABeamerArgs): string { return this.getProp('id', args) as string; }
+    getId(args?: BeamToIXArgs): string { return this.getProp('id', args) as string; }
     _clearComputerData(): void { }
   }
 
@@ -471,7 +471,7 @@ namespace ABeamer {
 
 
   function _setDOMProp(adapter: _DOMAdapter,
-    propName: PropName, value: PropValue, args?: ABeamerArgs): void {
+    propName: PropName, value: PropValue, args?: BeamToIXArgs): void {
 
     const [propType, domPropName] = domPropMapper[propName]
       || [DPT_STYLE, propName];
@@ -501,7 +501,7 @@ namespace ABeamer {
         break;
 
       case DPT_VISIBLE:
-        const defDisplay = element['data-abeamer-display'];
+        const defDisplay = element['data-beamtoix-display'];
         const curDisplay = element.style.display || adapter.getComputedStyle()['display'];
         if (value !== false && value !== 'false' && value !== 0) {
           if (curDisplay === 'none') {
@@ -511,7 +511,7 @@ namespace ABeamer {
           }
         } else {
           if (!defDisplay) {
-            element['data-abeamer-display'] = curDisplay;
+            element['data-beamtoix-display'] = curDisplay;
           }
           element.style.display = 'none';
         }
@@ -552,7 +552,7 @@ namespace ABeamer {
 
 
   function _getDOMProp(adapter: _DOMAdapter,
-    propName: PropName, args?: ABeamerArgs): PropValue {
+    propName: PropName, args?: BeamToIXArgs): PropValue {
 
     const [propType, domPropName] = domPropMapper[propName]
       || [DPT_STYLE, propName];
@@ -591,7 +591,7 @@ namespace ABeamer {
   /**
    * DOM Element adapter.
    * Gets and sets attributes from HTMLElements.
-   * Maps the ABeamer animation property names into DOM attributes.
+   * Maps the BeamToIX animation property names into DOM attributes.
    */
   export class _DOMElementAdapter extends _ElementAdapter implements _DOMAdapter {
 
@@ -618,12 +618,12 @@ namespace ABeamer {
     }
 
 
-    getProp(propName: PropName, args?: ABeamerArgs): PropValue {
+    getProp(propName: PropName, args?: BeamToIXArgs): PropValue {
       return _getDOMProp(this, propName, args);
     }
 
 
-    setProp(propName: PropName, value: PropValue, args?: ABeamerArgs): void {
+    setProp(propName: PropName, value: PropValue, args?: BeamToIXArgs): void {
       _setDOMProp(this, propName, value, args);
     }
 
@@ -634,7 +634,7 @@ namespace ABeamer {
     }
 
 
-    waitFor?(waitFor: WaitFor, onDone: DoneFunc, args?: ABeamerArgs): void {
+    waitFor?(waitFor: WaitFor, onDone: DoneFunc, args?: BeamToIXArgs): void {
       switch (waitFor.what) {
         case WaitForWhat.ImageLoad:
           _waitForImageLoad(this.htmlElement as HTMLImageElement, args);
@@ -662,7 +662,7 @@ namespace ABeamer {
 
   /**
    * Virtual Element adapter.
-   * Allows ABeamer to decouple from the details of any virtual element.
+   * Allows BeamToIX to decouple from the details of any virtual element.
    */
   class _VirtualElementAdapter extends _ElementAdapter {
 
@@ -675,20 +675,20 @@ namespace ABeamer {
     }
 
 
-    getProp(propName: PropName, args?: ABeamerArgs): PropValue {
+    getProp(propName: PropName, args?: BeamToIXArgs): PropValue {
       return this.vElement.getProp(propName, args);
     }
 
 
-    setProp(propName: PropName, value: PropValue, args?: ABeamerArgs): void {
+    setProp(propName: PropName, value: PropValue, args?: BeamToIXArgs): void {
       this.vElement.setProp(propName, value, args);
     }
 
-    waitFor?(waitItem: WaitFor, onDone: DoneFunc, args?: ABeamerArgs): void {
+    waitFor?(waitItem: WaitFor, onDone: DoneFunc, args?: BeamToIXArgs): void {
       this.vElement.waitFor(waitItem, onDone, args);
     }
 
-    frameRendered?(args: ABeamerArgs) {
+    frameRendered?(args: BeamToIXArgs) {
       if (this.vElement.frameRendered) { this.vElement.frameRendered(args); }
     }
   }
@@ -748,7 +748,7 @@ namespace ABeamer {
 
   /**
    * Virtual Scene adapter.
-   * Allows ABeamer to decouple from the details of any virtual scene.
+   * Allows BeamToIX to decouple from the details of any virtual scene.
    */
   export abstract class _SceneAdapter extends _AbstractAdapter implements SceneAdapter {
 
@@ -799,7 +799,7 @@ namespace ABeamer {
     }
 
 
-    getProp(propName: PropName, args?: ABeamerArgs): PropValue {
+    getProp(propName: PropName, args?: BeamToIXArgs): PropValue {
 
       switch (propName) {
         // story attributes
@@ -833,7 +833,7 @@ namespace ABeamer {
     }
 
 
-    setProp(propName: PropName, value: PropValue, args?: ABeamerArgs): void {
+    setProp(propName: PropName, value: PropValue, args?: BeamToIXArgs): void {
 
       const htmlElement = this.htmlElement;
 
@@ -913,12 +913,12 @@ namespace ABeamer {
     }
 
 
-    getProp(propName: PropName, args?: ABeamerArgs): string {
+    getProp(propName: PropName, args?: BeamToIXArgs): string {
       return this.vScene.getProp(propName, args);
     }
 
 
-    setProp(propName: PropName, value: string, args?: ABeamerArgs): void {
+    setProp(propName: PropName, value: string, args?: BeamToIXArgs): void {
       this.vScene.setProp(propName, value, args);
     }
 
@@ -1012,7 +1012,7 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   function _waitForImageLoad(elImg: HTMLImageElement,
-    args: ABeamerArgs): void {
+    args: BeamToIXArgs): void {
 
     if (!elImg.complete) {
       args.waitMan.addWaitFunc((_args, _params, onDone) => {
@@ -1028,7 +1028,7 @@ namespace ABeamer {
   }
 
 
-  function _waitForMediaSync(elMedia: HTMLMediaElement, args: ABeamerArgs,
+  function _waitForMediaSync(elMedia: HTMLMediaElement, args: BeamToIXArgs,
     pos: number): void {
 
     args.waitMan.addWaitFunc((_args, _params, onDone) => {
@@ -1069,7 +1069,7 @@ namespace ABeamer {
   }
 
 
-  export function _handleWaitFor(args: ABeamerArgs, params: _WorkWaitForParams,
+  export function _handleWaitFor(args: BeamToIXArgs, params: _WorkWaitForParams,
     onDone: DoneFunc) {
     params.elAdapter.waitFor(params.waitFor, onDone, args);
   }
@@ -1122,7 +1122,7 @@ namespace ABeamer {
    * Discovers the vendor prefix and vendor prefixed CSS properties
    * by using `window.getComputedStyle`.
    */
-  export function _initBrowser(_args: ABeamerArgs): void {
+  export function _initBrowser(_args: BeamToIXArgs): void {
 
     if (browser.vendorPrefix) { return; }
     const isMsIE = navigator.userAgent.search(/Trident/) !== -1;

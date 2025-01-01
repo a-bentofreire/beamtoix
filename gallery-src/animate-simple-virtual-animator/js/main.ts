@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story = ABeamer.createStory(/*FPS:*/20);
+  const story = BeamToIX.createStory(/*FPS:*/20);
 
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
   const ctx = canvas.getContext('2d');
@@ -16,7 +16,7 @@ $(window).on("load", () => {
   //                               CanvasAnimator
   // ------------------------------------------------------------------------
 
-  class CanvasAnimator extends ABeamer.SimpleVirtualAnimator {
+  class CanvasAnimator extends BeamToIX.SimpleVirtualAnimator {
 
     /**
      * This method is called after each property were updated.
@@ -24,7 +24,7 @@ $(window).on("load", () => {
      * the 3 animation properties in this example.
      * Use animateProps instead.
      */
-    animateProp(name: ABeamer.PropName, value: ABeamer.PropValue): void {
+    animateProp(name: BeamToIX.PropName, value: BeamToIX.PropValue): void {
       // this.draw();
     }
 

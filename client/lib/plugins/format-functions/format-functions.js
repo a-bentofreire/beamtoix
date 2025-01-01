@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of format functions
@@ -29,16 +29,16 @@
  * ```
  *
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addPlugin({
-        id: 'abeamer.format-functions',
+    BeamToIX.pluginManager.addPlugin({
+        id: 'beamtoix.format-functions',
         uuid: 'c386e3e7-9dec-48a3-996d-ab55e591cd5d',
         author: 'Alexandre Bento Freire',
-        email: 'abeamer@a-bentofreire.com',
+        email: 'beamtoix@a-bentofreire.com',
         jsUrls: ['plugins/format-functions/format-functions.js'],
         teleportable: true,
     });
@@ -73,8 +73,8 @@ var ABeamer;
             }).format(v);
         });
     }
-    ABeamer.pluginManager.addFunctions([
+    BeamToIX.pluginManager.addFunctions([
         ['numToStr', _numToStr], ['nogrpToStr', _nogrpToStr], ['currToStr', _currToStr],
     ]);
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=format-functions.js.map

@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implementation of ElementAdapters and SceneAdapters in order to
@@ -24,10 +24,10 @@ var __extends = (this && this.__extends) || (function () {
 /**
  * ## Description
  *
- * An **adapter** allows ABeamer to decouple from DOM by serving as an agent
- * between the ABeamer library and elements and scenes.
+ * An **adapter** allows BeamToIX to decouple from DOM by serving as an agent
+ * between the BeamToIX library and elements and scenes.
  *
- * For DOM adapters, ABeamer uses `jQuery` to query DOM and
+ * For DOM adapters, BeamToIX uses `jQuery` to query DOM and
  * maps special properties such `text` and `html` to
  * `textContent` and `innerHTML`.
  *
@@ -39,7 +39,7 @@ var __extends = (this && this.__extends) || (function () {
  * it retrieves all the computed CSS properties via `window.getComputedStyle`
  * and caches its content.
  *
- * DOM Adapters use the attribute `data-abeamer-display` to define which
+ * DOM Adapters use the attribute `data-beamtoix-display` to define which
  * value will be used in `display` when visible is set to true.
  * If it's not defined, it will be set to `inline` for `span` tags,
  * and `block` for all the other tags.
@@ -55,8 +55,8 @@ var __extends = (this && this.__extends) || (function () {
  * Unlike DOM elements which only provide textual values, Virtual Elements can
  * get and set numerical values.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Elements
@@ -66,7 +66,7 @@ var ABeamer;
         WaitForWhat[WaitForWhat["Custom"] = 0] = "Custom";
         WaitForWhat[WaitForWhat["ImageLoad"] = 1] = "ImageLoad";
         WaitForWhat[WaitForWhat["MediaSync"] = 2] = "MediaSync";
-    })(WaitForWhat = ABeamer.WaitForWhat || (ABeamer.WaitForWhat = {}));
+    })(WaitForWhat = BeamToIX.WaitForWhat || (BeamToIX.WaitForWhat = {}));
     /**
      * It simplifies the usage of [](VirtualAnimator) by plugins.
      * In many cases plugins just need to receive the changing property,
@@ -117,8 +117,8 @@ var ABeamer;
         };
         return SimpleVirtualAnimator;
     }());
-    ABeamer.SimpleVirtualAnimator = SimpleVirtualAnimator;
-    ABeamer.browser = {
+    BeamToIX.SimpleVirtualAnimator = SimpleVirtualAnimator;
+    BeamToIX.browser = {
         isMsIE: false,
         vendorPrefix: '',
         prefixedProps: [],
@@ -129,17 +129,17 @@ var ABeamer;
     //                               Implementation
     // ------------------------------------------------------------------------
     /* ---- Animation Property Type ---- */
-    ABeamer.DPT_ID = 0;
-    ABeamer.DPT_VISIBLE = 1;
-    ABeamer.DPT_ATTR = 2;
-    ABeamer.DPT_ATTR_FUNC = 3;
-    ABeamer.DPT_STYLE = 4;
-    ABeamer.DPT_PIXEL = 5;
-    ABeamer.DPT_DUAL_PIXELS = 6;
-    ABeamer.DPT_CLASS = 7;
-    ABeamer.DPT_MEDIA_TIME = 8;
-    ABeamer.DPT_SRC = 9;
-    ABeamer.DPT_ELEMENT = 10;
+    BeamToIX.DPT_ID = 0;
+    BeamToIX.DPT_VISIBLE = 1;
+    BeamToIX.DPT_ATTR = 2;
+    BeamToIX.DPT_ATTR_FUNC = 3;
+    BeamToIX.DPT_STYLE = 4;
+    BeamToIX.DPT_PIXEL = 5;
+    BeamToIX.DPT_DUAL_PIXELS = 6;
+    BeamToIX.DPT_CLASS = 7;
+    BeamToIX.DPT_MEDIA_TIME = 8;
+    BeamToIX.DPT_SRC = 9;
+    BeamToIX.DPT_ELEMENT = 10;
     /**
      * Maps user property names to DOM property names.
      *
@@ -147,29 +147,29 @@ var ABeamer;
      * This map is used to handle the special cases.
      */
     var domPropMapper = {
-        'element': [ABeamer.DPT_ELEMENT, ''],
-        'uid': [ABeamer.DPT_ATTR_FUNC, 'data-abeamer'],
-        'id': [ABeamer.DPT_ATTR, 'id'],
-        'html': [ABeamer.DPT_ATTR, 'innerHTML'],
-        'text': [ABeamer.DPT_ATTR, 'textContent'],
-        'innerHTML': [ABeamer.DPT_ATTR, 'innerHTML'],
-        'outerHML': [ABeamer.DPT_ATTR, 'outerHML'],
-        'textContent': [ABeamer.DPT_ATTR, 'textContent'],
-        'currentTime': [ABeamer.DPT_MEDIA_TIME, 'currentTime'],
-        'src': [ABeamer.DPT_SRC, 'src'],
-        'class': [ABeamer.DPT_CLASS, 'className'],
-        'visible': [ABeamer.DPT_VISIBLE, ''],
-        'left': [ABeamer.DPT_PIXEL, 'left'],
-        'right': [ABeamer.DPT_PIXEL, 'right'],
-        'bottom': [ABeamer.DPT_PIXEL, 'bottom'],
-        'top': [ABeamer.DPT_PIXEL, 'top'],
-        'width': [ABeamer.DPT_PIXEL, 'width'],
-        'height': [ABeamer.DPT_PIXEL, 'height'],
-        'width-height': [ABeamer.DPT_DUAL_PIXELS, ['width', 'height']],
-        'left-top': [ABeamer.DPT_DUAL_PIXELS, ['left', 'top']],
-        'right-top': [ABeamer.DPT_DUAL_PIXELS, ['right', 'top']],
-        'left-bottom': [ABeamer.DPT_DUAL_PIXELS, ['left', 'bottom']],
-        'right-bottom': [ABeamer.DPT_DUAL_PIXELS, ['right', 'bottom']],
+        'element': [BeamToIX.DPT_ELEMENT, ''],
+        'uid': [BeamToIX.DPT_ATTR_FUNC, 'data-beamtoix'],
+        'id': [BeamToIX.DPT_ATTR, 'id'],
+        'html': [BeamToIX.DPT_ATTR, 'innerHTML'],
+        'text': [BeamToIX.DPT_ATTR, 'textContent'],
+        'innerHTML': [BeamToIX.DPT_ATTR, 'innerHTML'],
+        'outerHML': [BeamToIX.DPT_ATTR, 'outerHML'],
+        'textContent': [BeamToIX.DPT_ATTR, 'textContent'],
+        'currentTime': [BeamToIX.DPT_MEDIA_TIME, 'currentTime'],
+        'src': [BeamToIX.DPT_SRC, 'src'],
+        'class': [BeamToIX.DPT_CLASS, 'className'],
+        'visible': [BeamToIX.DPT_VISIBLE, ''],
+        'left': [BeamToIX.DPT_PIXEL, 'left'],
+        'right': [BeamToIX.DPT_PIXEL, 'right'],
+        'bottom': [BeamToIX.DPT_PIXEL, 'bottom'],
+        'top': [BeamToIX.DPT_PIXEL, 'top'],
+        'width': [BeamToIX.DPT_PIXEL, 'width'],
+        'height': [BeamToIX.DPT_PIXEL, 'height'],
+        'width-height': [BeamToIX.DPT_DUAL_PIXELS, ['width', 'height']],
+        'left-top': [BeamToIX.DPT_DUAL_PIXELS, ['left', 'top']],
+        'right-top': [BeamToIX.DPT_DUAL_PIXELS, ['right', 'top']],
+        'left-bottom': [BeamToIX.DPT_DUAL_PIXELS, ['left', 'bottom']],
+        'right-bottom': [BeamToIX.DPT_DUAL_PIXELS, ['right', 'bottom']],
     };
     /**
      * Used to map css Properties due the differences between the web browser
@@ -188,7 +188,7 @@ var ABeamer;
     function _addServerDOMPropMaps(map) {
         Object.keys(map).forEach(function (name) { cssPropNameMapper[name] = map[name]; });
     }
-    ABeamer._addServerDOMPropMaps = _addServerDOMPropMaps;
+    BeamToIX._addServerDOMPropMaps = _addServerDOMPropMaps;
     // ------------------------------------------------------------------------
     //                               _AbstractAdapter
     // ------------------------------------------------------------------------
@@ -203,7 +203,7 @@ var ABeamer;
         _AbstractAdapter.prototype.frameRendered = function (args) { };
         return _AbstractAdapter;
     }());
-    ABeamer._AbstractAdapter = _AbstractAdapter;
+    BeamToIX._AbstractAdapter = _AbstractAdapter;
     // ------------------------------------------------------------------------
     //                               _ElementAdapter
     // ------------------------------------------------------------------------
@@ -219,13 +219,13 @@ var ABeamer;
         _ElementAdapter.prototype._clearComputerData = function () { };
         return _ElementAdapter;
     }(_AbstractAdapter));
-    ABeamer._ElementAdapter = _ElementAdapter;
+    BeamToIX._ElementAdapter = _ElementAdapter;
     function _setDOMProp(adapter, propName, value, args) {
         var _a = domPropMapper[propName]
-            || [ABeamer.DPT_STYLE, propName], propType = _a[0], domPropName = _a[1];
+            || [BeamToIX.DPT_STYLE, propName], propType = _a[0], domPropName = _a[1];
         var element = adapter.htmlElement;
         switch (propType) {
-            case ABeamer.DPT_CLASS:
+            case BeamToIX.DPT_CLASS:
                 if (value && value.search(/(?:^| )[\-+]/) !== -1) {
                     value.split(/\s+/).forEach(function (aClass) {
                         var first = aClass[0];
@@ -242,16 +242,16 @@ var ABeamer;
                     break;
                 }
             // flows to `DPT_ID`.
-            case ABeamer.DPT_ID:
+            case BeamToIX.DPT_ID:
             // flows to `DPT_ATTR`.
-            case ABeamer.DPT_ATTR:
+            case BeamToIX.DPT_ATTR:
                 element[domPropName] = value;
                 break;
-            case ABeamer.DPT_MEDIA_TIME:
+            case BeamToIX.DPT_MEDIA_TIME:
                 _waitForMediaSync(element, args, value);
                 break;
-            case ABeamer.DPT_VISIBLE:
-                var defDisplay = element['data-abeamer-display'];
+            case BeamToIX.DPT_VISIBLE:
+                var defDisplay = element['data-beamtoix-display'];
                 var curDisplay = element.style.display || adapter.getComputedStyle()['display'];
                 if (value !== false && value !== 'false' && value !== 0) {
                     if (curDisplay === 'none') {
@@ -262,28 +262,28 @@ var ABeamer;
                 }
                 else {
                     if (!defDisplay) {
-                        element['data-abeamer-display'] = curDisplay;
+                        element['data-beamtoix-display'] = curDisplay;
                     }
                     element.style.display = 'none';
                 }
                 break;
-            case ABeamer.DPT_SRC:
+            case BeamToIX.DPT_SRC:
             // flows to DPT_ATTR_FUNC
-            case ABeamer.DPT_ATTR_FUNC:
+            case BeamToIX.DPT_ATTR_FUNC:
                 element.setAttribute(domPropName, value);
-                if (propType === ABeamer.DPT_SRC && element.tagName === 'IMG') {
+                if (propType === BeamToIX.DPT_SRC && element.tagName === 'IMG') {
                     _waitForImageLoad(element, args);
                 }
                 break;
-            case ABeamer.DPT_STYLE:
+            case BeamToIX.DPT_STYLE:
                 var cssPropName = cssPropNameMapper[domPropName] || domPropName;
                 element.style[cssPropName] = value;
                 break;
-            case ABeamer.DPT_PIXEL:
+            case BeamToIX.DPT_PIXEL:
                 element.style[domPropName] = typeof value === 'number'
                     ? value + 'px' : value;
                 break;
-            case ABeamer.DPT_DUAL_PIXELS:
+            case BeamToIX.DPT_DUAL_PIXELS:
                 var values_1 = value.split(',');
                 domPropName.forEach(function (propNameXY, index) {
                     element.style[propNameXY] = values_1[index] + 'px';
@@ -296,25 +296,25 @@ var ABeamer;
     }
     function _getDOMProp(adapter, propName, args) {
         var _a = domPropMapper[propName]
-            || [ABeamer.DPT_STYLE, propName], propType = _a[0], domPropName = _a[1];
+            || [BeamToIX.DPT_STYLE, propName], propType = _a[0], domPropName = _a[1];
         switch (propType) {
-            case ABeamer.DPT_ELEMENT:
+            case BeamToIX.DPT_ELEMENT:
                 return adapter.htmlElement;
-            case ABeamer.DPT_MEDIA_TIME:
+            case BeamToIX.DPT_MEDIA_TIME:
             // flows to `DPT_CLASS`.
-            case ABeamer.DPT_CLASS:
+            case BeamToIX.DPT_CLASS:
             // flows to `DPT_ID`.
-            case ABeamer.DPT_ID:
+            case BeamToIX.DPT_ID:
             // flows to `DPT_ATTR`.
-            case ABeamer.DPT_ATTR: return _NullToUnd(adapter.htmlElement[domPropName]);
-            case ABeamer.DPT_VISIBLE:
+            case BeamToIX.DPT_ATTR: return _NullToUnd(adapter.htmlElement[domPropName]);
+            case BeamToIX.DPT_VISIBLE:
                 var value = adapter.htmlElement.style.display || adapter.getComputedStyle()['display'];
                 return (value === '' || value !== 'none') ? true : false;
-            case ABeamer.DPT_SRC:
+            case BeamToIX.DPT_SRC:
             // flows to DPT_ATTR_FUNC
-            case ABeamer.DPT_ATTR_FUNC: return _NullToUnd(adapter.htmlElement.getAttribute(domPropName));
-            case ABeamer.DPT_PIXEL:
-            case ABeamer.DPT_STYLE:
+            case BeamToIX.DPT_ATTR_FUNC: return _NullToUnd(adapter.htmlElement.getAttribute(domPropName));
+            case BeamToIX.DPT_PIXEL:
+            case BeamToIX.DPT_STYLE:
                 var cssPropName = cssPropNameMapper[domPropName] || domPropName;
                 return adapter.htmlElement.style[cssPropName]
                     || adapter.getComputedStyle()[cssPropName];
@@ -326,7 +326,7 @@ var ABeamer;
     /**
      * DOM Element adapter.
      * Gets and sets attributes from HTMLElements.
-     * Maps the ABeamer animation property names into DOM attributes.
+     * Maps the BeamToIX animation property names into DOM attributes.
      */
     var _DOMElementAdapter = /** @class */ (function (_super) {
         __extends(_DOMElementAdapter, _super);
@@ -369,7 +369,7 @@ var ABeamer;
         };
         return _DOMElementAdapter;
     }(_ElementAdapter));
-    ABeamer._DOMElementAdapter = _DOMElementAdapter;
+    BeamToIX._DOMElementAdapter = _DOMElementAdapter;
     // ------------------------------------------------------------------------
     //                               _SVGElementAdapter
     // ------------------------------------------------------------------------
@@ -386,7 +386,7 @@ var ABeamer;
     // ------------------------------------------------------------------------
     /**
      * Virtual Element adapter.
-     * Allows ABeamer to decouple from the details of any virtual element.
+     * Allows BeamToIX to decouple from the details of any virtual element.
      */
     var _VirtualElementAdapter = /** @class */ (function (_super) {
         __extends(_VirtualElementAdapter, _super);
@@ -418,13 +418,13 @@ var ABeamer;
     /**
      * Returns true if the element is Virtual.
      */
-    ABeamer._isElementVirtual = function (element) {
+    BeamToIX._isElementVirtual = function (element) {
         return element.getProp !== undefined;
     };
     /**
      * Returns true if the id is Virtual.
      */
-    ABeamer._isIdVirtual = function (id) { return id[0] === '%'; };
+    BeamToIX._isIdVirtual = function (id) { return id[0] === '%'; };
     /**
      * Safely retrieves the Virtual Element from `story.onGetVirtualElement`.
      */
@@ -439,24 +439,24 @@ var ABeamer;
             return animator;
         }
         if (!story.onGetVirtualElement) {
-            ABeamer.throwErr("Story must have onGetVirtualElement to support virtual elements mapping");
+            BeamToIX.throwErr("Story must have onGetVirtualElement to support virtual elements mapping");
         }
         return story.onGetVirtualElement(selector, story._args);
     }
-    ABeamer._getVirtualElement = _getVirtualElement;
+    BeamToIX._getVirtualElement = _getVirtualElement;
     // ------------------------------------------------------------------------
     //                               SceneAdapter
     // ------------------------------------------------------------------------
     /**
      * Returns true if the Scene is Virtual.
      */
-    ABeamer._isVirtualScene = function (sceneSelector) {
+    BeamToIX._isVirtualScene = function (sceneSelector) {
         return typeof sceneSelector === 'object' &&
             sceneSelector.query !== undefined;
     };
     /**
      * Virtual Scene adapter.
-     * Allows ABeamer to decouple from the details of any virtual scene.
+     * Allows BeamToIX to decouple from the details of any virtual scene.
      */
     var _SceneAdapter = /** @class */ (function (_super) {
         __extends(_SceneAdapter, _super);
@@ -465,7 +465,7 @@ var ABeamer;
         }
         return _SceneAdapter;
     }(_AbstractAdapter));
-    ABeamer._SceneAdapter = _SceneAdapter;
+    BeamToIX._SceneAdapter = _SceneAdapter;
     // ------------------------------------------------------------------------
     //                               _DOMSceneAdapter
     // ------------------------------------------------------------------------
@@ -481,7 +481,7 @@ var ABeamer;
             var _this = _super.call(this, sceneSelector) || this;
             _this.$scene = typeof sceneSelector === 'string' ? $(sceneSelector)
                 : sceneSelector;
-            ABeamer.throwIfI8n(!_this.$scene.length, ABeamer.Msgs.NoEmptySelector, { p: sceneSelector });
+            BeamToIX.throwIfI8n(!_this.$scene.length, BeamToIX.Msgs.NoEmptySelector, { p: sceneSelector });
             _this.htmlElement = _this.$scene.get(0);
             _this.isVirtual = false;
             return _this;
@@ -577,7 +577,7 @@ var ABeamer;
         };
         return _DOMSceneAdapter;
     }(_SceneAdapter));
-    ABeamer._DOMSceneAdapter = _DOMSceneAdapter;
+    BeamToIX._DOMSceneAdapter = _DOMSceneAdapter;
     // ------------------------------------------------------------------------
     //                               _VirtualSceneAdapter
     // ------------------------------------------------------------------------
@@ -600,7 +600,7 @@ var ABeamer;
         };
         return _VirtualSceneAdapter;
     }(_SceneAdapter));
-    ABeamer._VirtualSceneAdapter = _VirtualSceneAdapter;
+    BeamToIX._VirtualSceneAdapter = _VirtualSceneAdapter;
     // ------------------------------------------------------------------------
     //                               Factory
     // ------------------------------------------------------------------------
@@ -612,8 +612,8 @@ var ABeamer;
         var element;
         if ((isString !== false) && (isString || typeof elementOrStr === 'string')) {
             if ((isVirtual === false) ||
-                (isVirtual === undefined && !ABeamer._isIdVirtual(elementOrStr))) {
-                ABeamer.throwErr("selector ".concat(elementOrStr, " must be virtual"));
+                (isVirtual === undefined && !BeamToIX._isIdVirtual(elementOrStr))) {
+                BeamToIX.throwErr("selector ".concat(elementOrStr, " must be virtual"));
             }
             element = _getVirtualElement(story, elementOrStr);
             isVirtual = true;
@@ -621,7 +621,7 @@ var ABeamer;
         else {
             element = elementOrStr;
         }
-        isVirtual = isVirtual || ABeamer._isElementVirtual(element);
+        isVirtual = isVirtual || BeamToIX._isElementVirtual(element);
         elementAdapters.push(isVirtual ? new _VirtualElementAdapter(element) :
             new _DOMElementAdapter(element));
     }
@@ -630,14 +630,14 @@ var ABeamer;
      */
     function _parseInElSelector(story, elementAdapters, sceneAdpt, elSelector) {
         // test of _pEls
-        if (elSelector instanceof ABeamer._pEls) {
+        if (elSelector instanceof BeamToIX._pEls) {
             return elSelector._elementAdapters;
         }
         if (typeof elSelector === 'function') {
             elSelector = elSelector(story._args);
         }
         if (typeof elSelector === 'string') {
-            if (ABeamer._isIdVirtual(elSelector)) {
+            if (BeamToIX._isIdVirtual(elSelector)) {
                 _addElementAdapter(story, elSelector, elementAdapters, true, true);
             }
             else {
@@ -656,12 +656,12 @@ var ABeamer;
                 });
             }
             else {
-                ABeamer.throwI8n(ABeamer.Msgs.UnknownType, { p: elSelector.toString() });
+                BeamToIX.throwI8n(BeamToIX.Msgs.UnknownType, { p: elSelector.toString() });
             }
         }
         return elementAdapters;
     }
-    ABeamer._parseInElSelector = _parseInElSelector;
+    BeamToIX._parseInElSelector = _parseInElSelector;
     // ------------------------------------------------------------------------
     //                               Wait Events
     // ------------------------------------------------------------------------
@@ -696,7 +696,7 @@ var ABeamer;
                         args.story.logFrmt('video-sync', [
                             ['expected', pos],
                             ['actual', elMedia.currentTime],
-                        ], ABeamer.LT_MSG);
+                        ], BeamToIX.LT_MSG);
                     }
                     // #debug-end
                     onDone();
@@ -711,7 +711,7 @@ var ABeamer;
     function _handleWaitFor(args, params, onDone) {
         params.elAdapter.waitFor(params.waitFor, onDone, args);
     }
-    ABeamer._handleWaitFor = _handleWaitFor;
+    BeamToIX._handleWaitFor = _handleWaitFor;
     // ------------------------------------------------------------------------
     //                               Browser
     // ------------------------------------------------------------------------
@@ -735,7 +735,7 @@ var ABeamer;
         }
         return [subPropName];
     }
-    ABeamer._propNameToVendorProps = _propNameToVendorProps;
+    BeamToIX._propNameToVendorProps = _propNameToVendorProps;
     /**
      * Adds a vendor prefixed CSS properties to the domPropMapper.
      */
@@ -744,7 +744,7 @@ var ABeamer;
         if (!canOverwrite && mapValue !== undefined && mapValue[1][0] === '-') {
             return;
         }
-        var propType = mapValue !== undefined ? mapValue[0] : ABeamer.DPT_STYLE;
+        var propType = mapValue !== undefined ? mapValue[0] : BeamToIX.DPT_STYLE;
         domPropMapper[propName] = [propType, propName];
         domPropMapper[subPropName] = [propType, propName];
     }
@@ -753,11 +753,11 @@ var ABeamer;
      * by using `window.getComputedStyle`.
      */
     function _initBrowser(_args) {
-        if (ABeamer.browser.vendorPrefix) {
+        if (BeamToIX.browser.vendorPrefix) {
             return;
         }
         var isMsIE = navigator.userAgent.search(/Trident/) !== -1;
-        ABeamer.browser.isMsIE = isMsIE;
+        BeamToIX.browser.isMsIE = isMsIE;
         var cssMap = window.getComputedStyle(document.body);
         var cssMapLen = (cssMap || []).length;
         var foundVendorPrefix = false;
@@ -767,7 +767,7 @@ var ABeamer;
             if (parts) {
                 if (!foundVendorPrefix) {
                     var vendorPrefix_1 = parts[1];
-                    ABeamer.browser.vendorPrefix = vendorPrefix_1;
+                    BeamToIX.browser.vendorPrefix = vendorPrefix_1;
                     foundVendorPrefix = true;
                     var forcedProps = FORCED_PROP_REMAPS[vendorPrefix_1];
                     if (forcedProps) {
@@ -777,7 +777,7 @@ var ABeamer;
                     }
                 }
                 var subPropName = parts[2];
-                ABeamer.browser.prefixedProps.push(subPropName);
+                BeamToIX.browser.prefixedProps.push(subPropName);
                 _addPropToDomPropMapper(subPropName, propName, !isMsIE);
             }
         };
@@ -785,6 +785,6 @@ var ABeamer;
             _loop_1(i);
         }
     }
-    ABeamer._initBrowser = _initBrowser;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._initBrowser = _initBrowser;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=adapters.js.map

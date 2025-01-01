@@ -37,7 +37,7 @@ export function parseRoundFunc(handler: RoundHandlerFunc): RoundFunc;
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-function">function</span>    
 ```js
 export function parseHandler<T, TO>(handler: T, defaultHandler: T,
-    _mapper: any, args: ABeamerArgs): TO;
+    _mapper: any, args: BeamToIXArgs): TO;
 ```
 
 ## parseEnum()

@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -31,16 +31,16 @@
  * ## Get started
  * How to create a simple bar chart:
  *
- * The bare-bones of a `abeamer.ini` file:
+ * The bare-bones of a `beamtoix.ini` file:
  * ```scss
- * $abeamer-width: 300;
- * $abeamer-height: 150;
+ * $beamtoix-width: 300;
+ * $beamtoix-height: 150;
  * ```
  *
  *  The bare-bones of a `html` file:
  * ```html
- * <div class="abeamer-story" id=story>
- *     <div class=abeamer-scene id=scene1>
+ * <div class="beamtoix-story" id=story>
+ *     <div class=beamtoix-scene id=scene1>
  *       <canvas id=chart width=300 height=150></canvas>
  *     </div>
  * </div>
@@ -53,11 +53,11 @@
  *    tasks: [{
  *      handler: 'chart', // is always 'chart' for charts.
  *      params: {
- *        chartType: ABeamer.ChartTypes.bar, // or 'bar' if you are using javascript
+ *        chartType: BeamToIX.ChartTypes.bar, // or 'bar' if you are using javascript
  *        labelsX: { captions: ['A', 'B', 'C', 'D', 'E'] },
  *        title: 'My first Chart',
  *        data: [[100, 200, 50, 140, 300]],
- *      } as ABeamer.AxisChartTaskParams, // comment as ... if you are using javascript
+ *      } as BeamToIX.AxisChartTaskParams, // comment as ... if you are using javascript
  *    }],
  *  }]);
  * ```
@@ -69,14 +69,14 @@
  *   tasks: [{
  *     handler: 'chart',
  *     params: {
- *       chartType: ABeamer.ChartTypes.bar,
+ *       chartType: BeamToIX.ChartTypes.bar,
  *       labelsX: { captions: ['A', 'B', 'C', 'D', 'E'] },
  *       title: 'My first Chart',
  *       data: [[100, 200, 50, 140, 300]],
  *       // animation parameters
  *       pointHeightStart: 0.1,    // defined the initial value for the animation point-height property
  *       animeSelector: 'chart-anime-01', // unique animation selector to be used by the animator
- *     } as ABeamer.AxisChartTaskParams,
+ *     } as BeamToIX.AxisChartTaskParams,
  *   }],
  * }])
  *   .addAnimations([{
@@ -89,7 +89,7 @@
  *   }]);
  * ```
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -268,7 +268,7 @@ namespace ABeamer {
      *         data: [[100, 200, 50, 140, 300]],
      *         pointHeightStart: 0.1,    // defined the initial value for the animation point-height property
      *         animeSelector: 'chart-anime-02', // unique animation selector to be used by the animator
-     *       } as ABeamer.AxisChartTaskParams,
+     *       } as BeamToIX.AxisChartTaskParams,
      *     }],
      *   }])
      *     .addAnimations([{
@@ -343,7 +343,7 @@ namespace ABeamer {
 
     /**
      * Chart Type per series. Use only if [](#chartType) is `mixed`.
-     * @example: [ABeamer.ChartTypes.bar, ABeamer.ChartTypes.bar, ABeamer.ChartTypes.line]
+     * @example: [BeamToIX.ChartTypes.bar, BeamToIX.ChartTypes.bar, BeamToIX.ChartTypes.line]
      */
     chartTypes?: (ChartTypes | string)[];
 
@@ -432,10 +432,10 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.chart-tasks',
+    id: 'beamtoix.chart-tasks',
     uuid: '73631f28-df71-4b4d-88e1-c99a858e0fd3',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/chart-tasks/chart-tasks.js'],
     teleportable: true,
   });
@@ -710,7 +710,7 @@ namespace ABeamer {
     graphX1: uint;
     graphY1: uint = 0;
 
-    constructor(protected args: ABeamerArgs) { }
+    constructor(protected args: BeamToIXArgs) { }
 
     _drawChart(_params: BaseChartTaskParams): void {
       this._drawLegend();
@@ -1569,7 +1569,7 @@ namespace ABeamer {
 
   /** Implements the Chart Task */
   function _chartTask(anime: Animation, _wkTask: WorkTask,
-    params: BaseChartTaskParams, stage: uint, args: ABeamerArgs): TaskResult {
+    params: BaseChartTaskParams, stage: uint, args: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_INIT:

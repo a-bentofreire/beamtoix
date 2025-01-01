@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@
 /**
  * ## Description
  *
- * A **story** is the entry point of ABeamer web browser library.
+ * A **story** is the entry point of BeamToIX web browser library.
  * It has the following functions:
  *
  * - Manage multiple scenes, including insert and remove.
@@ -33,7 +33,7 @@
  *
  * @see workflow
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -48,7 +48,7 @@ namespace ABeamer {
 
   export type DoneFunc = () => void;
 
-  export type WaitFunc = (args: ABeamerArgs, params: AnyParams,
+  export type WaitFunc = (args: BeamToIXArgs, params: AnyParams,
     onDone: DoneFunc) => void;
 
 
@@ -69,7 +69,7 @@ namespace ABeamer {
 
   export interface StoryConfig {
     config: {
-      abeamer: any;
+      beamtoix: any;
     };
   }
 
@@ -126,7 +126,7 @@ namespace ABeamer {
 
 
   /**
-   * ABeamer still has to render all the previous frames
+   * BeamToIX still has to render all the previous frames
    * of active scene bypassing the middle frames,
    * but it won't be render to disk and it will bypass any unnecessary frames.
    */
@@ -145,7 +145,7 @@ namespace ABeamer {
      * Total number of frames to render.
      *
      * **EXPERIMENTAL** Use a negative value to render backwards.
-     * For backward rendering, ABeamer first has to consume all the frames forward,
+     * For backward rendering, BeamToIX first has to consume all the frames forward,
      * bypassing all middle frames, only after can render backwards.
      *
      * @default the total number of frames
@@ -156,7 +156,7 @@ namespace ABeamer {
     /**
      * First scene to be rendered.
      * Before start rendering the `startScene`, first,
-     * ABeamer first has to consume all the frames until it reaches the
+     * BeamToIX first has to consume all the frames until it reaches the
      * beginning of Scene.
      * Accepts by 'Scene Zero-Based Index', 'Name' or by 'Scene Object'
      */
@@ -241,7 +241,7 @@ namespace ABeamer {
     _waitMan: _WaitMan;
 
     // scene access
-    _args: ABeamerArgs = {
+    _args: BeamToIXArgs = {
       renderNr: 0,
       stage: AS_UNKNOWN,
       vars: _vars,
@@ -391,18 +391,18 @@ namespace ABeamer {
 
 
     /**
-     * Returns ABeamerArgs.
+     * Returns BeamToIXArgs.
      * This should be used only in specific cases such the access to --var.
      * In most cases, this property is passed as an argument to plugins and callbacks.
      *
      * #end-user @readonly
      */
-    get args(): ABeamerArgs { return this._args; }
+    get args(): BeamToIXArgs { return this._args; }
 
 
     /**
      * If true, the input parameters have strict checks and throw errors if fails.
-     * If false, ABeamer is more relax and bypasses errors.
+     * If false, BeamToIX is more relax and bypasses errors.
      * The server can modify this mode on startup.
      *
      * @default false
@@ -481,7 +481,7 @@ namespace ABeamer {
      * Event triggered when render finished the rendering process.
      * **EXPERIMENTAL** The behavior can changed or be deprecated.
      */
-    onRenderFinished?: (args?: ABeamerArgs) => void;
+    onRenderFinished?: (args?: BeamToIXArgs) => void;
 
 
     /**
@@ -489,26 +489,26 @@ namespace ABeamer {
      * A server is usually a headless capture program such as puppeteer.
      * If the animation is running without server, this event is never fired.
      */
-    onServerReady?: (args?: ABeamerArgs) => void;
+    onServerReady?: (args?: BeamToIXArgs) => void;
 
 
     /**
      * Event triggered before a frame is rendered.
      */
-    onBeforeRenderFrame?: (args?: ABeamerArgs) => void;
+    onBeforeRenderFrame?: (args?: BeamToIXArgs) => void;
 
 
     /**
      * Event triggered after a frame is rendered.
      */
-    onAfterRenderFrame?: (args?: ABeamerArgs) => void;
+    onAfterRenderFrame?: (args?: BeamToIXArgs) => void;
 
 
     /**
      * Event triggered during the rendering process after a frame is rendered
      * and is ready to move to following frame.
      */
-    onNextFrame?: (args?: ABeamerArgs) => void;
+    onNextFrame?: (args?: BeamToIXArgs) => void;
 
 
     /**
@@ -517,7 +517,7 @@ namespace ABeamer {
      *
      * @param id  virtual element Id without '%'
      */
-    onGetVirtualElement?: (id: string, args?: ABeamerArgs) => VirtualElement;
+    onGetVirtualElement?: (id: string, args?: BeamToIXArgs) => VirtualElement;
 
 
     _virtualAnimators?: VirtualAnimator[] = [];
@@ -566,7 +566,7 @@ namespace ABeamer {
       this._waitMan = new _WaitMan();
       args.waitMan = this._waitMan;
 
-      this.storyAdapter = createParams.storyAdapter || new _DOMSceneAdapter('.abeamer-story');
+      this.storyAdapter = createParams.storyAdapter || new _DOMSceneAdapter('.beamtoix-story');
 
       cfg.fps = cfg.fps || this.storyAdapter.getProp('fps', args) as uint;
       throwIfI8n(!isPositiveNatural(cfg.fps), Msgs.MustNatPositive, { p: 'fps' });
@@ -705,13 +705,13 @@ namespace ABeamer {
     // ------------------------------------------------------------------------
 
     /**
-     * Adds scenes defined in the html by `.abeamer-scene` class.
+     * Adds scenes defined in the html by `.beamtoix-scene` class.
      * These classes are added automatically during Story constructor.
      * Add only after a `story.reset()`.
      */
     addDefaultScenes(): void {
       const story = this;
-      $('.abeamer-scene').each((_index, htmlElement) => {
+      $('.beamtoix-scene').each((_index, htmlElement) => {
         story.addScene($(htmlElement));
       });
       if (this._scenes.length) { this.gotoScene(this._scenes[0]); }
@@ -720,7 +720,7 @@ namespace ABeamer {
 
     /**
      * Adds a scene to the story.
-     * HTML elements with abeamer-scene class are added automatically.
+     * HTML elements with beamtoix-scene class are added automatically.
      *
      * @param sceneSelector DOM selector, JQuery object or Virtual Scene
      * @returns A pointer to newly created scene
@@ -962,7 +962,7 @@ namespace ABeamer {
      * Same as `getStoryToTeleport()` but it returns as `StoryConfig` object.
      * Use this function instead of getStoryToTeleport, if you need to
      * add extra fields.
-     * Modifying the content of `config.abeamer` is forbidden for 3rd-party
+     * Modifying the content of `config.beamtoix` is forbidden for 3rd-party
      * remote server rendering.
      */
     getStoryToTeleportAsConfig(frameOpts?: RenderFrameOptions): StoryConfig {
@@ -985,7 +985,7 @@ namespace ABeamer {
      * This method requires that:
      *
      * 1. Is on teleporting mode `isTeleporting === true`
-     * 2. The render server agent. `abeamer render ...`
+     * 2. The render server agent. `beamtoix render ...`
      *
      * Use this method instead of `getStoryToTeleport`.
      */
@@ -1121,7 +1121,7 @@ namespace ABeamer {
      * If it's running on the browser, it will render and wait `playSpeedMs` time.
      *
      * @param playSpeedMs Play speed in milliseconds,
-     * ignored on server mode. ABeamer doesn't guarantee the exact timing.
+     * ignored on server mode. BeamToIX doesn't guarantee the exact timing.
      * If it's undefined, it will play at full speed.
      */
     render(playSpeedMs?: uint | undefined, frameOpts?: RenderFrameOptions): void {
@@ -1413,8 +1413,8 @@ namespace ABeamer {
   export function createStory(fps?: uint,
     createParams?: CreateStoryParams): Story {
 
-    _abeamer = new _Story({ fps }, createParams || {});
-    return _abeamer;
+    _beamtoix = new _Story({ fps }, createParams || {});
+    return _beamtoix;
   }
 
 
@@ -1440,26 +1440,26 @@ namespace ABeamer {
         // @HINT: this code is a copy of  server.ts / parseIniCfgContent
         // @TODO: find a way to avoid duplicating this code
         (data as string).split(/\n/).forEach(line =>
-          line.replace(/^\s*[\$@]abeamer-([\w+\-]+)\s*:\s*"?([^\n]+)"?\s*;\s*$/,
+          line.replace(/^\s*[\$@]beamtoix-([\w+\-]+)\s*:\s*"?([^\n]+)"?\s*;\s*$/,
             (_all, p1, p2) => {
               cfgRoot[p1] = p2;
               return '';
             }));
-        cfgRoot = { config: { abeamer: cfgRoot } };
+        cfgRoot = { config: { beamtoix: cfgRoot } };
       }
 
       const cfgConfig = (cfgRoot as StoryConfig).config;
       if (cfgConfig) {
-        const cfg: _InnerConfig = cfgConfig.abeamer;
+        const cfg: _InnerConfig = cfgConfig.beamtoix;
         if (cfg) {
           cfg.fps = cfg.fps || fps;
-          _abeamer = new _Story(cfg, createParams || {});
+          _beamtoix = new _Story(cfg, createParams || {});
 
-          callback(_abeamer);
+          callback(_beamtoix);
         }
       }
     });
   }
 }
 
-let _abeamer: ABeamer._Story;
+let _beamtoix: BeamToIX._Story;

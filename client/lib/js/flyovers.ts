@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@
  * A flyover operates outside a scene animation pipeline, and can it
  * modify the content of one or more elements.
  *
- * ABeamer has following built-in flyovers:
+ * BeamToIX has following built-in flyovers:
  * - `info`
  * - `video-sync`.
  *
@@ -39,7 +39,7 @@
  * ```
  * html
  * ```html
- * <div id="flyover" class="abeamer-flyover"></div>
+ * <div id="flyover" class="beamtoix-flyover"></div>
  * ```
  * js
  * ```js
@@ -56,8 +56,8 @@
  * **WARNING** Due Chrome 'autoplay-policy', it's not possible to 'safely' use Chrome to sync with videos,
  * In order to overcome this limitation:
  * 1. Use Firefox to test the animation with a background video.
- * 2. Set `serverRender: false` to prevent `abeamer render` from attempting to sync the video while server render.
- * 3. When using `abeamer movie`, set `--bkg-movie` parameter with the video filename to use a background video.
+ * 2. Set `serverRender: false` to prevent `beamtoix render` from attempting to sync the video while server render.
+ * 3. When using `beamtoix movie`, set `--bkg-movie` parameter with the video filename to use a background video.
  *
  * @see gallery/animate-video-sync
  *
@@ -81,7 +81,7 @@
  *   });
  * ```
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -157,7 +157,7 @@ namespace ABeamer {
    * Use it to render elements that scene independent.
    */
   export type FlyoverFunc = (wkFlyover: WorkFlyover, params: FlyoverParams,
-    stage?: uint, args?: ABeamerArgs) => void;
+    stage?: uint, args?: BeamToIXArgs) => void;
 
 
   export interface WorkFlyover {
@@ -197,7 +197,7 @@ namespace ABeamer {
 
 
   export function _buildWorkFlyover(handler: FlyoverHandler, params: FlyoverParams,
-    toTeleport: boolean, args: ABeamerArgs): _WorkFlyover {
+    toTeleport: boolean, args: BeamToIXArgs): _WorkFlyover {
 
     let flyoverFunc;
 
@@ -246,7 +246,7 @@ namespace ABeamer {
    * Implementation of Info Flyover.
    */
   function _infoFlyover(_wkFlyover: WorkFlyover,
-    params: _InfoFlyoverParams, stage?: uint, args?: ABeamerArgs): void {
+    params: _InfoFlyoverParams, stage?: uint, args?: BeamToIXArgs): void {
 
     switch (stage) {
       case TS_INIT:
@@ -315,7 +315,7 @@ namespace ABeamer {
   _flyoverFunctions['video-sync'] = _videoSyncFlyover;
 
   function _videoSyncFlyover(_wkFlyover: WorkFlyover,
-    params: _VideoSyncFlyoverParams, stage?: uint, args?: ABeamerArgs): void {
+    params: _VideoSyncFlyoverParams, stage?: uint, args?: BeamToIXArgs): void {
 
     // setup
     switch (stage) {

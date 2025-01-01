@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story: ABeamer.Story = ABeamer.createStory(/*FPS:*/10);
+  const story: BeamToIX.Story = BeamToIX.createStory(/*FPS:*/10);
 
   // ------------------------------------------------------------------------
   //                               Scene1
@@ -14,7 +14,7 @@ $(window).on("load", () => {
 
   const scene1 = story.scenes[0];
 
-  const easings = Object.keys(ABeamer.EasingName).filter(name => name.length > 2);
+  const easings = Object.keys(BeamToIX.EasingName).filter(name => name.length > 2);
 
   const graphHeight = 100;
   const graphWidth = 200;
@@ -32,7 +32,7 @@ $(window).on("load", () => {
       params: {
         count: easings.length,
         content: '<div class=dot></div><div class=label></div>',
-      } as ABeamer.FactoryTaskParams,
+      } as BeamToIX.FactoryTaskParams,
     }],
   }]);
 

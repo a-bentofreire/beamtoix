@@ -26,7 +26,7 @@ A multi-dimension path can be used in the following ways:
    Used in `text-shadow`, `transform`.  
 - via dual-properties.  
   
-ABeamer has the following built-in dual-properties:  
+BeamToIX has the following built-in dual-properties:  
   
 - Interpolate the following CSS properties for DOM Elements:  
    * `left-top`.  
@@ -53,10 +53,10 @@ ABeamer has the following built-in dual-properties:
     Virtual Elements such as WebGL can use 3D paths to move their objects.  
   
 ## Core paths
-**WARNING!** In the ABeamer 2.x these core paths will move `core-paths` plugin.  
+**WARNING!** In the BeamToIX 2.x these core paths will move `core-paths` plugin.  
 To prevent breaking changes include now the js script `core-paths.js` on the html file.  
   
- ABeamer has the following core paths:  
+ BeamToIX has the following core paths:  
  - `line`  
  - `rect`  
  - `circle`  
@@ -71,7 +71,7 @@ _see_: [gallery-path](/gallery/latest/#gallery-path).
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
 export type PathFunc = (t: number, params: PathParams, stage: uint,
-    args?: ABeamerArgs) => number[];
+    args?: BeamToIXArgs) => number[];
 ```
 
 

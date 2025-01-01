@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story = ABeamer.createStory(/*FPS:*/20);
+  const story = BeamToIX.createStory(/*FPS:*/20);
 
   // ------------------------------------------------------------------------
   //                               Scene1
@@ -24,8 +24,8 @@ $(window).on("load", () => {
             handler: 'pulsar',
             params: {
               spread: 0.2,
-              type: ABeamer.PulsarType.normal,
-            } as ABeamer.PulsarOscillatorParams,
+              type: BeamToIX.PulsarType.normal,
+            } as BeamToIX.PulsarOscillatorParams,
           },
           duration: '1s',
           iterationCount: 3,
@@ -46,8 +46,8 @@ $(window).on("load", () => {
             handler: 'harmonic',
             params: {
               cycles: 1,
-              negativeHander: ABeamer.NegativeBuiltInFuncs.abs,
-            } as ABeamer.HarmonicOscillatorParams,
+              negativeHander: BeamToIX.NegativeBuiltInFuncs.abs,
+            } as BeamToIX.HarmonicOscillatorParams,
           },
           valueStart: 0.7,
           value: 0.3,

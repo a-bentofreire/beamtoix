@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@
  * A wrapper task calls a story or scene method, allowing for a story
  * to be loaded from JSON file or to be [](teleporter).
  *
- * ABeamer has the following built-in wrapper tasks:
+ * BeamToIX has the following built-in wrapper tasks:
  *
  * - `scene-transition` - setup a scene transition.
  *
@@ -24,7 +24,7 @@
  *
  * - `add-vars` - adds variables to be used by expressions.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -128,7 +128,7 @@ namespace ABeamer {
   /** Implements the Scene Transition Task */
   function _SceneTransitionTask(_anime: Animation, _wkTask: WorkTask,
     params: SceneTransitionTaskParams,
-    stage: uint, args?: ABeamerArgs): TaskResult {
+    stage: uint, args?: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_TELEPORT:
@@ -161,7 +161,7 @@ namespace ABeamer {
   /** Implements the Add Stills Task */
   function _addStillsTask(_anime: Animation, _wkTask: WorkTask,
     params: AddStillsTaskParams,
-    stage: uint, args?: ABeamerArgs): TaskResult {
+    stage: uint, args?: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_INIT:
@@ -178,7 +178,7 @@ namespace ABeamer {
 
   /** Implements the Add Flyover Task */
   function _addFlyover(_anime: Animation, _wkTask: WorkTask,
-    params: AddFlyoverTaskParams, stage: uint, args?: ABeamerArgs): TaskResult {
+    params: AddFlyoverTaskParams, stage: uint, args?: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_INIT:
@@ -195,7 +195,7 @@ namespace ABeamer {
 
   /** Implements the Add Vars Task */
   function _addVarsTask(_anime: Animation, _wkTask: WorkTask,
-    params: AddVarsTaskParams, stage: uint, args?: ABeamerArgs): TaskResult {
+    params: AddVarsTaskParams, stage: uint, args?: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_INIT:

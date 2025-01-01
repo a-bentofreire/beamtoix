@@ -1,10 +1,10 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 10);
+    var story = BeamToIX.createStory(/*FPS:*/ 10);
     // ------------------------------------------------------------------------
     //                               Plots
     // ------------------------------------------------------------------------
@@ -18,7 +18,7 @@ $(window).on("load", function () {
             tasks: [{
                     handler: 'chart',
                     params: {
-                        chartType: ABeamer.ChartTypes.line,
+                        chartType: BeamToIX.ChartTypes.line,
                         animeSelector: 'plot1-anime',
                         data: [
                             {
@@ -37,7 +37,7 @@ $(window).on("load", function () {
                         },
                         title: {
                             caption: 'Math function comparison',
-                            position: ABeamer.ChartCaptionPosition.bottom,
+                            position: BeamToIX.ChartCaptionPosition.bottom,
                         },
                     },
                 }],

@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Parses and computes a simulation of CSS animation-direction
@@ -8,7 +8,7 @@
 /**
  * ## Description
  *
- * ABeamer implements the animation direction in a similar way of the
+ * BeamToIX implements the animation direction in a similar way of the
  * CSS `animation-direction` property.
  * Currently is supported: `normal`, `reverse`, `alternate`, `alternate-reverse`
  *
@@ -21,8 +21,8 @@
  *
  * @see gallery/animate-loop
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Animation Direction
@@ -37,7 +37,7 @@ var ABeamer;
         Directions[Directions["reverse"] = 1] = "reverse";
         Directions[Directions["alternate"] = 2] = "alternate";
         Directions[Directions["alternate-reverse"] = 3] = "alternate-reverse";
-    })(Directions = ABeamer.Directions || (ABeamer.Directions = {}));
+    })(Directions = BeamToIX.Directions || (BeamToIX.Directions = {}));
     var DIRECTION_TO_DIR_PAIR = [[1, 1], [-1, -1], [1, -1],
         [-1, 1]];
     function _propDirToDirPair(direction) {
@@ -48,11 +48,11 @@ var ABeamer;
             direction = Directions[direction];
         }
         if (direction < 0 || direction >= DIRECTION_TO_DIR_PAIR.length) {
-            ABeamer.throwErr("Direction has an invalid value");
+            BeamToIX.throwErr("Direction has an invalid value");
         }
         return DIRECTION_TO_DIR_PAIR[direction];
     }
-    ABeamer._propDirToDirPair = _propDirToDirPair;
+    BeamToIX._propDirToDirPair = _propDirToDirPair;
     // ------------------------------------------------------------------------
     //                               Compute
     // ------------------------------------------------------------------------
@@ -73,6 +73,6 @@ var ABeamer;
         }
         return frameI;
     }
-    ABeamer._computeIterationCount = _computeIterationCount;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._computeIterationCount = _computeIterationCount;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=animation-direction.js.map

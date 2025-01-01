@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ServerConsts = void 0;
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // This file was generated via npx gulp build_shared_lib
@@ -22,9 +22,9 @@ exports.ServerConsts = void 0;
 var ServerConsts;
 (function (ServerConsts) {
     ServerConsts._SRV_CNT = {
-        MESSAGE_PREFIX: 'ABEAMER_',
+        MESSAGE_PREFIX: 'BEAMTOIX_',
         CMD_VALUE_SEP: '___',
-        SERVER_SUFFIX: 'abeamer-server=',
+        SERVER_SUFFIX: 'beamtoix-server=',
         LOG_LEVEL_SUFFIX: 'loglevel=',
         TELEPORT_SUFFIX: 'teleport=',
         RENDER_VAR_SUFFIX: 'var=',

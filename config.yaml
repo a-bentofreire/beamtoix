@@ -43,7 +43,7 @@ release:
     - 'hello-world'
 
   root:
-    - abeamer.{sh,cmd}
+    - beamtoix.{sh,cmd}
     - CHANGELOG.md
     - LICENSE.txt
     - .npmignore
@@ -59,7 +59,7 @@ release:
     - '!${TYPINGS_PATH}/vendor/phantomjs{,/**}'
     - '!${TYPINGS_PATH}/vendor/README.*'
     - '!${TYPINGS_PATH}/*-dev.d.ts'
-    - '!${TYPINGS_PATH}/abeamer.d.ts'
+    - '!${TYPINGS_PATH}/beamtoix.d.ts'
     - '!${CLIENT_PATH}/**/*[a-z][a-z].ts'
     - '!${CLIENT_PATH}/**/*.scss'
     - '!${MODULES_LIST_FILE}'
@@ -67,7 +67,7 @@ release:
 
 webLinks:
   localServer: http://localhost:${LOCAL_PORT}
-  webDomain: https://abeamer.devtoix.com
+  webDomain: https://beamtoix.devtoix.com
 
 
 docs:

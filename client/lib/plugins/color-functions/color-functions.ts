@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -52,7 +52,7 @@
  *
  *  @see gallery/animate-colors
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   type COLOR3 = [int, int, int] | [number, number, number];
   type COLOR4 = [int, int, int, int] | [number, number, number, number];
@@ -62,10 +62,10 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.color-functions',
+    id: 'beamtoix.color-functions',
     uuid: 'ce739c9f-13ba-4742-b1c3-dec56624be7d',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/color-functions/color-functions.js'],
     teleportable: true,
   });

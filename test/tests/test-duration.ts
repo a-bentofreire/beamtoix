@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -18,7 +18,7 @@ namespace Tests {
   type Test = Exact.TestParams;
 
 
-  function getAnimationProps(test: Test): ABeamer.AnimationProp[] {
+  function getAnimationProps(test: Test): BeamToIX.AnimationProp[] {
     return [{
       prop: 'left',
       duration: test.duration,
@@ -27,7 +27,7 @@ namespace Tests {
   }
 
 
-  function getTestAnimation(test: Test, index: uint): ABeamer.Animation {
+  function getTestAnimation(test: Test, index: uint): BeamToIX.Animation {
     return {
       selector: `#t${index}`,
       duration: elSeconds + 's',

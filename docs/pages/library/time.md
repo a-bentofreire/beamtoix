@@ -6,7 +6,7 @@ category: Pages
 ## Description
   
 Provides time functions to convert between minutes/seconds/milliseconds into frames.  
-Internally ABeamer only works with frames.  
+Internally BeamToIX only works with frames.  
     
   
 <div class=api-header>&nbsp;</div>
@@ -15,7 +15,7 @@ Internally ABeamer only works with frames.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
-export type TimeFunc = (args?: ABeamerArgs) => TimeUnit | string
+export type TimeFunc = (args?: BeamToIXArgs) => TimeUnit | string
     | ExprString | number;
 ```
 
@@ -45,7 +45,7 @@ Converts frames into time defined by the `unit`.
 ```js
 export function parseTimeHandler(
     timeOrFrame: TimeHandler | undefined,
-    args: ABeamerArgs,
+    args: BeamToIXArgs,
     defaultTimeOrFrame: string | int,
     referenceFrame: int,
     toInt: boolean = true): int | number;

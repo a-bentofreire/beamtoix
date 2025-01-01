@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -29,7 +29,7 @@
  * [](#Tasks) which are also added via `addAnimation` and
  * allow to create complex animations and special effects.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // ------------------------------------------------------------------------
   //                               AnimationCommonParams
@@ -109,7 +109,7 @@ namespace ABeamer {
      * Defines the duration of the animation of a single cycle
      * in terms of frames, seconds, minutes or milliseconds.
      * The total duration is `duration*(iterationCount + 1)`.
-     * In case of numerical values, ABeamer uses `defaultUnit`
+     * In case of numerical values, BeamToIX uses `defaultUnit`
      * to known what kind of unit is it.
      *
      * @see #iterationCount
@@ -163,7 +163,7 @@ namespace ABeamer {
      * This is the first stage of the Animation Pipeline.
      * The output value will be used to feed the [](#oscillator).
      *
-     * ABeamer includes a list of the most common easings by
+     * BeamToIX includes a list of the most common easings by
      * bundling the jquery.easing plugin.
      * More can be added via plugins.
      *
@@ -275,13 +275,13 @@ namespace ABeamer {
 
   export type AnimPropValue = string | number;
 
-  export type PropValueFunc = (args?: ABeamerArgs) => AnimPropValue;
+  export type PropValueFunc = (args?: BeamToIXArgs) => AnimPropValue;
 
   export type PropValueStartHandler = AnimPropValue | int | ExprString | PropValueFunc;
 
   export type PropValueHandler = PropValueStartHandler;
 
-  export type ValueTextFunc = (t: number, args?: ABeamerArgs) => string;
+  export type ValueTextFunc = (t: number, args?: BeamToIXArgs) => string;
 
 
   export interface AnimationProp extends AnimationCommonParams {
@@ -301,11 +301,11 @@ namespace ABeamer {
      * Easing interpolates from `valueStart` to `value`.
      *
      * Use only if:
-     * 1. ABeamer can't get the value from the element property.
+     * 1. BeamToIX can't get the value from the element property.
      * 2. There is no [](#Action Link) or you want to have a different start value.
      * 3. Handle virtual elements.
      *
-     * - Always set this value CSS transforms, since ABeamer doesn't
+     * - Always set this value CSS transforms, since BeamToIX doesn't
      * computes the CSS transform.
      * - For pixels, all write text with 'px' suffix unless
      * is defined `valueFormat`.
@@ -352,12 +352,12 @@ namespace ABeamer {
      * This event is fired before modifying an element property during rending.
      * Use if you need to handle virtual elements.
      * or if you want to manually set an element value.
-     * If returns `false`, ABeamer won't set the element property.
+     * If returns `false`, BeamToIX won't set the element property.
      *
      * **WARNING** Events aren't [teleported](teleporter),
      * therefore it can't be used in remote rendering.
      */
-    onSetValue?(value: AnimPropValue, args?: ABeamerArgs): boolean;
+    onSetValue?(value: AnimPropValue, args?: BeamToIXArgs): boolean;
 
 
     /**
@@ -420,8 +420,8 @@ namespace ABeamer {
      * Same as CSS `animation-direction`.
      *
      * @example 'alternate'
-     * @example ABeamer.DI_ALTERNATE
-     * @example ABeamer.DS_NORMAL
+     * @example BeamToIX.DI_ALTERNATE
+     * @example BeamToIX.DS_NORMAL
      */
     direction?: uint | string;
 
@@ -506,7 +506,7 @@ namespace ABeamer {
     exprMotionHandler: TFunc,
     numToName: (num: number) => string,
     mapper: { [name: string]: TFunc },
-    args: ABeamerArgs): _WorkInterpolator<THandler, TFunc, TParams> {
+    args: BeamToIXArgs): _WorkInterpolator<THandler, TFunc, TParams> {
 
     let func: TFunc;
     params = params || {} as TParams;
@@ -773,7 +773,7 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   export function _prepareAnimationsForTeleporting(animes: Animations,
-    args: ABeamerArgs): void {
+    args: BeamToIXArgs): void {
 
     animes.forEach(anime => {
       if (anime.tasks) {

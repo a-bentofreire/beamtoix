@@ -1,10 +1,10 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
-// Adapts the easing functions from jquery.easing.min.js to ABeamer interface
+// Adapts the easing functions from jquery.easing.min.js to BeamToIX interface
 // and implements extra built-in easings
 
 
@@ -45,7 +45,7 @@
  *
  * ## Built-in easings
  *
- * ABeamer includes a list of the most common easings by
+ * BeamToIX includes a list of the most common easings by
  * bundling the jquery.easing plugin.
  * More can be added via plugins.
  *
@@ -53,7 +53,7 @@
  *
  * @default linear
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -75,7 +75,7 @@ namespace ABeamer {
    * first one in the Animation Pipeline.
    * Usually outputs a value from [0, 1] but other values are also possible.
    */
-  export type EasingFunc = (t: number, params: EasingParams, args?: ABeamerArgs) => number;
+  export type EasingFunc = (t: number, params: EasingParams, args?: BeamToIXArgs) => number;
 
 
   /**
@@ -155,7 +155,7 @@ namespace ABeamer {
   });
 
 
-  export function _expressionEasing(t: number, params: EasingParams, args?: ABeamerArgs): number {
+  export function _expressionEasing(t: number, params: EasingParams, args?: BeamToIXArgs): number {
     _vars.t = t;
     return parseFloat(
       calcExpr((params as _WorkExprMotionParams)._expression, args) as any);

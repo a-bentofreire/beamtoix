@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // This module will generate a node module,
@@ -31,8 +31,8 @@
  * - `f` - rounds to the lowermost decimal value.
  * - `c` - rounds to the uppermost decimal value.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               Round Functions
     // ------------------------------------------------------------------------
@@ -42,7 +42,7 @@ var ABeamer;
     function downRound(v) {
         return Math.round(v - 0.0001);
     }
-    ABeamer.downRound = downRound;
+    BeamToIX.downRound = downRound;
     // ------------------------------------------------------------------------
     //                               Mini SPrintf
     // ------------------------------------------------------------------------
@@ -106,6 +106,6 @@ var ABeamer;
             return out;
         });
     }
-    ABeamer.sprintf = sprintf;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX.sprintf = sprintf;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=sprintf.js.map

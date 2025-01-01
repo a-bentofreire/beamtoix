@@ -15,11 +15,11 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 20);
+    var story = BeamToIX.createStory(/*FPS:*/ 20);
     // [TOPIC] using a DOM Scene and virtual element
     var canvas = document.getElementById('canvas');
     var context = canvas.getContext('2d');
@@ -73,7 +73,7 @@ $(window).on("load", function () {
             case 'android': return android;
             case 'iphone': return iphone;
             default:
-                ABeamer.throwErr('Unsupported Id');
+                BeamToIX.throwErr('Unsupported Id');
         }
     };
     scene1
@@ -91,7 +91,7 @@ $(window).on("load", function () {
                     oscillator: {
                         handler: 'harmonic',
                         params: {
-                            negativeHander: ABeamer.NegativeBuiltInFuncs.abs,
+                            negativeHander: BeamToIX.NegativeBuiltInFuncs.abs,
                         },
                     },
                     value: 30,

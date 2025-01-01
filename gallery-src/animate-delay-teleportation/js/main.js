@@ -1,10 +1,10 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 20, {
+    var story = BeamToIX.createStory(/*FPS:*/ 20, {
         // Uncomment to set into teleportation mode
         //  toTeleport: true, 
         toStartTeleporting: false,
@@ -26,7 +26,7 @@ $(window).on("load", function () {
                 tasks: [{
                         handler: 'chart',
                         params: {
-                            chartType: ABeamer.ChartTypes.line,
+                            chartType: BeamToIX.ChartTypes.line,
                             animeSelector: 'graph',
                             data: [data.clicks],
                             strokeColors: ['#dd5252'],

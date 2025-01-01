@@ -4,12 +4,12 @@ setlocal enabledelayedexpansion
 REM  
 
 REM  ------------------------------------------------------------------------
-REM  Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+REM  Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 REM  Licensed under the MIT License.
 REM  ------------------------------------------------------------------------
 
-REM  this script is designed only for testing abeamer cli in a bash enviroment
-REM  using `abeamer serve` as a live server.
+REM  this script is designed only for testing beamtoix cli in a bash enviroment
+REM  using `beamtoix serve` as a live server.
 REM  e.g. live-render.cmd gallery\animate-colors
 
 if  "%1" == "" (
@@ -40,7 +40,7 @@ shift
 REM set FOLDER=!FOLDER!
 set DFOLDER=!FOLDER:\=/!
 set URL=http://localhost:!PORT!/!DFOLDER!/
-set CONFIG=./!DFOLDER!/abeamer.ini
+set CONFIG=./!DFOLDER!/beamtoix.ini
 
 echo PORT=!PORT!
 echo FOLDER=!DFOLDER!
@@ -59,10 +59,10 @@ goto loop
 :afterloop
 REM ------------------------------------------------------------------------------
 
-echo node cli\abeamer-cli.js render !params! --dp --url !URL! --config !CONFIG!
-node cli\abeamer-cli.js render !params! --dp --url !URL! --config !CONFIG!
+echo node cli\beamtoix-cli.js render !params! --dp --url !URL! --config !CONFIG!
+node cli\beamtoix-cli.js render !params! --dp --url !URL! --config !CONFIG!
 
 if %GEN_GIF% == 1 (
-  node cli\abeamer-cli.js gif ./!DFOLDER!
+  node cli\beamtoix-cli.js gif ./!DFOLDER!
 )
 :end

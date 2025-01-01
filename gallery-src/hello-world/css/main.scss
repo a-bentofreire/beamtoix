@@ -1,10 +1,10 @@
-@import "./../abeamer.ini";
+@import "./../beamtoix.ini";
 body,
 html,
-.abeamer-story,
-.abeamer-scene {
-  width: $abeamer-width + px;
-  height: $abeamer-height + px;
+.beamtoix-story,
+.beamtoix-scene {
+  width: $beamtoix-width + px;
+  height: $beamtoix-height + px;
 }
 
 #hello {

@@ -2,16 +2,16 @@
 $(window).on("load", function () {
     var independentCases = __IND_CASES__;
     try {
-        var story = ABeamer.createStory(__FPS__);
+        var story = BeamToIX.createStory(__FPS__);
     } catch (error) {
         console.error('[EXCEPTION]:', error);
-        console.error('[CRITICAL]: ABeamer.createStory failed: ' + error);
+        console.error('[CRITICAL]: BeamToIX.createStory failed: ' + error);
     }
 
-    if (story.logLevel === undefined || ABeamer.LL_VERBOSE === undefined) {
-        console.error('[CRITICAL]: story.logLevel or ABeamer.LL_VERBOSE is missing');
+    if (story.logLevel === undefined || BeamToIX.LL_VERBOSE === undefined) {
+        console.error('[CRITICAL]: story.logLevel or BeamToIX.LL_VERBOSE is missing');
     }
-    story.logLevel = ABeamer.LL_VERBOSE;
+    story.logLevel = BeamToIX.LL_VERBOSE;
 
     // ------------------------------------------------------------------------
     //                               Scene1

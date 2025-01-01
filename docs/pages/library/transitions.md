@@ -19,15 +19,15 @@ future versions might support element transition as well.
 The transition duration provided by the user is converted into frames
 and split half to the out scene, the previous scene,
 and half into the in scene, the next scene.  
-ABeamer doesn't adds extra frames to ensure the execution of the transition,
+BeamToIX doesn't adds extra frames to ensure the execution of the transition,
 instead it works on top of the element animation pipeline.  
 If there aren't enough frames in the pipeline, part of the transition will be missing.  
   
 ## Core transitions
-**WARNING!** In the ABeamer 2.x these core transitions will move `core-transitions` plugin.  
+**WARNING!** In the BeamToIX 2.x these core transitions will move `core-transitions` plugin.  
 To prevent breaking changes include now the js script `core-transitions.js` on the html file.  
   
- ABeamer has the following core transitions:  
+ BeamToIX has the following core transitions:  
 - `slideLeft`  
 - `slideRight`  
 - `slideTop`  
@@ -121,7 +121,7 @@ enterAdapter?: AbstractAdapter;
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
-export type TransitionFunc = (params: TransitionParams, args?: ABeamerArgs) => void;
+export type TransitionFunc = (params: TransitionParams, args?: BeamToIXArgs) => void;
 ```
 
 ## TransitionHandler

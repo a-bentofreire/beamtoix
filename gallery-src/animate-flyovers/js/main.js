@@ -1,10 +1,10 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 20);
+    var story = BeamToIX.createStory(/*FPS:*/ 20);
     // ------------------------------------------------------------------------
     //                               Scene1
     // ------------------------------------------------------------------------
@@ -55,7 +55,7 @@ $(window).on("load", function () {
                 },
             ],
         }]);
-    // [TOPIC] Adding a flyover using a ABeamer command
+    // [TOPIC] Adding a flyover using a BeamToIX command
     story.addFlyover('info', {
         selector: '#flyover',
         format: 'story-frame: ${storyFrameNr}',

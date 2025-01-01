@@ -37,7 +37,7 @@ therefore it can't be used in remote rendering.
   
 ## Built-in easings
   
-ABeamer includes a list of the most common easings by
+BeamToIX includes a list of the most common easings by
 bundling the jquery.easing plugin.  
 More can be added via plugins.  
   
@@ -50,7 +50,7 @@ _default_: `linear`
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
-export type EasingFunc = (t: number, params: EasingParams, args?: ABeamerArgs) => number;
+export type EasingFunc = (t: number, params: EasingParams, args?: BeamToIXArgs) => number;
 ```
 
 

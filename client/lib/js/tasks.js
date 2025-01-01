@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implementation of Tasks
@@ -38,9 +38,9 @@
  * A task implementation is a function with the following syntax:
  * ```typescript
  * function myTaskFunc(anime: Animation, wkTask: WorkTask,
- *   params: FactoryTaskParams, stage?: uint, args?: ABeamerArgs): TaskResult;
+ *   params: FactoryTaskParams, stage?: uint, args?: BeamToIXArgs): TaskResult;
  * ```
- * And add this task to ABeamer using `ABeamer.pluginManager.addTasks([['my-task', myTaskFunc]]);`.
+ * And add this task to BeamToIX using `BeamToIX.pluginManager.addTasks([['my-task', myTaskFunc]]);`.
  *
  * If the task just uses plain DOM, the simplest is to:
  * - inject DOM by using the animation `selector`, and then
@@ -64,8 +64,8 @@
  * }
  * ```
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Tasks
@@ -77,37 +77,37 @@ var ABeamer;
     // ------------------------------------------------------------------------
     //                               Task Results
     // ------------------------------------------------------------------------
-    ABeamer.TR_EXIT = 0;
-    ABeamer.TR_DONE = 1;
-    ABeamer.TR_INTERACTIVE = 2;
+    BeamToIX.TR_EXIT = 0;
+    BeamToIX.TR_DONE = 1;
+    BeamToIX.TR_INTERACTIVE = 2;
     // ------------------------------------------------------------------------
     //                               Task Stage
     // ------------------------------------------------------------------------
-    ABeamer.TS_INIT = 0;
-    ABeamer.TS_ANIME_LOOP = 1;
-    ABeamer.TS_TELEPORT = 2;
+    BeamToIX.TS_INIT = 0;
+    BeamToIX.TS_ANIME_LOOP = 1;
+    BeamToIX.TS_TELEPORT = 2;
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
     /** Map of the built-in path tasks, plus the ones added via plugins. */
-    ABeamer._taskFunctions = {};
+    BeamToIX._taskFunctions = {};
     function _buildWorkTask(task, anime, toTeleport, args) {
         var handler = task.handler;
         var taskFunc;
         args.user = task.params;
         switch (typeof handler) {
             case 'string':
-                taskFunc = ABeamer._taskFunctions[handler];
+                taskFunc = BeamToIX._taskFunctions[handler];
                 break;
             case 'function':
                 taskFunc = handler;
-                ABeamer.throwIfI8n(toTeleport, ABeamer.Msgs.NoCode);
+                BeamToIX.throwIfI8n(toTeleport, BeamToIX.Msgs.NoCode);
                 break;
         }
         if (!taskFunc) {
-            ABeamer.throwI8n(ABeamer.Msgs.UnknownOf, { type: ABeamer.Msgs.task, p: handler });
+            BeamToIX.throwI8n(BeamToIX.Msgs.UnknownOf, { type: BeamToIX.Msgs.task, p: handler });
         }
         var wkTask = {
             func: taskFunc,
@@ -117,7 +117,7 @@ var ABeamer;
         };
         if (toTeleport) {
             task.handler = handler;
-            taskFunc(anime, wkTask, wkTask.params, ABeamer.TS_TELEPORT, args);
+            taskFunc(anime, wkTask, wkTask.params, BeamToIX.TS_TELEPORT, args);
         }
         return wkTask;
     }
@@ -127,7 +127,7 @@ var ABeamer;
     function _prepareTasksForTeleporting(anime, tasks, args) {
         tasks.forEach(function (task) { _buildWorkTask(task, anime, true, args); });
     }
-    ABeamer._prepareTasksForTeleporting = _prepareTasksForTeleporting;
+    BeamToIX._prepareTasksForTeleporting = _prepareTasksForTeleporting;
     /**
      * If it returns true, this Animation is full processed
      * and the animation should be bypassed.
@@ -136,13 +136,13 @@ var ABeamer;
         var toExit = true;
         tasks.forEach(function (task) {
             var wkTask = _buildWorkTask(task, anime, false, args);
-            var taskResult = wkTask.func(anime, wkTask, wkTask.params, ABeamer.TS_INIT, args);
+            var taskResult = wkTask.func(anime, wkTask, wkTask.params, BeamToIX.TS_INIT, args);
             switch (taskResult) {
-                case ABeamer.TR_EXIT: return;
-                case ABeamer.TR_DONE:
+                case BeamToIX.TR_EXIT: return;
+                case BeamToIX.TR_DONE:
                     toExit = false;
                     break;
-                case ABeamer.TR_INTERACTIVE:
+                case BeamToIX.TR_INTERACTIVE:
                     toExit = false;
                     wkTasks.push(wkTask);
                     break;
@@ -150,14 +150,14 @@ var ABeamer;
         });
         return toExit;
     }
-    ABeamer._processTasks = _processTasks;
+    BeamToIX._processTasks = _processTasks;
     function _runTasks(wkTasks, anime, animeIndex, args) {
         wkTasks.forEach(function (wkTask) {
             wkTask.animeIndex = animeIndex;
-            wkTask.func(anime, wkTask, wkTask.params, ABeamer.TS_ANIME_LOOP, args);
+            wkTask.func(anime, wkTask, wkTask.params, BeamToIX.TS_ANIME_LOOP, args);
         });
     }
-    ABeamer._runTasks = _runTasks;
+    BeamToIX._runTasks = _runTasks;
     // ------------------------------------------------------------------------
     //                               factory Task
     // ------------------------------------------------------------------------
@@ -169,17 +169,17 @@ var ABeamer;
             return value;
         }
         args.vars.i = index;
-        var exprValue = ABeamer.ifExprCalc(value, args);
+        var exprValue = BeamToIX.ifExprCalc(value, args);
         return exprValue !== undefined ? exprValue.toString() :
-            ABeamer.sprintf(value, index);
+            BeamToIX.sprintf(value, index);
     }
-    ABeamer._taskFunctions['factory'] = _factory;
+    BeamToIX._taskFunctions['factory'] = _factory;
     /** Implements the Factory Task */
     function _factory(anime, _wkTask, params, stage, args) {
         switch (stage) {
-            case ABeamer.TS_INIT:
+            case BeamToIX.TS_INIT:
                 var tag_1 = params.tag || 'div';
-                var count_1 = ABeamer.ifExprCalcNum(params.count, params.count, args);
+                var count_1 = BeamToIX.ifExprCalcNum(params.count, params.count, args);
                 var needsClosing_1 = ['img'].indexOf(tag_1) === -1;
                 var elAdapters = args.scene.getElementAdapters(anime.selector);
                 args.vars.elCount = elAdapters.length;
@@ -204,8 +204,8 @@ var ABeamer;
                     }
                     elAdapter.setProp('html', inTextHtml.join('\n'), args);
                 });
-                return ABeamer.TR_EXIT;
+                return BeamToIX.TR_EXIT;
         }
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=tasks.js.map

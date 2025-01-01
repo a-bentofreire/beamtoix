@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements transitions
@@ -22,23 +22,23 @@
  * The transition duration provided by the user is converted into frames
  * and split half to the out scene, the previous scene,
  * and half into the in scene, the next scene.
- * ABeamer doesn't adds extra frames to ensure the execution of the transition,
+ * BeamToIX doesn't adds extra frames to ensure the execution of the transition,
  * instead it works on top of the element animation pipeline.
  * If there aren't enough frames in the pipeline, part of the transition will be missing.
  *
  * ## Core transitions
- * **WARNING!** In the ABeamer 2.x these core transitions will move `core-transitions` plugin.
+ * **WARNING!** In the BeamToIX 2.x these core transitions will move `core-transitions` plugin.
  * To prevent breaking changes include now the js script `core-transitions.js` on the html file.
  *
- *  ABeamer has the following core transitions:
+ *  BeamToIX has the following core transitions:
  * - `slideLeft`
  * - `slideRight`
  * - `slideTop`
  * - `slideBottom`
  * - `dissolve`
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Transitions
@@ -50,10 +50,10 @@ var ABeamer;
     // ------------------------------------------------------------------------
     //                               Transition States
     // ------------------------------------------------------------------------
-    ABeamer.TRS_SETUP = 0;
-    ABeamer.TRS_AT_OUT = 1;
-    ABeamer.TRS_AT_IN = 2;
-    ABeamer.DEFAULT_TRANSITION_DURATION = '1s';
+    BeamToIX.TRS_SETUP = 0;
+    BeamToIX.TRS_AT_OUT = 1;
+    BeamToIX.TRS_AT_IN = 2;
+    BeamToIX.DEFAULT_TRANSITION_DURATION = '1s';
     /**
      * List of the built-in Transition Names.
      */
@@ -64,13 +64,13 @@ var ABeamer;
         StdTransitions[StdTransitions["slideTop"] = 2] = "slideTop";
         StdTransitions[StdTransitions["slideBottom"] = 3] = "slideBottom";
         StdTransitions[StdTransitions["dissolve"] = 4] = "dissolve";
-    })(StdTransitions = ABeamer.StdTransitions || (ABeamer.StdTransitions = {}));
+    })(StdTransitions = BeamToIX.StdTransitions || (BeamToIX.StdTransitions = {}));
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer._transitionFunctions = {};
+    BeamToIX._transitionFunctions = {};
     var _TransitionInterpolator = /** @class */ (function () {
         function _TransitionInterpolator() {
             this._active = false;
@@ -86,7 +86,7 @@ var ABeamer;
             if (handler === undefined) {
                 return false;
             }
-            var frameCount = ABeamer.parseTimeHandler(duration, args, ABeamer.DEFAULT_TRANSITION_DURATION, sceneFrameCount);
+            var frameCount = BeamToIX.parseTimeHandler(duration, args, BeamToIX.DEFAULT_TRANSITION_DURATION, sceneFrameCount);
             if (frameCount === 0) {
                 return false;
             }
@@ -100,7 +100,7 @@ var ABeamer;
                 handler = StdTransitions[handler];
             }
             if (typeof handler === 'string') {
-                this._transitionFunc = ABeamer._transitionFunctions[handler];
+                this._transitionFunc = BeamToIX._transitionFunctions[handler];
             }
             else {
                 this._transitionFunc = handler;
@@ -113,7 +113,7 @@ var ABeamer;
             this._firstOutTransitionFrame = sceneFrameCount - params.leaveFrameCount;
             params.leaveAdapter = leaveAdapter;
             params.enterAdapter = enterAdapter;
-            params.state = ABeamer.TRS_SETUP;
+            params.state = BeamToIX.TRS_SETUP;
             this._transitionFunc(params, args);
         };
         _TransitionInterpolator.prototype._render = function (frameNr, _frameCount, isLeaveAdapted, args) {
@@ -121,7 +121,7 @@ var ABeamer;
             if (isLeaveAdapted) {
                 var frameI = frameNr - this._firstOutTransitionFrame;
                 if (frameI >= 0) {
-                    params.state = ABeamer.TRS_AT_OUT;
+                    params.state = BeamToIX.TRS_AT_OUT;
                     params.enterFrameI = undefined;
                     params.leaveRealFrameI = frameNr;
                     params.frameI = frameI;
@@ -133,7 +133,7 @@ var ABeamer;
             }
             else {
                 if (frameNr <= params.enterFrameCount) {
-                    params.state = ABeamer.TRS_AT_IN;
+                    params.state = BeamToIX.TRS_AT_IN;
                     params.enterFrameI = frameNr;
                     params.leaveRealFrameI = undefined;
                     params.frameI = frameNr + params.leaveFrameCount;
@@ -151,16 +151,16 @@ var ABeamer;
         };
         return _TransitionInterpolator;
     }());
-    ABeamer._TransitionInterpolator = _TransitionInterpolator;
+    BeamToIX._TransitionInterpolator = _TransitionInterpolator;
     function _slide(params, args, refAttrName, lengthAttrName, isNegDir) {
         var sParams = params;
         var leaveAdapter = params.leaveAdapter;
-        if (params.state === ABeamer.TRS_SETUP) {
+        if (params.state === BeamToIX.TRS_SETUP) {
             sParams.ref = parseInt(leaveAdapter.getProp(refAttrName, args));
             sParams.length = parseInt(leaveAdapter.getProp(lengthAttrName, args));
         }
         else {
-            var shift = ABeamer.downRound((params.frameI / params.frameCount) * sParams.length);
+            var shift = BeamToIX.downRound((params.frameI / params.frameCount) * sParams.length);
             var ref = sParams.ref;
             ref = isNegDir ? ref - shift : ref + shift;
             params.leaveAdapter.setProp(refAttrName, ref, args);
@@ -186,25 +186,25 @@ var ABeamer;
             }
         }
     }
-    ABeamer._transitionFunctions['slideLeft'] = _slideLeft;
+    BeamToIX._transitionFunctions['slideLeft'] = _slideLeft;
     function _slideLeft(params, args) {
         _slide(params, args, 'left', 'width', true);
     }
-    ABeamer._transitionFunctions['slideRight'] = _slideRight;
+    BeamToIX._transitionFunctions['slideRight'] = _slideRight;
     function _slideRight(params, args) {
         _slide(params, args, 'left', 'width', false);
     }
-    ABeamer._transitionFunctions['slideTop'] = _slideTop;
+    BeamToIX._transitionFunctions['slideTop'] = _slideTop;
     function _slideTop(params, args) {
         _slide(params, args, 'top', 'height', true);
     }
-    ABeamer._transitionFunctions['slideBottom'] = _slideBottom;
+    BeamToIX._transitionFunctions['slideBottom'] = _slideBottom;
     function _slideBottom(params, args) {
         _slide(params, args, 'top', 'height', false);
     }
-    ABeamer._transitionFunctions['dissolve'] = _dissolveTransition;
+    BeamToIX._transitionFunctions['dissolve'] = _dissolveTransition;
     function _dissolveTransition(params, args) {
-        if (params.state !== ABeamer.TRS_SETUP) {
+        if (params.state !== BeamToIX.TRS_SETUP) {
             var opacity = 1 - (params.frameI / params.frameCount);
             params.leaveAdapter.setProp('opacity', opacity, args);
             // #debug-start
@@ -229,5 +229,5 @@ var ABeamer;
             }
         }
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=transitions.js.map

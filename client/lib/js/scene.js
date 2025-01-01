@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -17,7 +17,7 @@
  * - `addStills`
  *
  * A scene usually is associated with a `div` in the html file.
- * Scenes with `class=abeamer-class` are automatically added to story upon story creation.
+ * Scenes with `class=beamtoix-class` are automatically added to story upon story creation.
  * But it can also be a virtual scene.
  *
  * Only one scene can be active at a certain point in time,
@@ -25,8 +25,8 @@
  *
  * @see transitions
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Scene
@@ -43,7 +43,7 @@ var ABeamer;
             this._frames = [];
             /** Internal position of where the render pipeline was [consumed](consuming-the-pipeline). */
             this._renderFramePos = 0;
-            this._transitionInterpolator = new ABeamer._TransitionInterpolator();
+            this._transitionInterpolator = new BeamToIX._TransitionInterpolator();
             /**
              * `_actionRgMaps` are 'maps' between the input animations and the output action
              * for every frame.
@@ -53,9 +53,9 @@ var ABeamer;
              */
             this._actionRgMaps = [];
             this._story = story;
-            this._sceneAdpt = ABeamer._isVirtualScene(sceneSelector)
-                ? new ABeamer._VirtualSceneAdapter(sceneSelector)
-                : new ABeamer._DOMSceneAdapter(sceneSelector);
+            this._sceneAdpt = BeamToIX._isVirtualScene(sceneSelector)
+                ? new BeamToIX._VirtualSceneAdapter(sceneSelector)
+                : new BeamToIX._DOMSceneAdapter(sceneSelector);
             if (prevScene) {
                 this._prevScene = prevScene;
                 prevScene._nextScene = this;
@@ -189,7 +189,7 @@ var ABeamer;
         };
         _Scene.prototype._gotoSceneFrame = function (framePos) {
             if (framePos < 0 || framePos >= this._frameCount) {
-                ABeamer.throwErr("Position ".concat(framePos, " is out of scope"));
+                BeamToIX.throwErr("Position ".concat(framePos, " is out of scope"));
             }
             this._internalGotoFrame(framePos);
         };
@@ -246,7 +246,7 @@ var ABeamer;
                         ],
                     }]);
             }
-            var frameCount = ABeamer.parseTimeHandler(duration, this._story._args, 0, 0);
+            var frameCount = BeamToIX.parseTimeHandler(duration, this._story._args, 0, 0);
             if (frameCount <= 0) {
                 return this;
             }
@@ -292,13 +292,13 @@ var ABeamer;
                     elAnimations.push(undefined);
                     return;
                 }
-                var elAnimation = new ABeamer._ElWorkAnimation();
+                var elAnimation = new BeamToIX._ElWorkAnimation();
                 elAnimation.buildElements(_this._story, _this._sceneAdpt, anime);
                 if (elAnimation.elAdapters.length) {
                     if (elAnimation.assignValues(anime, story, undefined, elAnimation.elAdapters[0].getId(args), _this._frameInNr)) {
                         anime.props.forEach(function (prop) {
                             elAnimation.propInterpolators
-                                .push(prop.enabled !== false ? new ABeamer._PropInterpolator(prop) : undefined);
+                                .push(prop.enabled !== false ? new BeamToIX._PropInterpolator(prop) : undefined);
                         });
                     }
                     else {
@@ -306,7 +306,7 @@ var ABeamer;
                     }
                 }
                 else {
-                    if (_this._story._logLevel >= ABeamer.LL_WARN) {
+                    if (_this._story._logLevel >= BeamToIX.LL_WARN) {
                         _this._story.logWarn("Selector ".concat(anime.selector, " is empty"));
                     }
                 }
@@ -336,11 +336,11 @@ var ABeamer;
             var advanceInTheEnd = true;
             story._exceptIfRendering();
             if (story._teleporter.active) {
-                ABeamer._prepareAnimationsForTeleporting(animes, args);
+                BeamToIX._prepareAnimationsForTeleporting(animes, args);
                 story._teleporter._addAnimations(animes, this._storySceneIndex);
             }
             this._addAnimationCallCount++;
-            args.stage = ABeamer.AS_ADD_ANIMATION;
+            args.stage = BeamToIX.AS_ADD_ANIMATION;
             try {
                 if (story.curScene !== this) {
                     // _internalGotoScene is enough, since to add animations doesn't requires
@@ -355,7 +355,7 @@ var ABeamer;
                     var wkTasks;
                     if (tasks) {
                         wkTasks = [];
-                        if (ABeamer._processTasks(tasks, wkTasks, anime, args) && !anime.props) {
+                        if (BeamToIX._processTasks(tasks, wkTasks, anime, args) && !anime.props) {
                             return;
                         }
                     }
@@ -374,7 +374,7 @@ var ABeamer;
                     } // bypass missing selectors
                     var propInterpolators = ai.propInterpolators;
                     var elementAdapters = ai.elAdapters;
-                    ABeamer._vars.elCount = elementAdapters.length;
+                    BeamToIX._vars.elCount = elementAdapters.length;
                     if (animeAdvanceValue_1) {
                         ai.positionFrame += animeAdvanceValue_1;
                     }
@@ -382,10 +382,10 @@ var ABeamer;
                         advanceInTheEnd = ai.advance !== false;
                     }
                     elementAdapters.forEach(function (elementAdpt, elIndex) {
-                        ABeamer._vars.elIndex = elIndex;
+                        BeamToIX._vars.elIndex = elIndex;
                         var wkTasks = wkAnimesTasks_1[animeIndex];
                         if (wkTasks) {
-                            ABeamer._runTasks(wkTasks, anime, animeIndex, args);
+                            BeamToIX._runTasks(wkTasks, anime, animeIndex, args);
                         }
                         ai.nextPropStartFrame = undefined;
                         anime.props.forEach(function (inProp, propIndex) {
@@ -405,7 +405,7 @@ var ABeamer;
                             if (ai.advance) {
                                 animeAdvanceValue_1 = Math.max(animeAdvanceValue_1, endFrame - _this._frameInNr);
                             }
-                            var elActRg = ABeamer._findActionRg(_this._actionRgMaps, elementAdpt, pi.realPropName, posFrame, endFrame - 1, args);
+                            var elActRg = BeamToIX._findActionRg(_this._actionRgMaps, elementAdpt, pi.realPropName, posFrame, endFrame - 1, args);
                             pi.attachSelector(elementAdpt, elActRg, isVerbose, args);
                             var frameI = pi.dirPair[0] === 1 ? 0 : (pi.framesPerCycle - 1);
                             var v;
@@ -424,12 +424,12 @@ var ABeamer;
                                 var t = pi.framesPerCycle > 1 ? frameI / (pi.framesPerCycle - 1) : 1;
                                 v = pi.interpolate(t, story, isVerbose);
                                 action = pi.toAction(v, i === 0, i === totalDuration - 1);
-                                frameI = ABeamer._computeIterationCount(i, frameI, pi.dirPair, pi.framesPerCycle);
+                                frameI = BeamToIX._computeIterationCount(i, frameI, pi.dirPair, pi.framesPerCycle);
                                 _this._setActionOnFrames(posFrame, elementAdpt, pi, action, v);
                                 posFrame++;
                             }
                             // stores the last output value in the ActRg
-                            var outputValue = ABeamer._applyAction(action, elementAdpt, false, args, true);
+                            var outputValue = BeamToIX._applyAction(action, elementAdpt, false, args, true);
                             elActRg.actionRg.endValue = outputValue;
                         });
                     });
@@ -555,7 +555,7 @@ var ABeamer;
                             continue;
                         }
                     }
-                    ABeamer._applyAction(action, elementAdpt, isVerbose, args);
+                    BeamToIX._applyAction(action, elementAdpt, isVerbose, args);
                 }
             }
             frame.uniqueElementAdpt.forEach(function (elAdapter) {
@@ -572,13 +572,13 @@ var ABeamer;
          * Used only task plugin creators.
          */
         _Scene.prototype.getElementAdapters = function (selector) {
-            return ABeamer._parseInElSelector(this._story, [], this._sceneAdpt, selector);
+            return BeamToIX._parseInElSelector(this._story, [], this._sceneAdpt, selector);
         };
         /**
          * Creates a pEls from the selectors.
          */
         _Scene.prototype.getPEls = function (selector) {
-            return new ABeamer._pEls(this, selector);
+            return new BeamToIX._pEls(this, selector);
         };
         /**
          * Adds `visible = true` to the pipeline.
@@ -608,6 +608,6 @@ var ABeamer;
         };
         return _Scene;
     }());
-    ABeamer._Scene = _Scene;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._Scene = _Scene;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=scene.js.map

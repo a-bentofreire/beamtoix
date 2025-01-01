@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@
  * Expressions unlike [Code Handlers](code handler) can be defined on the `.json`
  * config file and support teleporting.
  *
- * ABeamer supports:
+ * BeamToIX supports:
  *
  * - binary operators: `+`, `-`, `*`, `/`, `%` (modulus).
  *      Work both with numbers and arrays.
@@ -36,7 +36,7 @@
  *
  * ## Built-in Variables
  *
- * ABeamer has the following built-in variables:
+ * BeamToIX has the following built-in variables:
  *
  * `e` - mathematical constant 'e'.
  * `pi` - mathematical constant 'pi'.
@@ -66,7 +66,7 @@
  * `=chart.labelsY.marginAfter`.
  * `=foo[x-y+z]`.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -1083,7 +1083,7 @@ namespace ABeamer {
    * Expects the input to be an expression.
    * Used mostly by plugin creators and developers.
    */
-  export function calcExpr(expr: string, args: ABeamerArgs): ExprResult {
+  export function calcExpr(expr: string, args: BeamToIXArgs): ExprResult {
 
     return _stateMachine({
       args,
@@ -1100,7 +1100,7 @@ namespace ABeamer {
    * Used mostly by plugin creators and developers.
    */
   export function ifExprCalc(expr: string,
-    args: ABeamerArgs): ExprResult | undefined {
+    args: BeamToIXArgs): ExprResult | undefined {
 
     return isExpr(expr) ? calcExpr(expr, args) : undefined;
   }
@@ -1112,7 +1112,7 @@ namespace ABeamer {
    * Used mostly by plugin creators and developers.
    */
   export function ifExprCalcNum(expr: string, defNumber: number | undefined,
-    args: ABeamerArgs): number | undefined {
+    args: BeamToIXArgs): number | undefined {
 
     if (!isExpr(expr)) { return defNumber; }
 
@@ -1128,7 +1128,7 @@ namespace ABeamer {
    * Computes the expression and returns the value.
    * If isStrict, checks if the return value is textual, if not throws error.
    */
-  export function calcStr(expr: string, args: ABeamerArgs): string {
+  export function calcStr(expr: string, args: BeamToIXArgs): string {
 
     const exprValue = calcExpr(expr, args);
     if (args.isStrict && (exprValue === undefined || typeof exprValue !== 'string')) {
@@ -1144,7 +1144,7 @@ namespace ABeamer {
    * Used mostly by plugin creators and developers.
    */
   export function ifExprCalcStr(expr: string, defString: string | undefined,
-    args: ABeamerArgs): string | undefined {
+    args: BeamToIXArgs): string | undefined {
 
     if (!isExpr(expr)) { return defString; }
 
@@ -1162,7 +1162,7 @@ namespace ABeamer {
    * Used mostly by plugin creators and developers.
    */
   export function ExprOrNumToNum(param: ExprString | number,
-    defValue: number | undefined, args: ABeamerArgs): number | undefined {
+    defValue: number | undefined, args: BeamToIXArgs): number | undefined {
 
     if (args.isStrict && param !== undefined) {
       const typeofP = typeof param;
@@ -1182,7 +1182,7 @@ namespace ABeamer {
    * Used mostly by plugin creators and developers.
    */
   export function ExprOrStrToStr(param: ExprString | string,
-    defValue: string | undefined, args: ABeamerArgs): string | undefined {
+    defValue: string | undefined, args: BeamToIXArgs): string | undefined {
 
     if (args.isStrict && param !== undefined) {
       const typeofP = typeof param;

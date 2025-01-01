@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -47,10 +47,10 @@
  *
  *
  * ## Core oscillators
- * **WARNING!** In the ABeamer 2.x these core oscillators will move `core-oscillators` plugin.
+ * **WARNING!** In the BeamToIX 2.x these core oscillators will move `core-oscillators` plugin.
  * To prevent breaking changes include now the js script `core-oscillators.js` on the html file.
  *
- *  ABeamer has the following core oscillators:
+ *  BeamToIX has the following core oscillators:
  *
  * - `harmonic` - it generates a sinusoidal function that repeats it self every
  * duration / cycles.
@@ -58,7 +58,7 @@
  *
  * - `damped` - it's a sinusoidal function that reduces its amplitude due friction in
  * every cycle.
- * To reduce the user's effort, ABeamer uses cycles parameter to compute the friction.
+ * To reduce the user's effort, BeamToIX uses cycles parameter to compute the friction.
  *
  * - `pulsar` - outside the range of [midpoint - spread, midpoint + spread]
  * it will return 0, and inside the range will generate a function depending of
@@ -69,7 +69,7 @@
  *     * `positive-random` - a random value with [0, 1].
  * @see gallery/animate-pulsar
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -89,7 +89,7 @@ namespace ABeamer {
    * An oscillator is mostly used to rotate an element returning to the original position.
    */
   export type OscillatorFunc = (t: number, params: OscillatorParams,
-    args?: ABeamerArgs) => number;
+    args?: BeamToIXArgs) => number;
 
 
   /**

@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -92,7 +92,7 @@ namespace ServerAgent {
     /** Sends Messages to the client */
     async function sendClientMsg(cmd: string, value: string = ''): Promise<void> {
       await page.evaluate((_cmd, _value) => {
-        _abeamer._internalGetServerMsg.call(_abeamer, _cmd, _value);
+        _beamtoix._internalGetServerMsg.call(_beamtoix, _cmd, _value);
       }, cmd, value);
     }
 

@@ -19,8 +19,8 @@ html {
     background: transparent;
 }
 
-.abeamer-story,
-.abeamer-scene {
+.beamtoix-story,
+.beamtoix-scene {
     position: absolute;
     width: __WIDTH__px;
     height: __HEIGHT__px;

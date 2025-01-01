@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -14,14 +14,14 @@
  * Users are encouraged to include the messages/messages-en.js on their index.html
  * even though for now it's an empty file to prevent breaking changes.
  *
- * ABeamer allows to localize the name of functions and other functionalities
+ * BeamToIX allows to localize the name of functions and other functionalities
  * such the names of tasks, flyovers and scene transitions.
  * The names can include non-latin characters.
  *
  * Fill Localization with the localize data, and add it
- * via `ABeamer.pluginManager.addLocalization`.
+ * via `BeamToIX.pluginManager.addLocalization`.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------

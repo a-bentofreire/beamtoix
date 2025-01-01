@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -19,7 +19,7 @@
  * - `addStills`
  *
  * A scene usually is associated with a `div` in the html file.
- * Scenes with `class=abeamer-class` are automatically added to story upon story creation.
+ * Scenes with `class=beamtoix-class` are automatically added to story upon story creation.
  * But it can also be a virtual scene.
  *
  * Only one scene can be active at a certain point in time,
@@ -27,7 +27,7 @@
  *
  * @see transitions
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------

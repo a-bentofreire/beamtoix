@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -19,10 +19,10 @@ $(window).on("load", () => {
 
   // add as many scenes as labels
   $('#story').html(dates.map((_label, sceneIndex) =>
-    `<div class="abeamer-scene" id=scene${sceneIndex}></div>`).join('\n'));
+    `<div class="beamtoix-scene" id=scene${sceneIndex}></div>`).join('\n'));
 
 
-  const animations: ABeamer.Animation[][] = [];
+  const animations: BeamToIX.Animation[][] = [];
   const vars = {};
 
   dates.forEach((date, sceneIndex) => {
@@ -64,13 +64,13 @@ $(window).on("load", () => {
   });
 
 
-  const story: ABeamer.Story = ABeamer.createStory(/*FPS:*/10);
+  const story: BeamToIX.Story = BeamToIX.createStory(/*FPS:*/10);
 
   // ------------------------------------------------------------------------
   //                               Scene
   // ------------------------------------------------------------------------
 
-  let scene: ABeamer.Scene;
+  let scene: BeamToIX.Scene;
   scene = story.scenes[0];
 
   scene
@@ -80,7 +80,7 @@ $(window).on("load", () => {
         params: {
           allowExpr: true,
           vars,
-        } as ABeamer.AddVarsTaskParams,
+        } as BeamToIX.AddVarsTaskParams,
       }],
     }]);
 
@@ -94,7 +94,7 @@ $(window).on("load", () => {
 
     if (sceneIndex < dates.length - 1) {
       scene.transition = {
-        handler: ABeamer.StdTransitions.slideLeft,
+        handler: BeamToIX.StdTransitions.slideLeft,
         duration: `${wait / 2}s`,
       };
     }

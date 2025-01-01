@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -39,8 +39,8 @@ export namespace OptsParser {
     url: {
       param: 'string', desc:
         `url of the page containing the animation
-              e.g. http://abeamer.devtoix.com/
-              e.g. file:///home/abeamer/Documents/test/`},
+              e.g. http://beamtoix.devtoix.com/
+              e.g. file:///home/beamtoix/Documents/test/`},
 
     file: {
       param: 'string', desc:
@@ -148,7 +148,7 @@ export namespace OptsParser {
     config: {
       param: 'string', desc:
         `loads the config from a ini or json file
-           see https://abeamer.devtoix.com/docs/latest/end-user/en/site/config-file/`,
+           see https://beamtoix.devtoix.com/docs/latest/end-user/en/site/config-file/`,
     },
 
     var: {

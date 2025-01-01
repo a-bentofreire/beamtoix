@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -40,7 +40,7 @@ namespace Tests {
       [`"f${i}"`,
       `function (t) {
           if (t === 0) {
-            var actual = ABeamer.calcExpr("${expr}", story._args);
+            var actual = BeamToIX.calcExpr("${expr}", story._args);
           }
       return t;
     }`]);
@@ -58,10 +58,10 @@ namespace Tests {
   add('=  12 / 24 +    8 * 2 / 4 + 7');
 
   // test string variables
-  add("=  'abeamer'", 'string values', 'abeamer');
+  add("=  'beamtoix'", 'string values', 'beamtoix');
   add("=  'travel ' + 'around ' + 'world' ", 'string concatenation', 'travel around world');
   // @TODO: add a test new line meta chars. Requires some changes in the code.
-  add("='abeamer \\\\'animation\\\\' '", 'string meta chars', "abeamer 'animation' ");
+  add("='beamtoix \\\\'animation\\\\' '", 'string meta chars', "beamtoix 'animation' ");
 
 
   // test parenthesis

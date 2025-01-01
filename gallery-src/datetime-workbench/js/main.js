@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
@@ -14,7 +14,7 @@ $(window).on("load", function () {
     var formats = ['YYYY-MM-DD HH:mm:ss', 'ddd, MMM D (YY) hA'];
     // add as many scenes as labels
     $('#story').html(dates.map(function (_label, sceneIndex) {
-        return "<div class=\"abeamer-scene\" id=scene".concat(sceneIndex, "></div>");
+        return "<div class=\"beamtoix-scene\" id=scene".concat(sceneIndex, "></div>");
     }).join('\n'));
     var animations = [];
     var vars = {};
@@ -49,7 +49,7 @@ $(window).on("load", function () {
         }));
         $("#scene".concat(sceneIndex)).html(injectHtml.join('\n'));
     });
-    var story = ABeamer.createStory(/*FPS:*/ 10);
+    var story = BeamToIX.createStory(/*FPS:*/ 10);
     // ------------------------------------------------------------------------
     //                               Scene
     // ------------------------------------------------------------------------
@@ -73,7 +73,7 @@ $(window).on("load", function () {
             .addStills("".concat(wait, "s"));
         if (sceneIndex < dates.length - 1) {
             scene.transition = {
-                handler: ABeamer.StdTransitions.slideLeft,
+                handler: BeamToIX.StdTransitions.slideLeft,
                 duration: "".concat(wait / 2, "s"),
             };
         }

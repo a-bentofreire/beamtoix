@@ -12,10 +12,10 @@ The user can create its own custom functions but only built-in functions
 and official plugins can create functions that support [teleportation](teleporter.md).  
   
 ## Core functions
-**WARNING!** In the ABeamer 2.x these core functions will move `core-functions` plugin.  
+**WARNING!** In the BeamToIX 2.x these core functions will move `core-functions` plugin.  
 To prevent breaking changes include now the js script `core-functions.js` on the html file.  
   
-ABeamer has the following core functions:  
+BeamToIX has the following core functions:  
   
 - `sin` - 'sine' trigonometric function.  
 - `cos` - 'cosine' trigonometric function.  
@@ -59,7 +59,7 @@ This function doesn't supports [lazy evaluation](https://en.wikipedia.org/wiki/L
 - `slice` - returns a subarray starting from `start` to `end-1` of a 0-base array.  
   
 ## Examples
-_example_: `= substr('ABeamer', 4, 4)`  
+_example_: `= substr('BeamToIX', 4, 4)`  
 _example_: `= round(12.4)`  
 _example_: `= get([10,30,15],1)`  
 it returns `30`  
@@ -68,7 +68,7 @@ it returns `[30, 15]`
   
 ## Arrays
   
-Since ABeamer 1.6 that single numerical argument functions also support arrays.  
+Since BeamToIX 1.6 that single numerical argument functions also support arrays.  
 The operation is perform for each element, and it returns an array.  
 The array functions can be composed.  
 _example_: `= round(sqrt([12.4, 75, 10]))`    
@@ -130,7 +130,7 @@ export interface ExFuncReq{ }
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ExFuncReq](functions.md#exfuncreq)]  
 ```js
-args: ABeamerArgs;
+args: BeamToIXArgs;
 ```
 
 ### ExFuncReq.req

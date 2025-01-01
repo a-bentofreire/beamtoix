@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implementation of Flyovers
@@ -14,7 +14,7 @@
  * A flyover operates outside a scene animation pipeline, and can it
  * modify the content of one or more elements.
  *
- * ABeamer has following built-in flyovers:
+ * BeamToIX has following built-in flyovers:
  * - `info`
  * - `video-sync`.
  *
@@ -35,7 +35,7 @@
  * ```
  * html
  * ```html
- * <div id="flyover" class="abeamer-flyover"></div>
+ * <div id="flyover" class="beamtoix-flyover"></div>
  * ```
  * js
  * ```js
@@ -52,8 +52,8 @@
  * **WARNING** Due Chrome 'autoplay-policy', it's not possible to 'safely' use Chrome to sync with videos,
  * In order to overcome this limitation:
  * 1. Use Firefox to test the animation with a background video.
- * 2. Set `serverRender: false` to prevent `abeamer render` from attempting to sync the video while server render.
- * 3. When using `abeamer movie`, set `--bkg-movie` parameter with the video filename to use a background video.
+ * 2. Set `serverRender: false` to prevent `beamtoix render` from attempting to sync the video while server render.
+ * 3. When using `beamtoix movie`, set `--bkg-movie` parameter with the video filename to use a background video.
  *
  * @see gallery/animate-video-sync
  *
@@ -77,8 +77,8 @@
  *   });
  * ```
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Flyovers
@@ -87,20 +87,20 @@ var ABeamer;
      * Internal map by name pointing to all flyover functions,
      * both built-in and 3rd party.
      */
-    ABeamer._flyoverFunctions = {};
+    BeamToIX._flyoverFunctions = {};
     function _buildWorkFlyover(handler, params, toTeleport, args) {
         var flyoverFunc;
         switch (typeof handler) {
             case 'string':
-                flyoverFunc = ABeamer._flyoverFunctions[handler];
+                flyoverFunc = BeamToIX._flyoverFunctions[handler];
                 break;
             case 'function':
                 flyoverFunc = handler;
-                ABeamer.throwIfI8n(toTeleport, ABeamer.Msgs.NoCode);
+                BeamToIX.throwIfI8n(toTeleport, BeamToIX.Msgs.NoCode);
                 break;
         }
         if (!flyoverFunc) {
-            ABeamer.throwI8n(ABeamer.Msgs.UnknownOf, { type: ABeamer.Msgs.flyover, p: handler });
+            BeamToIX.throwI8n(BeamToIX.Msgs.UnknownOf, { type: BeamToIX.Msgs.flyover, p: handler });
         }
         var wkFlyover = {
             func: flyoverFunc,
@@ -108,24 +108,24 @@ var ABeamer;
             params: params || {},
         };
         if (toTeleport) {
-            wkFlyover.func(wkFlyover, wkFlyover.params, ABeamer.TS_TELEPORT, args);
+            wkFlyover.func(wkFlyover, wkFlyover.params, BeamToIX.TS_TELEPORT, args);
         }
         return wkFlyover;
     }
-    ABeamer._buildWorkFlyover = _buildWorkFlyover;
-    ABeamer._flyoverFunctions['info'] = _infoFlyover;
+    BeamToIX._buildWorkFlyover = _buildWorkFlyover;
+    BeamToIX._flyoverFunctions['info'] = _infoFlyover;
     /**
      * Implementation of Info Flyover.
      */
     function _infoFlyover(_wkFlyover, params, stage, args) {
         switch (stage) {
-            case ABeamer.TS_INIT:
+            case BeamToIX.TS_INIT:
                 if (!params._elAdapters) {
                     params._elAdapters = args.story.getElementAdapters(params.selector
                         || '.info-flyover');
                 }
                 break;
-            case ABeamer.TS_ANIME_LOOP:
+            case BeamToIX.TS_ANIME_LOOP:
                 // rendering
                 var format_1 = params.format || '${storyFrameNr}';
                 var story_1 = args.story;
@@ -135,11 +135,11 @@ var ABeamer;
                             case 'storyFrameNr':
                                 return story_1.renderFramePos.toString();
                             case 'storyElapsedMS':
-                                return ABeamer.frame2Time(story_1.renderFramePos, story_1.fps, ABeamer.TimeUnit.ms);
+                                return BeamToIX.frame2Time(story_1.renderFramePos, story_1.fps, BeamToIX.TimeUnit.ms);
                             case 'storyElapsedS':
-                                return ABeamer.frame2Time(story_1.renderFramePos, story_1.fps, ABeamer.TimeUnit.s);
+                                return BeamToIX.frame2Time(story_1.renderFramePos, story_1.fps, BeamToIX.TimeUnit.s);
                             case 'storyElapsedM':
-                                return ABeamer.frame2Time(story_1.renderFramePos, story_1.fps, ABeamer.TimeUnit.m);
+                                return BeamToIX.frame2Time(story_1.renderFramePos, story_1.fps, BeamToIX.TimeUnit.m);
                         }
                         return '';
                     });
@@ -156,17 +156,17 @@ var ABeamer;
     /**
      * Implementation of Video Sync Flyover.
      */
-    ABeamer._flyoverFunctions['video-sync'] = _videoSyncFlyover;
+    BeamToIX._flyoverFunctions['video-sync'] = _videoSyncFlyover;
     function _videoSyncFlyover(_wkFlyover, params, stage, args) {
         // setup
         switch (stage) {
-            case ABeamer.TS_INIT:
+            case BeamToIX.TS_INIT:
                 if (!params._elAdapters) {
                     params._elAdapters = args.story.getElementAdapters(params.selector
                         || '#video');
                     break;
                 }
-            case ABeamer.TS_ANIME_LOOP:
+            case BeamToIX.TS_ANIME_LOOP:
                 // rendering
                 var storyFps_1 = args.story.fps;
                 if (!args.hasServer || params.serverRender !== false) {
@@ -183,5 +183,5 @@ var ABeamer;
                 break;
         }
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=flyovers.js.map

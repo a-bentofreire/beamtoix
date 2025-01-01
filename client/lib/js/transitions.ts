@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -25,22 +25,22 @@
  * The transition duration provided by the user is converted into frames
  * and split half to the out scene, the previous scene,
  * and half into the in scene, the next scene.
- * ABeamer doesn't adds extra frames to ensure the execution of the transition,
+ * BeamToIX doesn't adds extra frames to ensure the execution of the transition,
  * instead it works on top of the element animation pipeline.
  * If there aren't enough frames in the pipeline, part of the transition will be missing.
  *
  * ## Core transitions
- * **WARNING!** In the ABeamer 2.x these core transitions will move `core-transitions` plugin.
+ * **WARNING!** In the BeamToIX 2.x these core transitions will move `core-transitions` plugin.
  * To prevent breaking changes include now the js script `core-transitions.js` on the html file.
  *
- *  ABeamer has the following core transitions:
+ *  BeamToIX has the following core transitions:
  * - `slideLeft`
  * - `slideRight`
  * - `slideTop`
  * - `slideBottom`
  * - `dissolve`
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -93,7 +93,7 @@ namespace ABeamer {
   }
 
 
-  export type TransitionFunc = (params: TransitionParams, args?: ABeamerArgs) => void;
+  export type TransitionFunc = (params: TransitionParams, args?: BeamToIXArgs) => void;
 
   export type TransitionHandler = string | ExprString | TransitionFunc
     | StdTransitions;
@@ -128,7 +128,7 @@ namespace ABeamer {
 
 
     _set(transition: Transition,
-      sceneFrameCount: int, args: ABeamerArgs): boolean {
+      sceneFrameCount: int, args: BeamToIXArgs): boolean {
 
       this._active = false;
       this._transition = transition;
@@ -167,7 +167,7 @@ namespace ABeamer {
     _setup(leaveAdapter: AbstractAdapter,
       enterAdapter: AbstractAdapter,
       sceneFrameCount: uint,
-      args: ABeamerArgs): void {
+      args: BeamToIXArgs): void {
 
       const params = this._params;
       this._firstOutTransitionFrame = sceneFrameCount - params.leaveFrameCount;
@@ -179,7 +179,7 @@ namespace ABeamer {
 
 
     _render(frameNr: int, _frameCount: int, isLeaveAdapted: boolean,
-      args: ABeamerArgs): void {
+      args: BeamToIXArgs): void {
 
       const params = this._params;
       if (isLeaveAdapted) {
@@ -226,7 +226,7 @@ namespace ABeamer {
   }
 
 
-  function _slide(params: TransitionParams, args: ABeamerArgs,
+  function _slide(params: TransitionParams, args: BeamToIXArgs,
     refAttrName: string, lengthAttrName: string, isNegDir: boolean): void {
 
     const sParams = params as SlideTransitionParams;
@@ -270,28 +270,28 @@ namespace ABeamer {
 
   _transitionFunctions['slideLeft'] = _slideLeft;
 
-  function _slideLeft(params: TransitionParams, args?: ABeamerArgs): void {
+  function _slideLeft(params: TransitionParams, args?: BeamToIXArgs): void {
     _slide(params, args, 'left', 'width', true);
   }
 
 
   _transitionFunctions['slideRight'] = _slideRight;
 
-  function _slideRight(params: TransitionParams, args?: ABeamerArgs): void {
+  function _slideRight(params: TransitionParams, args?: BeamToIXArgs): void {
     _slide(params, args, 'left', 'width', false);
   }
 
 
   _transitionFunctions['slideTop'] = _slideTop;
 
-  function _slideTop(params: TransitionParams, args?: ABeamerArgs): void {
+  function _slideTop(params: TransitionParams, args?: BeamToIXArgs): void {
     _slide(params, args, 'top', 'height', true);
   }
 
 
   _transitionFunctions['slideBottom'] = _slideBottom;
 
-  function _slideBottom(params: TransitionParams, args?: ABeamerArgs): void {
+  function _slideBottom(params: TransitionParams, args?: BeamToIXArgs): void {
     _slide(params, args, 'top', 'height', false);
   }
 
@@ -299,7 +299,7 @@ namespace ABeamer {
   _transitionFunctions['dissolve'] = _dissolveTransition;
 
   function _dissolveTransition(params: TransitionParams,
-    args?: ABeamerArgs): void {
+    args?: BeamToIXArgs): void {
 
     if (params.state !== TRS_SETUP) {
       let opacity = 1 - (params.frameI / params.frameCount);

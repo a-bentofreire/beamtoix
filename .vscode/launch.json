@@ -7,8 +7,8 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch abeamer cli",
-      "program": "${workspaceFolder}/cli/abeamer-cli.js",
+      "name": "Launch beamtoix cli",
+      "program": "${workspaceFolder}/cli/beamtoix-cli.js",
       "args": [
         "check"
       ],

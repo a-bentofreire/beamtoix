@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -10,10 +10,10 @@
  * ## Description
  *
  * Provides time functions to convert between minutes/seconds/milliseconds into frames.
- * Internally ABeamer only works with frames.
+ * Internally BeamToIX only works with frames.
  *
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -39,7 +39,7 @@ namespace ABeamer {
 
 
   /** Time [](Code Handler) */
-  export type TimeFunc = (args?: ABeamerArgs) => TimeUnit | string
+  export type TimeFunc = (args?: BeamToIXArgs) => TimeUnit | string
     | ExprString | number;
 
 
@@ -87,7 +87,7 @@ namespace ABeamer {
    */
   export function parseTimeHandler(
     timeOrFrame: TimeHandler | undefined,
-    args: ABeamerArgs,
+    args: BeamToIXArgs,
     defaultTimeOrFrame: string | int,
     referenceFrame: int,
     toInt: boolean = true): int | number {

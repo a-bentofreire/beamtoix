@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@
  *
  * - `color-attack` - produces a change in colors, returning to the original color at the end.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -73,10 +73,10 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.attack-tasks',
+    id: 'beamtoix.attack-tasks',
     uuid: 'e98cfe21-ec23-4545-88eb-829a0e9add39',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/attack-tasks/attack-tasks.js'],
     teleportable: true,
   });
@@ -86,7 +86,7 @@ namespace ABeamer {
 
   /** Implements the Color Attack Task */
   function _colorAttack(anime: Animation, _wkTask: WorkTask,
-    params: ColorAttackTaskParams, stage: uint, args?: ABeamerArgs): TaskResult {
+    params: ColorAttackTaskParams, stage: uint, args?: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_INIT:

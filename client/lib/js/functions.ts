@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -18,10 +18,10 @@
  * and official plugins can create functions that support [teleportation](teleporter.md).
  *
  * ## Core functions
- * **WARNING!** In the ABeamer 2.x these core functions will move `core-functions` plugin.
+ * **WARNING!** In the BeamToIX 2.x these core functions will move `core-functions` plugin.
  * To prevent breaking changes include now the js script `core-functions.js` on the html file.
  *
- * ABeamer has the following core functions:
+ * BeamToIX has the following core functions:
  *
  * - `sin` - 'sine' trigonometric function.
  * - `cos` - 'cosine' trigonometric function.
@@ -66,7 +66,7 @@
  *
  * ## Examples
  *
- * @example = substr('ABeamer', 4, 4)
+ * @example = substr('BeamToIX', 4, 4)
  * @example = round(12.4)
  * @example = get([10,30,15],1)
  * it returns `30`
@@ -75,14 +75,14 @@
  *
  * ## Arrays
  *
- * Since ABeamer 1.6 that single numerical argument functions also support arrays.
+ * Since BeamToIX 1.6 that single numerical argument functions also support arrays.
  * The operation is perform for each element, and it returns an array.
  * The array functions can be composed.
  *
  * @example = round(sqrt([12.4, 75, 10]))
  *
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -115,7 +115,7 @@ namespace ABeamer {
 
 
   export interface ExFuncReq {
-    args: ABeamerArgs;
+    args: BeamToIXArgs;
     req?: ExFuncReq;
     res?: ExFuncParam;
 

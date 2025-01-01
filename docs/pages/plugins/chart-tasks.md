@@ -25,16 +25,16 @@ read the details on [AxisChartTaskParams](chart-tasks.md#axischarttaskparams).
 ## Get started
 How to create a simple bar chart:  
   
-The bare-bones of a `abeamer.ini` file:  
+The bare-bones of a `beamtoix.ini` file:  
 ```scss
-$abeamer-width: 300;
-$abeamer-height: 150;
+$beamtoix-width: 300;
+$beamtoix-height: 150;
 ```  
   
  The bare-bones of a `html` file:  
 ```html
-<div class="abeamer-story" id=story>
-    <div class=abeamer-scene id=scene1>
+<div class="beamtoix-story" id=story>
+    <div class=beamtoix-scene id=scene1>
       <canvas id=chart width=300 height=150></canvas>
     </div>
 </div>
@@ -47,11 +47,11 @@ scene.addAnimations([{
    tasks: [{
      handler: 'chart', // is always 'chart' for charts.  
      params: {
-       chartType: ABeamer.ChartTypes.bar, // or 'bar' if you are using javascript
+       chartType: BeamToIX.ChartTypes.bar, // or 'bar' if you are using javascript
        labelsX: { captions: ['A', 'B', 'C', 'D', 'E'] },
        title: 'My first Chart',
        data: [[100, 200, 50, 140, 300]],
-     } as ABeamer.AxisChartTaskParams, // comment as ... if you are using javascript
+     } as BeamToIX.AxisChartTaskParams, // comment as ... if you are using javascript
    }],
  }]);
 ```  
@@ -63,14 +63,14 @@ To animate it, change it the to following:
   tasks: [{
     handler: 'chart',
     params: {
-      chartType: ABeamer.ChartTypes.bar,
+      chartType: BeamToIX.ChartTypes.bar,
       labelsX: { captions: ['A', 'B', 'C', 'D', 'E'] },
       title: 'My first Chart',
       data: [[100, 200, 50, 140, 300]],
       // animation parameters
       pointHeightStart: 0.1,    // defined the initial value for the animation point-height property
       animeSelector: 'chart-anime-01', // unique animation selector to be used by the animator
-    } as ABeamer.AxisChartTaskParams,
+    } as BeamToIX.AxisChartTaskParams,
   }],
 }])
   .addAnimations([{
@@ -523,7 +523,7 @@ Set with a unique virtual selector, to be used another `addAnimations` to animat
         data: [[100, 200, 50, 140, 300]],
         pointHeightStart: 0.1,    // defined the initial value for the animation point-height property
         animeSelector: 'chart-anime-02', // unique animation selector to be used by the animator
-      } as ABeamer.AxisChartTaskParams,
+      } as BeamToIX.AxisChartTaskParams,
     }],
   }])
     .addAnimations([{
@@ -650,7 +650,7 @@ chartTypes?: (ChartTypes | string)[];
 
 
 Chart Type per series. Use only if [chartType](#chartType) is `mixed`.  
-_example_: `: [ABeamer.ChartTypes.bar, ABeamer.ChartTypes.bar, ABeamer.ChartTypes.line]`  
+_example_: `: [BeamToIX.ChartTypes.bar, BeamToIX.ChartTypes.bar, BeamToIX.ChartTypes.line]`  
 ### AxisChartTaskParams.labelsX
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[AxisChartTaskParams](chart-tasks.md#axischarttaskparams)]  

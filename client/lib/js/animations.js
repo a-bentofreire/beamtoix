@@ -15,7 +15,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -42,8 +42,8 @@ var __extends = (this && this.__extends) || (function () {
  * [](#Tasks) which are also added via `addAnimation` and
  * allow to create complex animations and special effects.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               AnimationCommonParams
     // ------------------------------------------------------------------------
@@ -52,17 +52,17 @@ var ABeamer;
     // -------------------------------
     // #export-section-start: release
     /* ---- Bypass Mode ---- */
-    ABeamer.BP_FIRST_INSIDE = 0; // this is the default bypass mode
-    ABeamer.BP_INSIDE = 1;
-    ABeamer.BP_ALL = 2;
+    BeamToIX.BP_FIRST_INSIDE = 0; // this is the default bypass mode
+    BeamToIX.BP_INSIDE = 1;
+    BeamToIX.BP_ALL = 2;
     /* ---- Function Stage ---- */
-    ABeamer.FS_PREPARE = 0;
-    ABeamer.FS_TELEPORT = 1;
-    ABeamer.FS_RUN = 2;
+    BeamToIX.FS_PREPARE = 0;
+    BeamToIX.FS_TELEPORT = 1;
+    BeamToIX.FS_RUN = 2;
     /** Value used, if no duration is defined for an animation. */
-    ABeamer.DEFAULT_DURATION = '1f';
+    BeamToIX.DEFAULT_DURATION = '1f';
     /** Value used, if no duration is defined for a fade in/out. */
-    ABeamer.DEFAULT_FADE_DURATION = '400ms';
+    BeamToIX.DEFAULT_FADE_DURATION = '400ms';
     function _parseInterpolator(handler, params, exprMotionHandler, numToName, mapper, args) {
         var func;
         params = params || {};
@@ -74,9 +74,9 @@ var ABeamer;
             // it flows to string case
             case 'string':
                 if (handler.startsWith('==')) {
-                    handler = ABeamer.calcStr(handler.substr(1), args);
+                    handler = BeamToIX.calcStr(handler.substr(1), args);
                 }
-                if (ABeamer.isExpr(handler)) {
+                if (BeamToIX.isExpr(handler)) {
                     func = exprMotionHandler;
                     params._expression = handler;
                 }
@@ -89,7 +89,7 @@ var ABeamer;
                 break;
         }
         if (!func) {
-            ABeamer.throwI8n("Unknown: ".concat(handler));
+            BeamToIX.throwI8n("Unknown: ".concat(handler));
         }
         return {
             handler: handler,
@@ -113,23 +113,23 @@ var ABeamer;
         }
         _AbstractWorkAnimation.prototype.assignValues = function (acp, story, parent, nameTag, refOrDef) {
             var args = story._args;
-            this.framesPerCycle = ABeamer.parseTimeHandler(acp.duration, args, parent ? parent.framesPerCycle : ABeamer.DEFAULT_DURATION, 0);
-            this.itemDelay = ABeamer._parseItemDelay(acp, args);
+            this.framesPerCycle = BeamToIX.parseTimeHandler(acp.duration, args, parent ? parent.framesPerCycle : BeamToIX.DEFAULT_DURATION, 0);
+            this.itemDelay = BeamToIX._parseItemDelay(acp, args);
             if (!story._strictMode) {
                 if (this.framesPerCycle < 0 && (parent && !this.framesPerCycle)) {
-                    if (story._logLevel >= ABeamer.LL_ERROR) {
+                    if (story._logLevel >= BeamToIX.LL_ERROR) {
                         story.logMsg("".concat(nameTag, " has invalid duration frames: ").concat(this.framesPerCycle));
                     }
                     return false;
                 }
             }
             else {
-                if ((parent && !ABeamer.isPositiveNatural(this.framesPerCycle)) ||
-                    (!parent && !ABeamer.isNotNegativeNatural(this.framesPerCycle))) {
-                    ABeamer.throwErr("".concat(nameTag, " has invalid duration frames: ").concat(this.framesPerCycle));
+                if ((parent && !BeamToIX.isPositiveNatural(this.framesPerCycle)) ||
+                    (!parent && !BeamToIX.isNotNegativeNatural(this.framesPerCycle))) {
+                    BeamToIX.throwErr("".concat(nameTag, " has invalid duration frames: ").concat(this.framesPerCycle));
                 }
             }
-            this.positionFrame = ABeamer.parseTimeHandler(acp.position, args, refOrDef, refOrDef);
+            this.positionFrame = BeamToIX.parseTimeHandler(acp.position, args, refOrDef, refOrDef);
             this.advance = acp.advance;
             if (!story._strictMode) {
                 if (this.positionFrame < 0) {
@@ -138,24 +138,24 @@ var ABeamer;
                 }
             }
             else {
-                if (!ABeamer.isNotNegativeNatural(this.positionFrame)) {
-                    ABeamer.throwErr("".concat(nameTag, " has invalid position: ").concat(this.positionFrame));
+                if (!BeamToIX.isNotNegativeNatural(this.positionFrame)) {
+                    BeamToIX.throwErr("".concat(nameTag, " has invalid position: ").concat(this.positionFrame));
                 }
             }
             if (acp.easing) {
-                this.easing = _parseInterpolator(acp.easing, {}, ABeamer._expressionEasing, ABeamer._easingNumToStr, ABeamer._easingFunctions, args);
+                this.easing = _parseInterpolator(acp.easing, {}, BeamToIX._expressionEasing, BeamToIX._easingNumToStr, BeamToIX._easingFunctions, args);
             }
             else if (parent) {
                 this.easing = parent.easing;
             }
             if (acp.oscillator) {
-                this.oscillator = _parseInterpolator(acp.oscillator.handler, acp.oscillator.params, ABeamer._expressionEasing, ABeamer._oscillatorNumToStr, ABeamer._easingFunctions, args);
+                this.oscillator = _parseInterpolator(acp.oscillator.handler, acp.oscillator.params, BeamToIX._expressionEasing, BeamToIX._oscillatorNumToStr, BeamToIX._easingFunctions, args);
             }
             else if (parent) {
                 this.oscillator = parent.oscillator;
             }
             if (acp.path) {
-                this.path = _parseInterpolator(acp.path.handler, acp.path.params, ABeamer._expressionPath, ABeamer._pathNumToStr, ABeamer._pathFunctions, args);
+                this.path = _parseInterpolator(acp.path.handler, acp.path.params, BeamToIX._expressionPath, BeamToIX._pathNumToStr, BeamToIX._pathFunctions, args);
             }
             else if (parent) {
                 this.path = parent.path;
@@ -164,7 +164,7 @@ var ABeamer;
         };
         return _AbstractWorkAnimation;
     }());
-    ABeamer._AbstractWorkAnimation = _AbstractWorkAnimation;
+    BeamToIX._AbstractWorkAnimation = _AbstractWorkAnimation;
     // ------------------------------------------------------------------------
     //                               _ElWorkAnimation
     // ------------------------------------------------------------------------
@@ -185,11 +185,11 @@ var ABeamer;
             return _this;
         }
         _ElWorkAnimation.prototype.buildElements = function (story, sceneAdpt, anime) {
-            this.elAdapters = ABeamer._parseInElSelector(story, this.elAdapters, sceneAdpt, anime.selector);
+            this.elAdapters = BeamToIX._parseInElSelector(story, this.elAdapters, sceneAdpt, anime.selector);
         };
         return _ElWorkAnimation;
     }(_AbstractWorkAnimation));
-    ABeamer._ElWorkAnimation = _ElWorkAnimation;
+    BeamToIX._ElWorkAnimation = _ElWorkAnimation;
     // ------------------------------------------------------------------------
     //                               _WorkAnimationProp
     // ------------------------------------------------------------------------
@@ -213,10 +213,10 @@ var ABeamer;
             _this.animProp = animProp;
             _this.iterationCount = Math.max(animProp.iterationCount || 1, 1);
             _this.scaleDuration = _this.iterationCount;
-            _this.dirPair = ABeamer._propDirToDirPair(animProp.direction);
+            _this.dirPair = BeamToIX._propDirToDirPair(animProp.direction);
             _this.bypassForwardMode = animProp.bypassForwardMode;
             _this.bypassBackwardMode = animProp.bypassBackwardMode;
-            _this.roundFunc = ABeamer.parseRoundFunc(animProp.roundFunc);
+            _this.roundFunc = BeamToIX.parseRoundFunc(animProp.roundFunc);
             _this.waitFor = !animProp.waitFor ? undefined :
                 animProp.waitFor.map(function (waitItem) {
                     waitItem.prop = waitItem.prop || _this.propName;
@@ -229,7 +229,7 @@ var ABeamer;
                 return false;
             }
             var startFrame = this.positionFrame +
-                (this.itemDelay.duration ? ABeamer._computeItemDelay(this.itemDelay, elIndex) : 0);
+                (this.itemDelay.duration ? BeamToIX._computeItemDelay(this.itemDelay, elIndex) : 0);
             this.startFrame = startFrame;
             this.totalDuration = this.framesPerCycle * this.scaleDuration;
             this.endFrame = this.totalDuration + startFrame;
@@ -238,17 +238,17 @@ var ABeamer;
         };
         return _WorkAnimationProp;
     }(_AbstractWorkAnimation));
-    ABeamer._WorkAnimationProp = _WorkAnimationProp;
+    BeamToIX._WorkAnimationProp = _WorkAnimationProp;
     // ------------------------------------------------------------------------
     //                               Teleportation
     // ------------------------------------------------------------------------
     function _prepareAnimationsForTeleporting(animes, args) {
         animes.forEach(function (anime) {
             if (anime.tasks) {
-                ABeamer._prepareTasksForTeleporting(anime, anime.tasks, args);
+                BeamToIX._prepareTasksForTeleporting(anime, anime.tasks, args);
             }
         });
     }
-    ABeamer._prepareAnimationsForTeleporting = _prepareAnimationsForTeleporting;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._prepareAnimationsForTeleporting = _prepareAnimationsForTeleporting;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=animations.js.map

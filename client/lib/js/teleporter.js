@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -31,17 +31,17 @@
  * or in case there is a faster machine available for rendering,
  * specially when the story contains heavy computational WebGL elements.
  *
- * The [ABeamer Animation Editor](animation-editor.md) will allow
+ * The [BeamToIX Animation Editor](animation-editor.md) will allow
  * to bring the remote rending to new heights.
  *
- * Without the ABeamer Animation Editor, it's required that the user has
+ * Without the BeamToIX Animation Editor, it's required that the user has
  * basic skills of CSS and HTML. JavaScript programming skills aren't required.
  *
  * Due restrictions imposed by [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
  * It's required that:
  *
  * - The client either runs on a remote link or runs under a live server.
- *   ABeamer includes a live server. Just execute `abeamer serve`
+ *   BeamToIX includes a live server. Just execute `beamtoix serve`
  * - The render server agent must execute the url from a live server.
  *
  * With the current technology still has following limitations,
@@ -62,10 +62,10 @@
  *
  * The whole process is fairly simple, just follow these steps:
  *
- * - create a project using abeamer command line called `my-project`.
+ * - create a project using beamtoix command line called `my-project`.
  *
  * ```shell
- * abeamer create my-project
+ * beamtoix create my-project
  * ```
  *
  * - download [animate-transitions](/gallery/latest/animate-transitions/code.zip),
@@ -77,7 +77,7 @@
  * - Run the live server:
  *
  * ```shell
- * abeamer serve
+ * beamtoix serve
  * ```
  *
  * Due CORS and since this is a local file it requires a live server.
@@ -85,15 +85,15 @@
  * - Execute:
  *
  * ```shell
- * abeamer render my-project --url http://localhost:9000/my-project/ --teleport
+ * beamtoix render my-project --url http://localhost:9000/my-project/ --teleport
  * ```
  *
  * This will create a file called `story.json` on `my-project` folder.
  *
- * - create a project using abeamer command line called `server`.
+ * - create a project using beamtoix command line called `server`.
  *
  * ```shell
- * abeamer create server
+ * beamtoix create server
  * ```
  *
  * Download [remote-server](/gallery/latest/remote-server/code.zip),
@@ -106,7 +106,7 @@
  * - Execute:
  *
  * ```shell
- * abeamer render \
+ * beamtoix render \
  * --url http://localhost:9000/server/ \
  * --allowed-plugins server/.allowed-plugins.json \
  * --inject-page server/index.html \
@@ -134,11 +134,11 @@
  * This data was generated via `story.getStoryToTeleport()`
  * This is the data you have to send via Ajax to the remote server.
  *
- * In this case, it's no longer needed: `abeamer render --teleport`, nor access to the computer disk.
+ * In this case, it's no longer needed: `beamtoix render --teleport`, nor access to the computer disk.
  *
  * ## How it works?
  *
- * When a story is created with `toTeleport = true`, ABeamer will:
+ * When a story is created with `toTeleport = true`, BeamToIX will:
  *
  * 1. Store a copy of the initial html and CSS (due CORS, it requires a live server).
  * 2. When transitions, stills or pEls are used, it will behave differently in order to be recorded into a file.
@@ -150,7 +150,7 @@
  *
  * `getStoryToTeleport` will return a string, if you want to add more parameters,
  * use `getStoryToTeleportAsConfig`, and it will return an Object.
- * ABeamer uses only `config.abeamer` record inside the generated object,
+ * BeamToIX uses only `config.beamtoix` record inside the generated object,
  * any other field can be used to store extra data.
  *
  * The remote machine has an empty story body,
@@ -160,7 +160,7 @@
  *
  * ## Security tips
  *
- * ABeamer is an open-source library, which runs inside a contained environment such as a web browser,
+ * BeamToIX is an open-source library, which runs inside a contained environment such as a web browser,
  * and doesn't allows the execution of any javascript code except from plugins.
  * However, in order to prevent malicious users or plugins, ensure that:
  *
@@ -169,18 +169,18 @@
  * 3. Don't place any password files accessible to the live server.
  * 4. The provided live server, is just a simple live server, consider using a more restrict live server.
  * 5. Blacklist from the browser the access to the local network resources.
- * 6. Use only the latest versions of the ABeamer, browser, and render server.
- * 7. Set the maxWidth, maxHeight, maxFps and maxFrameCount parameters for `abeamer render`
+ * 6. Use only the latest versions of the BeamToIX, browser, and render server.
+ * 7. Set the maxWidth, maxHeight, maxFps and maxFrameCount parameters for `beamtoix render`
  * 8. Move the files .allowed-plugins.json and story.json from the user access.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     var _InnerConfig = /** @class */ (function () {
         function _InnerConfig() {
         }
         return _InnerConfig;
     }());
-    ABeamer._InnerConfig = _InnerConfig;
+    BeamToIX._InnerConfig = _InnerConfig;
     var _Teleporter = /** @class */ (function () {
         function _Teleporter(story, cfg, isTeleport) {
             this._active = false;
@@ -188,22 +188,22 @@ var ABeamer;
             this._story = story;
             this._cfg = cfg;
             if (isTeleport) {
-                ABeamer.pluginManager._plugins.forEach(function (plugin) {
+                BeamToIX.pluginManager._plugins.forEach(function (plugin) {
                     if (!plugin.teleportable) {
-                        ABeamer.throwErr("Plugin ".concat(plugin.id, " doesn't supports teleporting"));
+                        BeamToIX.throwErr("Plugin ".concat(plugin.id, " doesn't supports teleporting"));
                     }
                 });
                 this._active = true;
                 // these parameters should come first
-                cfg.version = ABeamer.VERSION;
-                cfg.locale = ABeamer.pluginManager._locale;
+                cfg.version = BeamToIX.VERSION;
+                cfg.locale = BeamToIX.pluginManager._locale;
                 cfg.file = cfg.file || "__PROJDIR__/index.html";
                 cfg.renderPos = 0;
                 cfg.renderCount = 0;
                 cfg.userAgent = window.navigator.userAgent;
                 cfg.metadata = {};
                 // this parameters because tend to be longer should come at the end.
-                cfg.plugins = ABeamer.pluginManager._plugins;
+                cfg.plugins = BeamToIX.pluginManager._plugins;
                 cfg.animations = [];
             }
             else {
@@ -225,7 +225,7 @@ var ABeamer;
             this._cfg.renderPos = this._story.renderFramePos;
             this._cfg.renderCount = this._story.renderFrameCount;
             this._cfg.metadata = this._story.metadata;
-            return { config: { abeamer: this._cfg } };
+            return { config: { beamtoix: this._cfg } };
         };
         _Teleporter.prototype._rebuildStory = function () {
             var story = this._story;
@@ -263,7 +263,7 @@ var ABeamer;
         };
         return _Teleporter;
     }());
-    ABeamer._Teleporter = _Teleporter;
+    BeamToIX._Teleporter = _Teleporter;
     function _getStoryCSS() {
         var pageRoot = _getPageRoot();
         var styleSheets = window.document.styleSheets;
@@ -272,7 +272,7 @@ var ABeamer;
             var style = styleSheets[sheetI];
             var styleHref = style.href;
             if (styleHref.endsWith('normalize.css')
-                || styleHref.endsWith('abeamer.min.css')) {
+                || styleHref.endsWith('beamtoix.min.css')) {
                 continue;
             }
             var path = styleHref.startsWith(pageRoot) ?
@@ -295,7 +295,7 @@ var ABeamer;
             src.forEach(function (item) {
                 switch (typeof item) {
                     case 'function':
-                        ABeamer.throwI8n(ABeamer.Msgs.NoCode);
+                        BeamToIX.throwI8n(BeamToIX.Msgs.NoCode);
                         break;
                     case 'object':
                         dst.push(_filteredDeepCopy(item, Array.isArray(item) ? [] : {}));
@@ -311,7 +311,7 @@ var ABeamer;
                     var item = src[key];
                     switch (typeof item) {
                         case 'function':
-                            ABeamer.throwI8n(ABeamer.Msgs.NoCode);
+                            BeamToIX.throwI8n(BeamToIX.Msgs.NoCode);
                             break;
                         case 'object':
                             dst[key] = Array.isArray(item) ? [] : {};
@@ -351,7 +351,7 @@ var ABeamer;
      */
     function _handleVendorPrefixes(text) {
         return text.replace(/([\w\-]+)\s*:([^;]*;)/g, function (_all, propName, propValue) {
-            var propNames = ABeamer._propNameToVendorProps(propName);
+            var propNames = BeamToIX._propNameToVendorProps(propName);
             return propNames.map(function (name) { return "".concat(name, ": ").concat(propValue); }).join(' ');
         });
     }
@@ -369,5 +369,5 @@ var ABeamer;
             return "url(\"".concat(newLink, "\")");
         });
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=teleporter.js.map

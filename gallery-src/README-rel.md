@@ -1,23 +1,23 @@
 # Description
 
-This repository contains a list of examples that highlights **ABeamer** features.
+This repository contains a list of examples that highlights **BeamToIX** features.
 
 Each example contains link to download the example code.
 
 ## Usage
 
-1. Install **ABeamer**.
+1. Install **BeamToIX**.
 
 ```shell
-$ npm install -g abeamer
+$ npm install -g beamtoix
 ```
 
-Before continue, read about the details on abeamer page.
+Before continue, read about the details on beamtoix page.
 
 2. Create a project
 
 ```shell
-$ abeamer create my-project
+$ beamtoix create my-project
 $ cd my-project
 ```
 

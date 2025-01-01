@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@
  * - Use only functions and plugins that supports teleporting.
  *
  * **WARNING** This example is built to be teleported for testing purposes,
- * using `abeamer render --teleport`.
+ * using `beamtoix render --teleport`.
  * read more details on teleport documentation.
  *
  * For production mode, uncomment the code lines with comments to get the
@@ -22,10 +22,10 @@
  */
 $(window).on("load", () => {
 
-  const story: ABeamer.Story = ABeamer.createStory(/*FPS:*/20,
+  const story: BeamToIX.Story = BeamToIX.createStory(/*FPS:*/20,
 
     // uncomment the code line bellow to create a `getStoryToTeleport`.
-    // For testing purposes, just run `abeamer render --teleport`
+    // For testing purposes, just run `beamtoix render --teleport`
     // read more details on teleport documentation.
 
     // { toTeleport: true }
@@ -93,7 +93,7 @@ $(window).on("load", () => {
           duration: '1s',
           value: 133,
           iterationCount: 2,
-          direction: ABeamer.Directions.alternate,
+          direction: BeamToIX.Directions.alternate,
         }, {
           prop: 'top',
           duration: 1,
@@ -115,7 +115,7 @@ $(window).on("load", () => {
           duration: '1s',
           value: 5,
           iterationCount: 2,
-          direction: ABeamer.Directions.alternate,
+          direction: BeamToIX.Directions.alternate,
         },
       ],
     }]);
@@ -161,7 +161,7 @@ $(window).on("load", () => {
   // ------------------------------------------------------------------------
 
   scene1.transition = {
-    handler: ABeamer.StdTransitions.slideLeft,
+    handler: BeamToIX.StdTransitions.slideLeft,
     duration: '1s',
   };
 
@@ -173,9 +173,9 @@ $(window).on("load", () => {
         {
           handler: 'scene-transition',
           params: {
-            handler: ABeamer.StdTransitions.slideTop,
+            handler: BeamToIX.StdTransitions.slideTop,
             duration: '1s',
-          } as ABeamer.SceneTransitionTaskParams,
+          } as BeamToIX.SceneTransitionTaskParams,
         },
       ],
     }]);

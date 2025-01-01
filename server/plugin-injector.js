@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PluginInjector = void 0;
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Checks if plugins are valid and inject their css and js into the index.html
@@ -46,9 +46,9 @@ var PluginInjector;
         });
         var content = readUtf8Sync(PluginInjector.injectPage);
         writeFileSync(PluginInjector.injectPage + '.bak.html', content);
-        var urlMatches = content.match(/["']([^"']+)\/css\/abeamer\.[\w\.]*css["']/);
+        var urlMatches = content.match(/["']([^"']+)\/css\/beamtoix\.[\w\.]*css["']/);
         if (!urlMatches) {
-            throw "Couldn't parse abeamer script link";
+            throw "Couldn't parse beamtoix script link";
         }
         var urlBase = urlMatches[1];
         // inject js scripts

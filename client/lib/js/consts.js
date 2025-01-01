@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Defines global constants
@@ -14,27 +14,27 @@
  * This module will generate a node module,
  * therefore it can't contain external references.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               Logging Type
     // ------------------------------------------------------------------------
-    ABeamer.LT_MSG = 0;
-    ABeamer.LT_WARN = 1;
-    ABeamer.LT_ERROR = 2;
+    BeamToIX.LT_MSG = 0;
+    BeamToIX.LT_WARN = 1;
+    BeamToIX.LT_ERROR = 2;
     // ------------------------------------------------------------------------
     //                               Logging Level
     // ------------------------------------------------------------------------
-    ABeamer.LL_SILENT = 0;
-    ABeamer.LL_ERROR = 1;
-    ABeamer.LL_WARN = 2;
-    ABeamer.LL_VERBOSE = 3;
+    BeamToIX.LL_SILENT = 0;
+    BeamToIX.LL_ERROR = 1;
+    BeamToIX.LL_WARN = 2;
+    BeamToIX.LL_VERBOSE = 3;
     // ------------------------------------------------------------------------
     //                               Args Stage
     // ------------------------------------------------------------------------
-    ABeamer.AS_UNKNOWN = 0;
-    ABeamer.AS_ADD_ANIMATION = 1;
-    ABeamer.AS_RENDERING = 2;
-    ABeamer.AS_STORY = 3;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX.AS_UNKNOWN = 0;
+    BeamToIX.AS_ADD_ANIMATION = 1;
+    BeamToIX.AS_RENDERING = 2;
+    BeamToIX.AS_STORY = 3;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=consts.js.map

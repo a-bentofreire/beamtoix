@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -12,7 +12,7 @@
  * This module isolates all the property interpolations,
  * allowing to break down the complexity and perform unit tests.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   /** Var used only for internal testing via exact framework  */
   export let _TEST_DIGIT_LIMIT: int = 1000;
@@ -57,7 +57,7 @@ namespace ABeamer {
    */
   function _parseParseValueHandler(
     value: PropValueHandler,
-    curValue: number, args: ABeamerArgs): AnimPropValue {
+    curValue: number, args: BeamToIXArgs): AnimPropValue {
 
     value = _parseStartValueHandler(value, args);
     if (typeof value === 'string') {
@@ -87,7 +87,7 @@ namespace ABeamer {
    * and if it's a function it computes the function.
    */
   function _parseStartValueHandler(value: PropValueStartHandler,
-    args: ABeamerArgs): PropValueHandler {
+    args: BeamToIXArgs): PropValueHandler {
 
     return parseHandler<PropValueStartHandler, PropValueHandler>(value,
       undefined, undefined, args);
@@ -109,7 +109,7 @@ namespace ABeamer {
     attachSelector(elementAdpt: _ElementAdapter,
       elActRg: _ElActionRg,
       _isVerbose: boolean,
-      args: ABeamerArgs): void {
+      args: BeamToIXArgs): void {
 
       const self = this;
       const realPropName = this.realPropName;
@@ -363,7 +363,7 @@ namespace ABeamer {
   export function _applyAction(action: _Action,
     elAdapter: _ElementAdapter,
     isVerbose: boolean,
-    args: ABeamerArgs,
+    args: BeamToIXArgs,
     simulateOnly: boolean = false): ActionNumValue {
 
     const actRg = action.actRg;

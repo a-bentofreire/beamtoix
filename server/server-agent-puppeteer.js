@@ -52,7 +52,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Server executed within the context of puppeteer (chrome-headless)
@@ -103,7 +103,7 @@ var ServerAgent;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0: return [4 /*yield*/, page.evaluate(function (_cmd, _value) {
-                                    _abeamer._internalGetServerMsg.call(_abeamer, _cmd, _value);
+                                    _beamtoix._internalGetServerMsg.call(_beamtoix, _cmd, _value);
                                 }, cmd, value)];
                             case 1:
                                 _a.sent();

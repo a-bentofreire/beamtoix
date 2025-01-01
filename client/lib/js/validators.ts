@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -13,7 +13,7 @@
  * are within the expected space.
  * Mostly to be used by plugin creators or developers.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   export function throwErr(msg: string): void {
     throw msg;

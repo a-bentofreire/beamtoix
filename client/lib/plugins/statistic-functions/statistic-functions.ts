@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -31,17 +31,17 @@
  * `=std([4, 60]+[12, 4])`
  *
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // ------------------------------------------------------------------------
   //                               Implementation
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.statistic-functions',
+    id: 'beamtoix.statistic-functions',
     uuid: '65d49e17-e471-4f91-9643-8c6f13ec8d79',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/statistic-functions/statistic-functions.js'],
     teleportable: true,
   });

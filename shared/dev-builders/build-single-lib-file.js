@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BuildSingleLibFile = void 0;
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 var sysFs = require("fs");
@@ -25,10 +25,10 @@ var BuildSingleLibFile;
             var srcFileName = "".concat(srcPath, "/").concat(fileTitle, ".ts");
             outputList.push(fsix_js_1.fsix.readUtf8Sync(srcFileName));
         });
-        var output = WARN_MSG + '\nnamespace ABeamer {'
+        var output = WARN_MSG + '\nnamespace BeamToIX {'
             + outputList.join('\n')
                 .replace(/}\s*\n+\s*"use strict";/g, '') // removes the inter namespaces
-                .replace(/namespace ABeamer\s*{/g, '')
+                .replace(/namespace BeamToIX\s*{/g, '')
                 .replace(/export\s+(\w+)\s+_(\w+)/g, function (all, tokType, id) {
                 return excludeIdList.indexOf(id) === -1 ? "".concat(tokType, " _").concat(id) : all;
             });

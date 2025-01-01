@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ServerAgent = void 0;
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Base server class for other servers agents
@@ -148,7 +148,7 @@ var ServerAgent;
             var _this = this;
             var cfgConfigData = cfg['config'];
             if (cfgConfigData) {
-                var pCfg_1 = cfgConfigData['abeamer'];
+                var pCfg_1 = cfgConfigData['beamtoix'];
                 if (pCfg_1) {
                     args.splice(0, argI + 1);
                     argI = 0;
@@ -183,7 +183,7 @@ var ServerAgent;
             // very basic .ini variables parser
             // @TODO: place this code in a external module so it can be used by the library and the cli
             cfgText.split(/\n/).forEach(function (line) {
-                return line.replace(/^\s*[\$@]abeamer-([\w+-]+)\s*:\s*"?([^\n"]+)"?\s*;\s*$/, function (_all, p1, p2) {
+                return line.replace(/^\s*[\$@]beamtoix-([\w+-]+)\s*:\s*"?([^\n"]+)"?\s*;\s*$/, function (_all, p1, p2) {
                     if (_this.isVerbose) {
                         console.log("config: ".concat(p1, "=[").concat(p2, "]"));
                     }
@@ -197,7 +197,7 @@ var ServerAgent;
         BaseServer.prototype.parseConfig = function (args, cfgText, configFileName, argI) {
             return this.parseJsonConfig(args, configFileName.match(/\.json$/)
                 ? JSON.parse(cfgText)
-                : { config: { abeamer: this.parseIniCfgContent(cfgText) } }, configFileName, argI);
+                : { config: { beamtoix: this.parseIniCfgContent(cfgText) } }, configFileName, argI);
         };
         // ------------------------------------------------------------------------
         //                               Parse Arguments
@@ -211,7 +211,7 @@ var ServerAgent;
                     return '';
                 }
                 if (self.existsSync(configFileName) && self.isDirectory(configFileName)) {
-                    configFileName = self.posixPathJoin(configFileName, 'abeamer.ini');
+                    configFileName = self.posixPathJoin(configFileName, 'beamtoix.ini');
                 }
                 if (!self.existsSync(configFileName)) {
                     throw "Config file ".concat(configFileName, " doesn't exists");

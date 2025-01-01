@@ -9,7 +9,7 @@ An **expression** is a textual value that starts with `=`.
 Expressions unlike [Code Handlers](glossary.md#code-handler) can be defined on the `.json`  
 config file and support teleporting.  
   
-ABeamer supports:  
+BeamToIX supports:  
   
 - binary operators: `+`, `-`, `*`, `/`, `%` (modulus).  
      Work both with numbers and arrays.  
@@ -32,7 +32,7 @@ ABeamer supports:
   
 ## Built-in Variables
   
-ABeamer has the following built-in variables:  
+BeamToIX has the following built-in variables:  
   
 `e` - mathematical constant 'e'.  
 `pi` - mathematical constant 'pi'.  
@@ -363,7 +363,7 @@ Supported cases:
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-function">function</span>    
 ```js
-export function calcExpr(expr: string, args: ABeamerArgs): ExprResult;
+export function calcExpr(expr: string, args: BeamToIXArgs): ExprResult;
 ```
 
 
@@ -376,7 +376,7 @@ Used mostly by plugin creators and developers.
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-function">function</span>    
 ```js
 export function ifExprCalc(expr: string,
-    args: ABeamerArgs): ExprResult | undefined;
+    args: BeamToIXArgs): ExprResult | undefined;
 ```
 
 
@@ -389,7 +389,7 @@ Used mostly by plugin creators and developers.
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-function">function</span>    
 ```js
 export function ifExprCalcNum(expr: string, defNumber: number | undefined,
-    args: ABeamerArgs): number | undefined;
+    args: BeamToIXArgs): number | undefined;
 ```
 
 
@@ -401,7 +401,7 @@ Used mostly by plugin creators and developers.
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-function">function</span>    
 ```js
-export function calcStr(expr: string, args: ABeamerArgs): string;
+export function calcStr(expr: string, args: BeamToIXArgs): string;
 ```
 
 
@@ -413,7 +413,7 @@ If isStrict, checks if the return value is textual, if not throws error.
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-function">function</span>    
 ```js
 export function ifExprCalcStr(expr: string, defString: string | undefined,
-    args: ABeamerArgs): string | undefined;
+    args: BeamToIXArgs): string | undefined;
 ```
 
 
@@ -426,7 +426,7 @@ Used mostly by plugin creators and developers.
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-function">function</span>    
 ```js
 export function ExprOrNumToNum(param: ExprString | number,
-    defValue: number | undefined, args: ABeamerArgs): number | undefined;
+    defValue: number | undefined, args: BeamToIXArgs): number | undefined;
 ```
 
 
@@ -439,7 +439,7 @@ Used mostly by plugin creators and developers.
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-function">function</span>    
 ```js
 export function ExprOrStrToStr(param: ExprString | string,
-    defValue: string | undefined, args: ABeamerArgs): string | undefined;
+    defValue: string | undefined, args: BeamToIXArgs): string | undefined;
 ```
 
 

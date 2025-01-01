@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story = ABeamer.createStory(/*FPS:*/20);
+  const story = BeamToIX.createStory(/*FPS:*/20);
 
   // ------------------------------------------------------------------------
   //                               Scene1
@@ -23,7 +23,7 @@ $(window).on("load", () => {
             sec: 6,
             barCount: 10,
           },
-        } as ABeamer.AddVarsTaskParams,
+        } as BeamToIX.AddVarsTaskParams,
       }],
     },
     {
@@ -61,7 +61,7 @@ $(window).on("load", () => {
                 value: 'bar',
               },
             ],
-          } as ABeamer.FactoryTaskParams,
+          } as BeamToIX.FactoryTaskParams,
         },
       ],
     }, {
@@ -98,8 +98,8 @@ $(window).on("load", () => {
             handler: 'harmonic',
             params: {
               cycles: 2,
-              negativeHander: ABeamer.NegativeBuiltInFuncs.abs,
-            } as ABeamer.HarmonicOscillatorParams,
+              negativeHander: BeamToIX.NegativeBuiltInFuncs.abs,
+            } as BeamToIX.HarmonicOscillatorParams,
           },
           valueStart: 0,
         },
@@ -121,8 +121,8 @@ $(window).on("load", () => {
               handler: 'harmonic',
               params: {
                 cycles: 0.5,
-                negativeHander: ABeamer.NegativeBuiltInFuncs.abs,
-              } as ABeamer.HarmonicOscillatorParams,
+                negativeHander: BeamToIX.NegativeBuiltInFuncs.abs,
+              } as BeamToIX.HarmonicOscillatorParams,
             },
             valueText: '=1-t',
             valueStart: 0,
@@ -132,8 +132,8 @@ $(window).on("load", () => {
               handler: 'harmonic',
               params: {
                 cycles: 0.5,
-                negativeHander: ABeamer.NegativeBuiltInFuncs.abs,
-              } as ABeamer.HarmonicOscillatorParams,
+                negativeHander: BeamToIX.NegativeBuiltInFuncs.abs,
+              } as BeamToIX.HarmonicOscillatorParams,
             },
             valueText: "='0 0 ' + round(8*(1-t)) + 'px white'",
             valueStart: 0,

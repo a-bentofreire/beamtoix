@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story = ABeamer.createStory(/*FPS:*/20);
+  const story = BeamToIX.createStory(/*FPS:*/20);
 
   // ------------------------------------------------------------------------
   //                               Scene1

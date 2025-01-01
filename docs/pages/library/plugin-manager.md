@@ -15,7 +15,7 @@ Plugins creators who wish to create a plugin to support [teleporter](teleporter.
 - Set the `pluginInfo.teleportable = true`.  
 - Follow the [Developer Guideline Rules](../../../../../developer/dev-docs/coding-style).  
   
-ABeamer allows plugins to add the following functionality types:  
+BeamToIX allows plugins to add the following functionality types:  
   
 - [easings](easings.md)
 - [oscillators](roadmap.md#oscillators)
@@ -29,7 +29,7 @@ ABeamer allows plugins to add the following functionality types:
 To add a functionality use: `pluginManager.add<functionality-type>`.  
   
 In most cases, a functionality is a function that receives a set of parameters
-followed by `args?:ABeamerArgs`.  
+followed by `args?:BeamToIXArgs`.  
 This last parameter will provide information regarding the state of the system.  
   
 Plugins should try to be independent of DOM in order to work
@@ -121,67 +121,67 @@ export interface AnyParams { [key: string]: any;{ }
 ```
 
 <div class=class-interface-header>&nbsp;</div>
-## AnyParams.ABeamerArgs
+## AnyParams.BeamToIXArgs
 
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-interface">interface</span>  [[AnyParams](plugin-manager.md#anyparams)]  
 ```js
-export interface ABeamerArgs{ }
+export interface BeamToIXArgs{ }
 ```
 
-### ABeamerArgs.story
+### BeamToIXArgs.story
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 story?: Story;
 ```
 
-### ABeamerArgs.scene
+### BeamToIXArgs.scene
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 scene?: Scene;
 ```
 
-### ABeamerArgs.stage
+### BeamToIXArgs.stage
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 stage?: uint;
 ```
 
-### ABeamerArgs.renderNr
+### BeamToIXArgs.renderNr
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 renderNr?: uint;
 ```
 
 Every time, the render is executed this value is incremented.
-### ABeamerArgs.user
+### BeamToIXArgs.user
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 user?: AnyParams;
 ```
 
-### ABeamerArgs.waitMan
+### BeamToIXArgs.waitMan
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 waitMan?: WaitMan;
 ```
 
-### ABeamerArgs.isVerbose
+### BeamToIXArgs.isVerbose
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 isVerbose?: boolean;
 ```
 
 If true, the internal code or plugin should dump information using `story.logFrmt`.
-### ABeamerArgs.hasServer
+### BeamToIXArgs.hasServer
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 hasServer?: boolean;
 ```
@@ -191,24 +191,24 @@ True if it's running a supporting server program for frame storage.
 
 
 
-### ABeamerArgs.isTeleporting
+### BeamToIXArgs.isTeleporting
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 isTeleporting?: boolean;
 ```
 
-### ABeamerArgs.isStrict
+### BeamToIXArgs.isStrict
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 isStrict?: boolean;
 ```
 
 If true, perform type checks and other restriction checks.
-### ABeamerArgs.vars
+### BeamToIXArgs.vars
 
-<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[ABeamerArgs](ABeamerArgs)]  
+<span class="code-badge badge-public">public</span> <span class="code-badge badge-property">property</span>  [[BeamToIXArgs](BeamToIXArgs)]  
 ```js
 vars: Vars;
 ```

@@ -1,9 +1,9 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
-// Adapts the easing functions from jquery.easing.min.js to ABeamer interface
+// Adapts the easing functions from jquery.easing.min.js to BeamToIX interface
 // and implements extra built-in easings
 /** @module end-user | The lines bellow convey information for the end-user */
 /**
@@ -41,7 +41,7 @@
  *
  * ## Built-in easings
  *
- * ABeamer includes a list of the most common easings by
+ * BeamToIX includes a list of the most common easings by
  * bundling the jquery.easing plugin.
  * More can be added via plugins.
  *
@@ -49,8 +49,8 @@
  *
  * @default linear
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Easings
@@ -89,10 +89,10 @@ var ABeamer;
         EasingName[EasingName["easeInBounce"] = 28] = "easeInBounce";
         EasingName[EasingName["easeOutBounce"] = 29] = "easeOutBounce";
         EasingName[EasingName["easeInOutBounce"] = 30] = "easeInOutBounce";
-    })(EasingName = ABeamer.EasingName || (ABeamer.EasingName = {}));
+    })(EasingName = BeamToIX.EasingName || (BeamToIX.EasingName = {}));
     // #export-section-end: release
     // -------------------------------
-    ABeamer._easingFunctions = {
+    BeamToIX._easingFunctions = {
         linear: function (t) {
             return t;
         },
@@ -100,18 +100,18 @@ var ABeamer;
     function _easingNumToStr(num) {
         return EasingName[num];
     }
-    ABeamer._easingNumToStr = _easingNumToStr;
+    BeamToIX._easingNumToStr = _easingNumToStr;
     var excludeFunctions = ['linear', 'swing', '_default', 'def'];
     Object.keys($.easing).forEach(function (name) {
         if (excludeFunctions.indexOf(name) !== -1) {
             return;
         }
-        ABeamer._easingFunctions[name] = function (t) { return $.easing[name](0, t, 0, 1, 1); };
+        BeamToIX._easingFunctions[name] = function (t) { return $.easing[name](0, t, 0, 1, 1); };
     });
     function _expressionEasing(t, params, args) {
-        ABeamer._vars.t = t;
-        return parseFloat(ABeamer.calcExpr(params._expression, args));
+        BeamToIX._vars.t = t;
+        return parseFloat(BeamToIX.calcExpr(params._expression, args));
     }
-    ABeamer._expressionEasing = _expressionEasing;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._expressionEasing = _expressionEasing;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=easings.js.map

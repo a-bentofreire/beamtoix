@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 var exact_js_1 = require("../exact.js");
@@ -23,7 +23,7 @@ var Tests;
                 // tslint:disable-next-line:no-eval
                 || (eval(expr.substr(1))).toString(),
         });
-        jsMacros.push(["\"f".concat(i, "\""), "function (t) {\n          if (t === 0) {\n            var actual = ABeamer.calcExpr(\"".concat(expr, "\", story._args);\n          }\n      return t;\n    }")]);
+        jsMacros.push(["\"f".concat(i, "\""), "function (t) {\n          if (t === 0) {\n            var actual = BeamToIX.calcExpr(\"".concat(expr, "\", story._args);\n          }\n      return t;\n    }")]);
     }
     // @TODO: Implement array testing
     // add('=[56.4, 6, 7]', 'simple array', '56.4,6,7');
@@ -36,10 +36,10 @@ var Tests;
     add('=  12 + 24 +    8 * 2 * 4 + 7');
     add('=  12 / 24 +    8 * 2 / 4 + 7');
     // test string variables
-    add("=  'abeamer'", 'string values', 'abeamer');
+    add("=  'beamtoix'", 'string values', 'beamtoix');
     add("=  'travel ' + 'around ' + 'world' ", 'string concatenation', 'travel around world');
     // @TODO: add a test new line meta chars. Requires some changes in the code.
-    add("='abeamer \\\\'animation\\\\' '", 'string meta chars', "abeamer 'animation' ");
+    add("='beamtoix \\\\'animation\\\\' '", 'string meta chars', "beamtoix 'animation' ");
     // test parenthesis
     add('=  (5) ', 'simple parenthesis');
     add('=  (5 + 3) ');

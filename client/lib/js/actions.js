@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module internal | This module is to be read only by developers */
@@ -17,8 +17,8 @@
  * **ActionRg** is used to monitor what was the previous value of a property,
  * and each frames it can bypassed.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               Actions
     // ------------------------------------------------------------------------
@@ -64,12 +64,12 @@ var ABeamer;
             var lastActionRg = actionRgList[res.linkIndex];
             actionRg.propType = lastActionRg.propType;
             if (lastActionRg.endFrame >= startFrame) {
-                ABeamer.throwErr("overlapping property animations is not supported." +
+                BeamToIX.throwErr("overlapping property animations is not supported." +
                     "".concat(lastActionRg.endFrame, " must be higher than ").concat(startFrame));
             }
         }
         return res;
     }
-    ABeamer._findActionRg = _findActionRg;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._findActionRg = _findActionRg;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=actions.js.map

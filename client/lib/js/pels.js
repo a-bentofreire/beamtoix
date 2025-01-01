@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements pEls classes
@@ -39,8 +39,8 @@
  * @see gallery/animate-wrappers
  *
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               pEls
     // ------------------------------------------------------------------------
@@ -52,7 +52,7 @@ var ABeamer;
             this._elementAdapters = scene.getElementAdapters(selector);
         }
         _pEls.prototype.getSelector = function () {
-            return ABeamer._vars.isTeleporting ? this._selector : this;
+            return BeamToIX._vars.isTeleporting ? this._selector : this;
         };
         /**
          * Wrapper for `scene.addAnimation` with `visible = false`,
@@ -74,7 +74,7 @@ var ABeamer;
                 [{
                         selector: selector,
                         position: '-1f',
-                        duration: duration || ABeamer.DEFAULT_FADE_DURATION,
+                        duration: duration || BeamToIX.DEFAULT_FADE_DURATION,
                         props: [
                             {
                                 prop: 'opacity',
@@ -94,7 +94,7 @@ var ABeamer;
             this._scene.addSerialAnimations([
                 [{
                         selector: selector,
-                        duration: duration || ABeamer.DEFAULT_FADE_DURATION,
+                        duration: duration || BeamToIX.DEFAULT_FADE_DURATION,
                         props: [
                             {
                                 prop: 'opacity',
@@ -166,6 +166,6 @@ var ABeamer;
         };
         return _pEls;
     }());
-    ABeamer._pEls = _pEls;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX._pEls = _pEls;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=pels.js.map

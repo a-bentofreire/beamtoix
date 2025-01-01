@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of built-in attack Tasks
@@ -17,8 +17,8 @@
  *
  * - `color-attack` - produces a change in colors, returning to the original color at the end.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Attack Tasks
@@ -28,22 +28,22 @@ var ABeamer;
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addPlugin({
-        id: 'abeamer.attack-tasks',
+    BeamToIX.pluginManager.addPlugin({
+        id: 'beamtoix.attack-tasks',
         uuid: 'e98cfe21-ec23-4545-88eb-829a0e9add39',
         author: 'Alexandre Bento Freire',
-        email: 'abeamer@a-bentofreire.com',
+        email: 'beamtoix@a-bentofreire.com',
         jsUrls: ['plugins/attack-tasks/attack-tasks.js'],
         teleportable: true,
     });
-    ABeamer.pluginManager.addTasks([['color-attack', _colorAttack]]);
+    BeamToIX.pluginManager.addTasks([['color-attack', _colorAttack]]);
     /** Implements the Color Attack Task */
     function _colorAttack(anime, _wkTask, params, stage, args) {
         switch (stage) {
-            case ABeamer.TS_INIT:
+            case BeamToIX.TS_INIT:
                 var attack = params.attack;
                 var propName = params.prop || 'color';
-                var cycles = ABeamer.ExprOrNumToNum(params.cycles, 1, args);
+                var cycles = BeamToIX.ExprOrNumToNum(params.cycles, 1, args);
                 var endColor = params.endColor;
                 var finalAttack = [];
                 for (var i = 0; i < cycles; i++) {
@@ -62,8 +62,8 @@ var ABeamer;
                     anime.props = [];
                 }
                 anime.props.push({ prop: propName, valueText: finalAttack });
-                return ABeamer.TR_DONE;
+                return BeamToIX.TR_DONE;
         }
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=attack-tasks.js.map

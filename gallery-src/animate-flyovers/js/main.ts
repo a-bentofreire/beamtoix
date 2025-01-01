@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story = ABeamer.createStory(/*FPS:*/20);
+  const story = BeamToIX.createStory(/*FPS:*/20);
 
   // ------------------------------------------------------------------------
   //                               Scene1
@@ -47,7 +47,7 @@ $(window).on("load", () => {
             handler: 'pulsar',
             params: {
               spread: 0.4,
-            } as ABeamer.PulsarOscillatorParams,
+            } as BeamToIX.PulsarOscillatorParams,
           },
           iterationCount: 4,
           valueStart: '0px',
@@ -64,7 +64,7 @@ $(window).on("load", () => {
   );
 
 
-  // [TOPIC] Adding a flyover using a ABeamer command
+  // [TOPIC] Adding a flyover using a BeamToIX command
   story.addFlyover('info', {
     selector: '#flyover',
     format: 'story-frame: ${storyFrameNr}',
@@ -82,7 +82,7 @@ $(window).on("load", () => {
             selector: '#flyover2',
             format: 'story-time: ${storyElapsedS}',
           },
-        } as ABeamer.AddFlyoverTaskParams,
+        } as BeamToIX.AddFlyoverTaskParams,
       }],
     }]);
 

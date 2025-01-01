@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of built-in functions
@@ -15,10 +15,10 @@
  * and official plugins can create functions that support [teleportation](teleporter.md).
  *
  * ## Core functions
- * **WARNING!** In the ABeamer 2.x these core functions will move `core-functions` plugin.
+ * **WARNING!** In the BeamToIX 2.x these core functions will move `core-functions` plugin.
  * To prevent breaking changes include now the js script `core-functions.js` on the html file.
  *
- * ABeamer has the following core functions:
+ * BeamToIX has the following core functions:
  *
  * - `sin` - 'sine' trigonometric function.
  * - `cos` - 'cosine' trigonometric function.
@@ -63,7 +63,7 @@
  *
  * ## Examples
  *
- * @example = substr('ABeamer', 4, 4)
+ * @example = substr('BeamToIX', 4, 4)
  * @example = round(12.4)
  * @example = get([10,30,15],1)
  * it returns `30`
@@ -72,22 +72,22 @@
  *
  * ## Arrays
  *
- * Since ABeamer 1.6 that single numerical argument functions also support arrays.
+ * Since BeamToIX 1.6 that single numerical argument functions also support arrays.
  * The operation is perform for each element, and it returns an array.
  * The array functions can be composed.
  *
  * @example = round(sqrt([12.4, 75, 10]))
  *
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Functions
     // ------------------------------------------------------------------------
     // #export-section-end: release
     // -------------------------------
-    ABeamer._exFunctions = {};
+    BeamToIX._exFunctions = {};
     // ------------------------------------------------------------------------
     //                               Built-in functions
     // ------------------------------------------------------------------------
@@ -96,7 +96,7 @@ var ABeamer;
      * and 1 numerical output.
      */
     function _math1ParamFunc(params, req, f) {
-        ABeamer.arrayInputHelper(params, req, 1, undefined, f);
+        BeamToIX.arrayInputHelper(params, req, 1, undefined, f);
     }
     /**
      * Generic handler for string functions that have 1 textual input
@@ -107,109 +107,109 @@ var ABeamer;
         req.res.paType = 2 /* ExFuncParamType.String */;
         req.res.sValue = f(params[0].sValue);
     }
-    ABeamer._exFunctions['sin'] = function (params, req) {
+    BeamToIX._exFunctions['sin'] = function (params, req) {
         _math1ParamFunc(params, req, Math.sin);
     };
-    ABeamer._exFunctions['cos'] = function (params, req) {
+    BeamToIX._exFunctions['cos'] = function (params, req) {
         _math1ParamFunc(params, req, Math.cos);
     };
-    ABeamer._exFunctions['tan'] = function (params, req) {
+    BeamToIX._exFunctions['tan'] = function (params, req) {
         _math1ParamFunc(params, req, Math.tan);
     };
-    ABeamer._exFunctions['round'] = function (params, req) {
+    BeamToIX._exFunctions['round'] = function (params, req) {
         _math1ParamFunc(params, req, Math.round);
     };
-    ABeamer._exFunctions['downRound'] = function (params, req) {
-        _math1ParamFunc(params, req, ABeamer.downRound);
+    BeamToIX._exFunctions['downRound'] = function (params, req) {
+        _math1ParamFunc(params, req, BeamToIX.downRound);
     };
-    ABeamer._exFunctions['ceil'] = function (params, req) {
+    BeamToIX._exFunctions['ceil'] = function (params, req) {
         _math1ParamFunc(params, req, Math.ceil);
     };
-    ABeamer._exFunctions['floor'] = function (params, req) {
+    BeamToIX._exFunctions['floor'] = function (params, req) {
         _math1ParamFunc(params, req, Math.floor);
     };
-    ABeamer._exFunctions['sqrt'] = function (params, req) {
+    BeamToIX._exFunctions['sqrt'] = function (params, req) {
         _math1ParamFunc(params, req, Math.sqrt);
     };
-    ABeamer._exFunctions['exp'] = function (params, req) {
+    BeamToIX._exFunctions['exp'] = function (params, req) {
         _math1ParamFunc(params, req, Math.exp);
     };
-    ABeamer._exFunctions['log'] = function (params, req) {
+    BeamToIX._exFunctions['log'] = function (params, req) {
         _math1ParamFunc(params, req, Math.log);
     };
-    ABeamer._exFunctions['log10'] = function (params, req) {
+    BeamToIX._exFunctions['log10'] = function (params, req) {
         _math1ParamFunc(params, req, Math.log10);
     };
-    ABeamer._exFunctions['abs'] = function (params, req) {
+    BeamToIX._exFunctions['abs'] = function (params, req) {
         _math1ParamFunc(params, req, Math.abs);
     };
-    ABeamer._exFunctions['sign'] = function (params, req) {
+    BeamToIX._exFunctions['sign'] = function (params, req) {
         _math1ParamFunc(params, req, function (v) { return v < 0 ? -1 : (v > 0 ? 1 : 0); });
     };
-    ABeamer._exFunctions['random'] = function (_params, req) {
+    BeamToIX._exFunctions['random'] = function (_params, req) {
         req.checkParams(req, 0);
         req.res.paType = 1 /* ExFuncParamType.Number */;
         req.res.numValue = Math.random();
     };
-    ABeamer._exFunctions['toNumber'] = function (params, req) {
+    BeamToIX._exFunctions['toNumber'] = function (params, req) {
         req.checkParams(req, 1, [2 /* ExFuncParamType.String */]);
         req.res.paType = 1 /* ExFuncParamType.Number */;
         req.res.numValue = parseFloat(params[0].sValue);
     };
     // @ts-ignore   TypeScript bug :-(
-    ABeamer._exFunctions['toString'] = function (params, req) {
+    BeamToIX._exFunctions['toString'] = function (params, req) {
         req.checkParams(req, 1, [1 /* ExFuncParamType.Number */]);
         req.res.paType = 2 /* ExFuncParamType.String */;
         req.res.sValue = params[0].numValue.toString();
     };
-    ABeamer._exFunctions['uppercase'] = function (params, req) {
+    BeamToIX._exFunctions['uppercase'] = function (params, req) {
         _str1ParamFunc(params, req, function (s) { return s.toUpperCase(); });
     };
-    ABeamer._exFunctions['lowercase'] = function (params, req) {
+    BeamToIX._exFunctions['lowercase'] = function (params, req) {
         _str1ParamFunc(params, req, function (s) { return s.toUpperCase(); });
     };
-    ABeamer._exFunctions['capitalize'] = function (params, req) {
+    BeamToIX._exFunctions['capitalize'] = function (params, req) {
         _str1ParamFunc(params, req, function (s) { return s.replace(/\b(\w)/, function (_all, p) { return p.toUpperCase(); }); });
     };
-    ABeamer._exFunctions['substr'] = function (params, req) {
+    BeamToIX._exFunctions['substr'] = function (params, req) {
         req.checkParams(req, 3, [2 /* ExFuncParamType.String */, 1 /* ExFuncParamType.Number */, 1 /* ExFuncParamType.Number */]);
         req.res.paType = 2 /* ExFuncParamType.String */;
         req.res.sValue = params[0].sValue.substr(params[1].numValue, params[2].numValue < 0 ? undefined : params[2].numValue);
     };
-    ABeamer._exFunctions['iff'] = function (params, req) {
+    BeamToIX._exFunctions['iff'] = function (params, req) {
         req.checkParams(req, 3, [1 /* ExFuncParamType.Number */, 0 /* ExFuncParamType.Any */, 0 /* ExFuncParamType.Any */]);
         var res = params[params[0].numValue ? 1 : 2];
         req.res.paType = res.paType;
         req.res.sValue = res.sValue;
         req.res.numValue = res.numValue;
     };
-    ABeamer._exFunctions['case'] = function (params, req) {
+    BeamToIX._exFunctions['case'] = function (params, req) {
         // @TODO: check params
         var res = params[Math.round(params[0].numValue) + 1];
         req.res.paType = res.paType;
         req.res.sValue = res.sValue;
         req.res.numValue = res.numValue;
     };
-    ABeamer._exFunctions['get'] = function (params, req) {
+    BeamToIX._exFunctions['get'] = function (params, req) {
         req.checkParams(req, 2, [3 /* ExFuncParamType.Array */, 1 /* ExFuncParamType.Number */]);
         var index = Math.round(params[1].numValue);
         var arr = params[0].arrayValue;
         if (index < 0 || index >= arr.length) {
-            ABeamer.throwErr('Invalid indexing');
+            BeamToIX.throwErr('Invalid indexing');
         }
         req.res.paType = 1 /* ExFuncParamType.Number */;
         req.res.numValue = arr[index];
     };
-    ABeamer._exFunctions['slice'] = function (params, req) {
+    BeamToIX._exFunctions['slice'] = function (params, req) {
         req.checkParams(req, 3, [3 /* ExFuncParamType.Array */, 1 /* ExFuncParamType.Number */, 1 /* ExFuncParamType.Number */]);
         var start = Math.round(params[1].numValue);
         var end = Math.round(params[2].numValue);
         var arr = params[0].arrayValue;
         if (start < 0 || start >= arr.length || end < 0 || end >= arr.length) {
-            ABeamer.throwErr('Invalid indexing');
+            BeamToIX.throwErr('Invalid indexing');
         }
         req.res.paType = 3 /* ExFuncParamType.Array */;
         req.res.arrayValue = arr.slice(start, end);
     };
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=functions.js.map

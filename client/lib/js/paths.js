@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -28,7 +28,7 @@
  *    Used in `text-shadow`, `transform`.
  * - via dual-properties.
  *
- * ABeamer has the following built-in dual-properties:
+ * BeamToIX has the following built-in dual-properties:
  *
  * - Interpolate the following CSS properties for DOM Elements:
  *    * `left-top`.
@@ -55,10 +55,10 @@
  *     Virtual Elements such as WebGL can use 3D paths to move their objects.
  *
  * ## Core paths
- * **WARNING!** In the ABeamer 2.x these core paths will move `core-paths` plugin.
+ * **WARNING!** In the BeamToIX 2.x these core paths will move `core-paths` plugin.
  * To prevent breaking changes include now the js script `core-paths.js` on the html file.
  *
- *  ABeamer has the following core paths:
+ *  BeamToIX has the following core paths:
  *  - `line`
  *  - `rect`
  *  - `circle`
@@ -66,8 +66,8 @@
  *
  * @see gallery/gallery-path
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Paths
@@ -79,44 +79,44 @@ var ABeamer;
         PathName[PathName["rect"] = 1] = "rect";
         PathName[PathName["circle"] = 2] = "circle";
         PathName[PathName["ellipse"] = 3] = "ellipse";
-    })(PathName = ABeamer.PathName || (ABeamer.PathName = {}));
+    })(PathName = BeamToIX.PathName || (BeamToIX.PathName = {}));
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
     /** Map of the built-in path functions, plus the ones added via plugins. */
-    ABeamer._pathFunctions = {};
+    BeamToIX._pathFunctions = {};
     function _pathNumToStr(num) {
         return PathName[num];
     }
-    ABeamer._pathNumToStr = _pathNumToStr;
+    BeamToIX._pathNumToStr = _pathNumToStr;
     function _expressionPath(t, params, _stage, args) {
-        ABeamer._vars.t = t;
-        var v = ABeamer.calcExpr(params._expression, args);
+        BeamToIX._vars.t = t;
+        var v = BeamToIX.calcExpr(params._expression, args);
         return Array.isArray(v) ? v : [parseFloat(v)];
     }
-    ABeamer._expressionPath = _expressionPath;
-    ABeamer._pathFunctions['line'] = _linePath;
+    BeamToIX._expressionPath = _expressionPath;
+    BeamToIX._pathFunctions['line'] = _linePath;
     /** Implements the Line Path */
     function _linePath(t, params, _stage, args) {
         if (!params._isPrepared) {
-            params._x0 = ABeamer.ExprOrNumToNum(params.x0, 0, args);
-            params._y0 = ABeamer.ExprOrNumToNum(params.y0, 0, args);
-            params._sx = ABeamer.ExprOrNumToNum(params.x1, 1, args) - params._x0;
-            params._sy = ABeamer.ExprOrNumToNum(params.y1, 1, args) - params._y0;
+            params._x0 = BeamToIX.ExprOrNumToNum(params.x0, 0, args);
+            params._y0 = BeamToIX.ExprOrNumToNum(params.y0, 0, args);
+            params._sx = BeamToIX.ExprOrNumToNum(params.x1, 1, args) - params._x0;
+            params._sy = BeamToIX.ExprOrNumToNum(params.y1, 1, args) - params._y0;
         }
         return [params._sx * t + params._x0, params._sy * t + params._y0];
     }
-    ABeamer._pathFunctions['rect'] = _rectPath;
+    BeamToIX._pathFunctions['rect'] = _rectPath;
     /** Implements the Rect Path */
     function _rectPath(t, params, _stage, args) {
         if (!params._isPrepared) {
             params._isPrepared = true;
-            params._x0 = ABeamer.ExprOrNumToNum(params.x0, 0, args);
-            params._y0 = ABeamer.ExprOrNumToNum(params.y0, 0, args);
-            params._x1 = ABeamer.ExprOrNumToNum(params.x1, 1, args);
-            params._y1 = ABeamer.ExprOrNumToNum(params.y1, 1, args);
+            params._x0 = BeamToIX.ExprOrNumToNum(params.x0, 0, args);
+            params._y0 = BeamToIX.ExprOrNumToNum(params.y0, 0, args);
+            params._x1 = BeamToIX.ExprOrNumToNum(params.x1, 1, args);
+            params._y1 = BeamToIX.ExprOrNumToNum(params.y1, 1, args);
             params._dx = params._x1 - params._x0;
             params._dy = params._y1 - params._y0;
             var divider = 1 / (2 * (params._dx + params._dy));
@@ -147,10 +147,10 @@ var ABeamer;
     function _interpolateEllipse(t, params, radiusX, radiusY, _stage, args) {
         if (!params._isPrepared) {
             params._isPrepared = true;
-            params._centerX = ABeamer.ExprOrNumToNum(params.centerX, 0, args);
-            params._centerY = ABeamer.ExprOrNumToNum(params.centerY, 0, args);
-            params._radiusX = ABeamer.ExprOrNumToNum(radiusX, 1, args);
-            params._radiusY = ABeamer.ExprOrNumToNum(radiusY, 1, args);
+            params._centerX = BeamToIX.ExprOrNumToNum(params.centerX, 0, args);
+            params._centerY = BeamToIX.ExprOrNumToNum(params.centerY, 0, args);
+            params._radiusX = BeamToIX.ExprOrNumToNum(radiusX, 1, args);
+            params._radiusY = BeamToIX.ExprOrNumToNum(radiusY, 1, args);
         }
         t = 2 * Math.PI * t;
         return [
@@ -158,15 +158,15 @@ var ABeamer;
             Math.sin(t) * params._radiusY + params._centerY
         ];
     }
-    ABeamer._pathFunctions['circle'] = _circlePath;
+    BeamToIX._pathFunctions['circle'] = _circlePath;
     /** Implements the Circle Path */
     function _circlePath(t, params, stage, args) {
         return _interpolateEllipse(t, params, params.radius, params.radius, stage, args);
     }
-    ABeamer._pathFunctions['ellipse'] = _ellipsePath;
+    BeamToIX._pathFunctions['ellipse'] = _ellipsePath;
     /** Implements the Ellipse Path */
     function _ellipsePath(t, params, stage, args) {
         return _interpolateEllipse(t, params, params.radiusX, params.radiusY, stage, args);
     }
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=paths.js.map

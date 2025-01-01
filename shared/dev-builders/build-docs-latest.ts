@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -808,7 +808,7 @@ export namespace BuildDocsLatest {
             });
 
             // builds markdown files
-            [['abeamer-cli', 'cli/abeamer-cli.ts', ''],
+            [['beamtoix-cli', 'cli/beamtoix-cli.ts', ''],
             ['server-agent', 'server/server-agent.ts', 'Server'],
             ['exact', 'test/exact.ts', 'Testing'],
             ...libModules

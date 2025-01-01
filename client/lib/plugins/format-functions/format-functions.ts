@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -32,17 +32,17 @@
  * ```
  *
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // ------------------------------------------------------------------------
   //                               Implementation
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.format-functions',
+    id: 'beamtoix.format-functions',
     uuid: 'c386e3e7-9dec-48a3-996d-ab55e591cd5d',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/format-functions/format-functions.js'],
     teleportable: true,
   });

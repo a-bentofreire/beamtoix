@@ -7,7 +7,7 @@ category: Pages
 <!--- @author: Alexandre Bento Freire -->
 # Description
 
-ABeamer is designed to be able to freeze the properties of each element in a scene for every frame and send it frame by frame to be stored in the disk, on a similar manner that video editors operate while taking the advantage of the browser tools and web designer skills.   
+BeamToIX is designed to be able to freeze the properties of each element in a scene for every frame and send it frame by frame to be stored in the disk, on a similar manner that video editors operate while taking the advantage of the browser tools and web designer skills.   
 To archive this goal, it splits the story, representing the whole animation, into scenes.  
 Each scene has its own animation pipeline, which it will be later rendered.   
 
@@ -109,7 +109,7 @@ This will a series of parallel animations.
   
 ## Understanding the pipeline
 
-When the user adds an animation to the scene, ABeamer will first determine 
+When the user adds an animation to the scene, BeamToIX will first determine 
 the start value of the [property](faq.md#why-addanimation-uses-properties-naming-and-not-attributes-), 
 if the user doesn't provides the `startValue`, it will compute from the current element's CSS property value.  
 Then it will transform the duration into frames, and for each frame, 

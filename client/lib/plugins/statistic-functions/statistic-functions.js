@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of statistical functions
@@ -28,16 +28,16 @@
  * `=std([4, 60]+[12, 4])`
  *
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addPlugin({
-        id: 'abeamer.statistic-functions',
+    BeamToIX.pluginManager.addPlugin({
+        id: 'beamtoix.statistic-functions',
         uuid: '65d49e17-e471-4f91-9643-8c6f13ec8d79',
         author: 'Alexandre Bento Freire',
-        email: 'abeamer@a-bentofreire.com',
+        email: 'beamtoix@a-bentofreire.com',
         jsUrls: ['plugins/statistic-functions/statistic-functions.js'],
         teleportable: true,
     });
@@ -45,7 +45,7 @@ var ABeamer;
     //                               shared functions
     // ------------------------------------------------------------------------
     function _statCommon(params, req, f) {
-        ABeamer.arrayInputHelper(params, req, undefined, undefined, f);
+        BeamToIX.arrayInputHelper(params, req, undefined, undefined, f);
     }
     function _meanFunc(arr) {
         return (arr.reduce(function (sum, v) { return sum + v; }, 0) / arr.length);
@@ -86,10 +86,10 @@ var ABeamer;
     function _sortDesc(params, req) {
         _statCommon(params, req, function (arr) { return arr.sort(function (a, b) { return (b > a); }); });
     }
-    ABeamer.pluginManager.addFunctions([
+    BeamToIX.pluginManager.addFunctions([
         ['min', _min], ['max', _max],
         ['mean', _mean], ['median', _median], ['std', _std], ['var', _var],
         ['sort', _sort], ['sortDesc', _sortDesc],
     ]);
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=statistic-functions.js.map

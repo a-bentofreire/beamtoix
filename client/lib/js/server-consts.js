@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module shared   | This module will generate a shared/lib file */
@@ -14,12 +14,12 @@
  * This module will generate a node module,
  * therefore it can't contain external references.
  */
-var ABeamer;
-(function (ABeamer) {
-    ABeamer._SRV_CNT = {
-        MESSAGE_PREFIX: 'ABEAMER_',
+var BeamToIX;
+(function (BeamToIX) {
+    BeamToIX._SRV_CNT = {
+        MESSAGE_PREFIX: 'BEAMTOIX_',
         CMD_VALUE_SEP: '___',
-        SERVER_SUFFIX: 'abeamer-server=',
+        SERVER_SUFFIX: 'beamtoix-server=',
         LOG_LEVEL_SUFFIX: 'loglevel=',
         TELEPORT_SUFFIX: 'teleport=',
         RENDER_VAR_SUFFIX: 'var=',
@@ -41,5 +41,5 @@ var ABeamer;
         MSG_SERVER_READY: 'server-ready',
         MSG_RENDER_DONE: 'render-done',
     };
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=server-consts.js.map

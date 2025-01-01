@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -23,7 +23,7 @@
  *
  * - `decipher` - Generates a random list of texts that gradually reveal the hidden text.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -109,10 +109,10 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.text-tasks',
+    id: 'beamtoix.text-tasks',
     uuid: '8b547eff-a0de-446a-9753-fb8b39d8031a',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/text-tasks/text-tasks.js'],
     teleportable: true,
   });
@@ -136,7 +136,7 @@ namespace ABeamer {
 
   /** Implements the Text Split Task */
   function _textSplit(anime: Animation, _wkTask: WorkTask,
-    params: TextSplitTaskParams, stage: uint, args?: ABeamerArgs): TaskResult {
+    params: TextSplitTaskParams, stage: uint, args?: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_INIT:
@@ -170,7 +170,7 @@ namespace ABeamer {
 
   /** Implements the Typewriter Task */
   function _typewriter(anime: Animation, _wkTask: WorkTask,
-    params: TypewriterTaskParams, stage: uint, _args?: ABeamerArgs): TaskResult {
+    params: TypewriterTaskParams, stage: uint, _args?: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_INIT:
@@ -205,7 +205,7 @@ namespace ABeamer {
 
   /** Implements the Decipher Task */
   function _decipherTask(anime: Animation, _wkTask: WorkTask,
-    params: DecipherTaskParams, stage: uint, _args?: ABeamerArgs): TaskResult {
+    params: DecipherTaskParams, stage: uint, _args?: BeamToIXArgs): TaskResult {
 
     function isInsideRange(code: uint, ranges: [number, number][]): [number, number][] {
       return ranges.findIndex(range => range[0] <= code && range[1] >= code)

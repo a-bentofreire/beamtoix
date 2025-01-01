@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -22,9 +22,9 @@ import { DevCfg } from "../shared/dev-config.js";
 /**
  * ## Description
  *
- * **Exact** is a test framework created to test ABeamer functionality.
+ * **Exact** is a test framework created to test BeamToIX functionality.
  * It makes a copy of the template, modifying its data.
- * It executes abeamer under headless browser and captures its output.
+ * It executes beamtoix under headless browser and captures its output.
  *
  */
 export namespace Exact {
@@ -91,8 +91,8 @@ export namespace Exact {
 
     // render params
     exitRenderOnFinished?: boolean;
-    renderFrameOptions?: ABeamer.RenderFrameOptions;
-    extraRenderCalls?: ABeamer.RenderFrameOptions[];
+    renderFrameOptions?: BeamToIX.RenderFrameOptions;
+    extraRenderCalls?: BeamToIX.RenderFrameOptions[];
 
 
     /** Name of the headless server.
@@ -278,7 +278,7 @@ export namespace Exact {
     }
 
 
-    getTestAnime(test: TestParams): ABeamer.Animation {
+    getTestAnime(test: TestParams): BeamToIX.Animation {
       return {
         selector: `#${test.elName}`,
         duration: test.elDuration,
@@ -430,7 +430,7 @@ export namespace Exact {
         opts.sceneMarkers[sceneIndex] === i) {
         sceneIndex++;
         res.push('    </div>');
-        res.push(`    <div class="abeamer-scene" id=scene${sceneIndex + 1}>`);
+        res.push(`    <div class="beamtoix-scene" id=scene${sceneIndex + 1}>`);
       }
 
       res.push(`        <${opts.htmlTag} class='${opts.cssClass}' `
@@ -965,7 +965,7 @@ export namespace Exact {
       + ` --ll ${params.logLevel !== undefined ? params.logLevel : Consts.LL_VERBOSE}`
       + (params.toDelPreviousFrames !== false ? ' --dp' : '')
       + (params.toGenFrames ? '' : ' --noframes')
-      + ` --config "${rd.outFolder}/abeamer.ini"`;
+      + ` --config "${rd.outFolder}/beamtoix.ini"`;
 
     if (params.onCmdLine) {
       cmdLine = params.onCmdLine(cmdLine);

@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -20,7 +20,7 @@
  * - `circle`
  * - `speech` - round rectangle with left and right speech triangle.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -107,10 +107,10 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.shape-tasks',
+    id: 'beamtoix.shape-tasks',
     uuid: '3e5d5813-348a-4eb1-a8b5-9c87c3988923',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/shape-tasks/shape-tasks.js'],
     teleportable: true,
   });
@@ -123,7 +123,7 @@ namespace ABeamer {
 
   /** Implements the Shape Task */
   function _shapeTask(anime: Animation, _wkTask: WorkTask,
-    params: BaseShapeTaskParams, stage: uint, args?: ABeamerArgs): TaskResult {
+    params: BaseShapeTaskParams, stage: uint, args?: BeamToIXArgs): TaskResult {
 
     function buildSvg(inTextHtml: string[], shapeTag: string,
       width: int, height: uint,

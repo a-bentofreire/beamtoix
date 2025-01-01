@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -41,9 +41,9 @@
  * A task implementation is a function with the following syntax:
  * ```typescript
  * function myTaskFunc(anime: Animation, wkTask: WorkTask,
- *   params: FactoryTaskParams, stage?: uint, args?: ABeamerArgs): TaskResult;
+ *   params: FactoryTaskParams, stage?: uint, args?: BeamToIXArgs): TaskResult;
  * ```
- * And add this task to ABeamer using `ABeamer.pluginManager.addTasks([['my-task', myTaskFunc]]);`.
+ * And add this task to BeamToIX using `BeamToIX.pluginManager.addTasks([['my-task', myTaskFunc]]);`.
  *
  * If the task just uses plain DOM, the simplest is to:
  * - inject DOM by using the animation `selector`, and then
@@ -67,7 +67,7 @@
  * }
  * ```
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // #generate-group-section
   // ------------------------------------------------------------------------
@@ -103,7 +103,7 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   export type TaskFunc = (anime: Animation, wkTask: WorkTask,
-    params?: AnyParams, stage?: uint, args?: ABeamerArgs) => TaskResult;
+    params?: AnyParams, stage?: uint, args?: BeamToIXArgs) => TaskResult;
 
 
   export type TaskHandler = TaskName | TaskFunc;
@@ -188,7 +188,7 @@ namespace ABeamer {
 
 
   function _buildWorkTask(task: Task, anime: Animation,
-    toTeleport: boolean, args: ABeamerArgs): _WorkTask {
+    toTeleport: boolean, args: BeamToIXArgs): _WorkTask {
 
     const handler = task.handler;
     let taskFunc: TaskFunc;
@@ -228,7 +228,7 @@ namespace ABeamer {
    * Converts the Handlers into strings, and calls tasks on TELEPORT stage.
    */
   export function _prepareTasksForTeleporting(anime: Animation,
-    tasks: Task[], args: ABeamerArgs): void {
+    tasks: Task[], args: BeamToIXArgs): void {
 
     tasks.forEach(task => { _buildWorkTask(task, anime, true, args); });
   }
@@ -239,7 +239,7 @@ namespace ABeamer {
    * and the animation should be bypassed.
    */
   export function _processTasks(tasks: Task[], wkTasks: _WorkTask[],
-    anime: Animation, args: ABeamerArgs): boolean {
+    anime: Animation, args: BeamToIXArgs): boolean {
 
     let toExit = true;
     tasks.forEach(task => {
@@ -260,7 +260,7 @@ namespace ABeamer {
 
 
   export function _runTasks(wkTasks: _WorkTask[], anime: Animation,
-    animeIndex: uint, args: ABeamerArgs): void {
+    animeIndex: uint, args: BeamToIXArgs): void {
 
     wkTasks.forEach(wkTask => {
       wkTask.animeIndex = animeIndex;
@@ -273,7 +273,7 @@ namespace ABeamer {
   // ------------------------------------------------------------------------
 
   function _formatValue(value: FactoryTaskAttr, isFormatted: boolean | undefined,
-    index: uint, args: ABeamerArgs): string {
+    index: uint, args: BeamToIXArgs): string {
 
     if (typeof value === 'object') {
       value = value[index % value.length];
@@ -292,7 +292,7 @@ namespace ABeamer {
 
   /** Implements the Factory Task */
   function _factory(anime: Animation, _wkTask: WorkTask,
-    params: FactoryTaskParams, stage: uint, args: ABeamerArgs): TaskResult {
+    params: FactoryTaskParams, stage: uint, args: BeamToIXArgs): TaskResult {
 
     switch (stage) {
       case TS_INIT:

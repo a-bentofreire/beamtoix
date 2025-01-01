@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ namespace Server {
   const phantomFs = require('fs') as FileSystem;
   const phantomWebPage = require('webpage');
 
-  let baseServerAgent/* : ABeamerServer.BaseServer */;
+  let baseServerAgent/* : BeamToIXServer.BaseServer */;
 
   // @HINT: Must surround with try/catch otherwise it will block in case of error
   try {
@@ -43,7 +43,7 @@ namespace Server {
 
       /** Sends Messages to the client */
       function sendClientMsg(cmd: string, value: string = ''): void {
-        const script = `function(){_abeamer._internalGetServerMsg.call(_abeamer, '${cmd}', '${value}'); }`;
+        const script = `function(){_beamtoix._internalGetServerMsg.call(_beamtoix, '${cmd}', '${value}'); }`;
         page.evaluateJavaScript(script);
       }
 

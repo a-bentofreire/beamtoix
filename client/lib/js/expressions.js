@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -11,7 +11,7 @@
  * Expressions unlike [Code Handlers](code handler) can be defined on the `.json`
  * config file and support teleporting.
  *
- * ABeamer supports:
+ * BeamToIX supports:
  *
  * - binary operators: `+`, `-`, `*`, `/`, `%` (modulus).
  *      Work both with numbers and arrays.
@@ -34,7 +34,7 @@
  *
  * ## Built-in Variables
  *
- * ABeamer has the following built-in variables:
+ * BeamToIX has the following built-in variables:
  *
  * `e` - mathematical constant 'e'.
  * `pi` - mathematical constant 'pi'.
@@ -64,8 +64,8 @@
  * `=chart.labelsY.marginAfter`.
  * `=foo[x-y+z]`.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Expressions
@@ -80,7 +80,7 @@ var ABeamer;
      * Code outside the core library should access this const.
      * It should use instead `getVars()`.
      */
-    ABeamer._vars = {
+    BeamToIX._vars = {
         e: Math.E,
         pi: Math.PI,
         deg2rad: Math.PI / 180,
@@ -94,9 +94,9 @@ var ABeamer;
      * Use `args.vars` instead.
      */
     function getVars() {
-        return ABeamer._vars;
+        return BeamToIX._vars;
     }
-    ABeamer.getVars = getVars;
+    BeamToIX.getVars = getVars;
     /**
      * Defines the code range for characters.
      * By default only includes the latin alphabet
@@ -104,7 +104,7 @@ var ABeamer;
      * it must add to this list the extra character code ranges.
      *
      */
-    ABeamer.CharRanges = [
+    BeamToIX.CharRanges = [
         ['A'.charCodeAt(0), 'Z'.charCodeAt(0)],
         ['a'.charCodeAt(0), 'z'.charCodeAt(0)],
     ];
@@ -120,9 +120,9 @@ var ABeamer;
             return false;
         }
         var codePoint = ch.codePointAt(pos);
-        return ABeamer.CharRanges.findIndex(function (rg) { return codePoint >= rg[0] && codePoint <= rg[1]; }) !== -1;
+        return BeamToIX.CharRanges.findIndex(function (rg) { return codePoint >= rg[0] && codePoint <= rg[1]; }) !== -1;
     }
-    ABeamer.isCharacter = isCharacter;
+    BeamToIX.isCharacter = isCharacter;
     /**
      * Utility function to test if it's a digit.
      * Used by developers and plugin creators.
@@ -131,7 +131,7 @@ var ABeamer;
     function isDigit(ch) {
         return ch >= '0' && ch <= '9';
     }
-    ABeamer.isDigit = isDigit;
+    BeamToIX.isDigit = isDigit;
     /**
      * Utility function to test if it's a digit or character.
      * It might include non-latin characters. It depends on `CharRanges`.
@@ -141,7 +141,7 @@ var ABeamer;
     function isCharacterOrNum(ch) {
         return isDigit(ch) || isCharacter(ch);
     }
-    ABeamer.isCharacterOrNum = isCharacterOrNum;
+    BeamToIX.isCharacterOrNum = isCharacterOrNum;
     /**
      * Tests if `text` is an expression.
      * Used by developers and plugin creators.
@@ -149,7 +149,7 @@ var ABeamer;
     function isExpr(text) {
         return text !== undefined && text[0] === '=';
     }
-    ABeamer.isExpr = isExpr;
+    BeamToIX.isExpr = isExpr;
     var Str2TokenType;
     (function (Str2TokenType) {
         Str2TokenType[Str2TokenType["["] = 2] = "[";
@@ -401,7 +401,7 @@ var ABeamer;
     // ------------------------------------------------------------------------
     function _execExprFunction(p, funcToken) {
         var funcName = funcToken.sValue;
-        var func = ABeamer._exFunctions[funcName];
+        var func = BeamToIX._exFunctions[funcName];
         if (!func) {
             err(p, "Unknown function: ".concat(funcName), funcToken);
         }
@@ -633,7 +633,7 @@ var ABeamer;
     // ------------------------------------------------------------------------
     /** Throws a localized error */
     function err(p, msg, _value) {
-        ABeamer.throwI8n(ABeamer.Msgs.ExpHasErrors, { e: p.expr, err: msg || '' });
+        BeamToIX.throwI8n(BeamToIX.Msgs.ExpHasErrors, { e: p.expr, err: msg || '' });
     }
     /**
      * Checks if the function parameter count matches the parameters expected,
@@ -642,13 +642,13 @@ var ABeamer;
     function _checkFuncParams(req, paramCount, paramTypes) {
         var params = req.token.funcParams;
         if (paramCount >= 0 && params.length !== paramCount) {
-            err(req, ABeamer.i8nMsg(ABeamer.Msgs.WrongNrParams, { p: req.token.sValue }));
+            err(req, BeamToIX.i8nMsg(BeamToIX.Msgs.WrongNrParams, { p: req.token.sValue }));
         }
         if (paramTypes) {
             paramTypes.forEach(function (paramType, index) {
                 var pi = params[index];
                 if (!pi || (pi.paType !== paramType && paramType !== 0 /* ExFuncParamType.Any */)) {
-                    err(req, ABeamer.i8nMsg(ABeamer.Msgs.WrongParamType, { p: req.token.sValue, i: index }));
+                    err(req, BeamToIX.i8nMsg(BeamToIX.Msgs.WrongParamType, { p: req.token.sValue, i: index }));
                 }
             });
         }
@@ -676,7 +676,7 @@ var ABeamer;
             // if the input value is a numerical array
             inpArray = params[0].arrayValue;
             if (arrayLength && inpArray.length !== arrayLength) {
-                err(req, ABeamer.i8nMsg(ABeamer.Msgs.WrongNrParams, { p: req.token.sValue }));
+                err(req, BeamToIX.i8nMsg(BeamToIX.Msgs.WrongNrParams, { p: req.token.sValue }));
             }
             if (paramCount !== arrayLength) {
                 inpArray.forEach(function (el, index) {
@@ -690,11 +690,11 @@ var ABeamer;
         else {
             // if the input is a list of numerical parameters
             if (paramCount >= 0 && params.length !== paramCount) {
-                err(req, ABeamer.i8nMsg(ABeamer.Msgs.WrongNrParams, { p: req.token.sValue }));
+                err(req, BeamToIX.i8nMsg(BeamToIX.Msgs.WrongNrParams, { p: req.token.sValue }));
             }
             inpArray = params.map(function (param, index) {
                 if (param.paType !== 1 /* ExFuncParamType.Number */) {
-                    err(req, ABeamer.i8nMsg(ABeamer.Msgs.WrongParamType, { p: req.token.sValue, i: index }));
+                    err(req, BeamToIX.i8nMsg(BeamToIX.Msgs.WrongParamType, { p: req.token.sValue, i: index }));
                 }
                 return param.numValue;
             });
@@ -714,7 +714,7 @@ var ABeamer;
             req.res.arrayValue = resValue;
         }
     }
-    ABeamer.arrayInputHelper = arrayInputHelper;
+    BeamToIX.arrayInputHelper = arrayInputHelper;
     // ------------------------------------------------------------------------
     //                               Tools
     // ------------------------------------------------------------------------
@@ -728,7 +728,7 @@ var ABeamer;
     /** Computes unary operators. */
     function _calcUnary(p, op, value) {
         if (value.paType !== 1 /* ExFuncParamType.Number */) {
-            err(p, ABeamer.Msgs.UnaryErr, op);
+            err(p, BeamToIX.Msgs.UnaryErr, op);
         }
         if (op.tkType === 9 /* TokenType.Minus */) {
             value.numValue = -value.numValue;
@@ -752,10 +752,10 @@ var ABeamer;
         function execOp(f, allowOther) {
             if (is1stArray || is2ndArray) {
                 if (!is1stArray || !is2ndArray) {
-                    ABeamer.throwErr("Can only add 2 arrays");
+                    BeamToIX.throwErr("Can only add 2 arrays");
                 }
                 if (value1.arrayValue.length !== value2.arrayValue.length) {
-                    ABeamer.throwErr("Both arrays must have the same value");
+                    BeamToIX.throwErr("Both arrays must have the same value");
                 }
                 value1.arrayValue.forEach(function (v1, index) {
                     value1.arrayValue[index] = f(v1, value2.arrayValue[index]);
@@ -853,7 +853,7 @@ var ABeamer;
             pos: 1,
         });
     }
-    ABeamer.calcExpr = calcExpr;
+    BeamToIX.calcExpr = calcExpr;
     /**
      * If it's an expression, it computes its value.
      * Returns undefined if it's not an expression.
@@ -862,7 +862,7 @@ var ABeamer;
     function ifExprCalc(expr, args) {
         return isExpr(expr) ? calcExpr(expr, args) : undefined;
     }
-    ABeamer.ifExprCalc = ifExprCalc;
+    BeamToIX.ifExprCalc = ifExprCalc;
     /**
      * If it's an expression, it computes its value and returns its numerical value.
      * Returns `defNumber` if it's not an expression.
@@ -874,11 +874,11 @@ var ABeamer;
         }
         var exprValue = calcExpr(expr, args);
         if (args.isStrict && exprValue !== undefined && typeof exprValue !== 'number') {
-            ABeamer.throwI8n(ABeamer.Msgs.MustBeANumber, { p: expr });
+            BeamToIX.throwI8n(BeamToIX.Msgs.MustBeANumber, { p: expr });
         }
         return exprValue !== undefined ? parseFloat(exprValue) : defNumber;
     }
-    ABeamer.ifExprCalcNum = ifExprCalcNum;
+    BeamToIX.ifExprCalcNum = ifExprCalcNum;
     /**
      * Computes the expression and returns the value.
      * If isStrict, checks if the return value is textual, if not throws error.
@@ -886,11 +886,11 @@ var ABeamer;
     function calcStr(expr, args) {
         var exprValue = calcExpr(expr, args);
         if (args.isStrict && (exprValue === undefined || typeof exprValue !== 'string')) {
-            ABeamer.throwI8n(ABeamer.Msgs.MustBeAString, { p: expr });
+            BeamToIX.throwI8n(BeamToIX.Msgs.MustBeAString, { p: expr });
         }
         return exprValue;
     }
-    ABeamer.calcStr = calcStr;
+    BeamToIX.calcStr = calcStr;
     /**
      * If it's an expression, it computes its value and returns its numerical value.
      * Returns `defNumber` if it's not an expression.
@@ -902,11 +902,11 @@ var ABeamer;
         }
         var exprValue = calcExpr(expr, args);
         if (args.isStrict && exprValue !== undefined && typeof exprValue !== 'string') {
-            ABeamer.throwI8n(ABeamer.Msgs.MustBeAString, { p: expr });
+            BeamToIX.throwI8n(BeamToIX.Msgs.MustBeAString, { p: expr });
         }
         return exprValue !== undefined ? exprValue : defString;
     }
-    ABeamer.ifExprCalcStr = ifExprCalcStr;
+    BeamToIX.ifExprCalcStr = ifExprCalcStr;
     /**
      * Checks if it's an expression, if it is, it computes and returns
      * the value as a number. Otherwise, returns the parameter as a number.
@@ -916,12 +916,12 @@ var ABeamer;
         if (args.isStrict && param !== undefined) {
             var typeofP = typeof param;
             if (typeofP !== 'string' && typeofP !== 'number') {
-                ABeamer.throwI8n(ABeamer.Msgs.MustBeANumberOrExpr, { p: param });
+                BeamToIX.throwI8n(BeamToIX.Msgs.MustBeANumberOrExpr, { p: param });
             }
         }
         return ifExprCalcNum(param, param !== undefined ? param : defValue, args);
     }
-    ABeamer.ExprOrNumToNum = ExprOrNumToNum;
+    BeamToIX.ExprOrNumToNum = ExprOrNumToNum;
     /**
      * Checks if it's an expression, if it is, it computes and returns
      * the value as a number. Otherwise, returns the parameter as a number.
@@ -931,11 +931,11 @@ var ABeamer;
         if (args.isStrict && param !== undefined) {
             var typeofP = typeof param;
             if (typeofP !== 'string') {
-                ABeamer.throwI8n(ABeamer.Msgs.MustBeAStringOrExpr, { p: param });
+                BeamToIX.throwI8n(BeamToIX.Msgs.MustBeAStringOrExpr, { p: param });
             }
         }
         return ifExprCalcStr(param, param !== undefined ? param : defValue, args);
     }
-    ABeamer.ExprOrStrToStr = ExprOrStrToStr;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX.ExprOrStrToStr = ExprOrStrToStr;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=expressions.js.map

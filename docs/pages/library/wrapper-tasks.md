@@ -8,7 +8,7 @@ category: Pages
 A wrapper task calls a story or scene method, allowing for a story
 to be loaded from JSON file or to be [teleporter](teleporter.md).  
   
-ABeamer has the following built-in wrapper tasks:  
+BeamToIX has the following built-in wrapper tasks:  
   
 - `scene-transition` - setup a scene transition.  
   

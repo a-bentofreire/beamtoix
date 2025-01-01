@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 $(window).on("load", function () {
-    ABeamer.pluginManager.addLocalization({
+    BeamToIX.pluginManager.addLocalization({
         locale: 'pt_PT',
-        functionalities: [[ABeamer.Functionalities.functions, [
+        functionalities: [[BeamToIX.Functionalities.functions, [
                     { src: 'sin', dst: 'sen' },
                     { src: 'iff', dst: 'se' }
                 ]]],
@@ -15,7 +15,7 @@ $(window).on("load", function () {
             MustNatPositive: 'O valor de %p% tem de ser um número natural positivo',
         },
     });
-    var story = ABeamer.createStory(/*FPS:*/ 8);
+    var story = BeamToIX.createStory(/*FPS:*/ 8);
     // ------------------------------------------------------------------------
     //                               Scene1
     // ------------------------------------------------------------------------

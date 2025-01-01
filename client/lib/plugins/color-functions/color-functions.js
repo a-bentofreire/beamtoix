@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of color functions
@@ -49,16 +49,16 @@
  *
  *  @see gallery/animate-colors
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addPlugin({
-        id: 'abeamer.color-functions',
+    BeamToIX.pluginManager.addPlugin({
+        id: 'beamtoix.color-functions',
         uuid: 'ce739c9f-13ba-4742-b1c3-dec56624be7d',
         author: 'Alexandre Bento Freire',
-        email: 'abeamer@a-bentofreire.com',
+        email: 'beamtoix@a-bentofreire.com',
         jsUrls: ['plugins/color-functions/color-functions.js'],
         teleportable: true,
     });
@@ -71,7 +71,7 @@ var ABeamer;
             var res = params[0].arrayValue;
             var resLen = res.length;
             if (resLen !== (hasTransparency ? 4 : 3)) {
-                ABeamer.throwI8n(ABeamer.Msgs.ExpHasErrors);
+                BeamToIX.throwI8n(BeamToIX.Msgs.ExpHasErrors);
             }
             return res;
         }
@@ -213,10 +213,10 @@ var ABeamer;
     function _rgba(params, req) {
         _rgbaCommon(params, req, true);
     }
-    ABeamer.pluginManager.addFunctions([
+    BeamToIX.pluginManager.addFunctions([
         ['rgb', _rgb], ['rgba', _rgba],
         ['hsl', _hsl], ['hsla', _hsla],
         ['hsl2Rgb', _hsl2Rgb], ['rgb2Hsl', _rgb2Hsl],
     ]);
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=color-functions.js.map

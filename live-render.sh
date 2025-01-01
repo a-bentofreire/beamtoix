@@ -2,12 +2,12 @@
 # 
 
 # ------------------------------------------------------------------------
-# Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+# Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 # Licensed under the MIT License.
 # ------------------------------------------------------------------------
 
-# this script is designed only for testing abeamer cli in a bash enviroment
-# using `abeamer serve` as a live server.
+# this script is designed only for testing beamtoix cli in a bash enviroment
+# using `beamtoix serve` as a live server.
 # e.g. ./live-render.sh ./gallery/animate-colors
 
 if [ "$1" == "" ]; then
@@ -32,17 +32,17 @@ else
   FOLDER=${FOLDER%/}
   DFOLDER=${FOLDER//\.\//}
   URL="http://localhost:$PORT/$DFOLDER/"
-  CONFIG="./$DFOLDER/abeamer.ini"
+  CONFIG="./$DFOLDER/beamtoix.ini"
 
   echo "PORT=$PORT"
   echo "FOLDER=$DFOLDER"
   echo "URL=$URL"
   echo "CONFIG=$CONFIG"
 
-  echo "node ./cli/abeamer-cli.js render $@ --dp --url $URL --config $CONFIG"
-  node ./cli/abeamer-cli.js render "$@" --dp --url "$URL" --config "$CONFIG"
+  echo "node ./cli/beamtoix-cli.js render $@ --dp --url $URL --config $CONFIG"
+  node ./cli/beamtoix-cli.js render "$@" --dp --url "$URL" --config "$CONFIG"
 
   if [ $GEN_GIF == 1 ]; then
-    node ./cli/abeamer-cli.js gif "./$DFOLDER"
+    node ./cli/beamtoix-cli.js gif "./$DFOLDER"
   fi
 fi

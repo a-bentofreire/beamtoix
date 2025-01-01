@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story: ABeamer.Story = ABeamer.createStory(/*FPS:*/10);
+  const story: BeamToIX.Story = BeamToIX.createStory(/*FPS:*/10);
 
   // ------------------------------------------------------------------------
   //                               Scene1
@@ -17,10 +17,10 @@ $(window).on("load", () => {
   interface Test {
     label: string;
     enabled?: boolean;
-    easing?: ABeamer.EasingName | ABeamer.ExprString;
-    easingX?: ABeamer.EasingName | ABeamer.ExprString;
-    oscillator?: ABeamer.Oscillator;
-    path?: ABeamer.Path;
+    easing?: BeamToIX.EasingName | BeamToIX.ExprString;
+    easingX?: BeamToIX.EasingName | BeamToIX.ExprString;
+    oscillator?: BeamToIX.Oscillator;
+    path?: BeamToIX.Path;
   }
 
   const expr = `=iff(t<0.2 or t>0.7, 0, 1)`;
@@ -30,14 +30,14 @@ $(window).on("load", () => {
     enabled: true,
     label: 'easeInQuart',
     // easing by Id
-    easing: ABeamer.EasingName.easeInQuart,
+    easing: BeamToIX.EasingName.easeInQuart,
   }, {
     label: 'Harmonic',
     oscillator: {
-      handler: ABeamer.OscillatorName.harmonic,
+      handler: BeamToIX.OscillatorName.harmonic,
       params: {
         // shift: 0.25,
-      } as ABeamer.OscillatorParams,
+      } as BeamToIX.OscillatorParams,
     },
   }, {
     enabled: true,
@@ -88,7 +88,7 @@ $(window).on("load", () => {
       return;
     }
 
-    const props: ABeamer.AnimationProp[] = !test.path
+    const props: BeamToIX.AnimationProp[] = !test.path
       ? [{
         prop: 'left',
         easing: test.easingX,
@@ -119,7 +119,7 @@ $(window).on("load", () => {
               x1,
               y0,
             },
-          } as ABeamer.AddVarsTaskParams,
+          } as BeamToIX.AddVarsTaskParams,
         }],
         props,
       },

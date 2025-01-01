@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /** @module end-user | The lines bellow convey information for the end-user */
@@ -8,11 +8,11 @@
  * ## Description
  *
  * Provides time functions to convert between minutes/seconds/milliseconds into frames.
- * Internally ABeamer only works with frames.
+ * Internally BeamToIX only works with frames.
  *
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Time
@@ -32,7 +32,7 @@ var ABeamer;
         TimeUnit[TimeUnit["s"] = 2] = "s";
         TimeUnit[TimeUnit["m"] = 3] = "m";
         TimeUnit[TimeUnit["%"] = 4] = "%";
-    })(TimeUnit = ABeamer.TimeUnit || (ABeamer.TimeUnit = {}));
+    })(TimeUnit = BeamToIX.TimeUnit || (BeamToIX.TimeUnit = {}));
     // #export-section-end: release
     // -------------------------------
     // ------------------------------------------------------------------------
@@ -54,9 +54,9 @@ var ABeamer;
         }
         var unitTime = frame / fps;
         var divider = Math.pow(10, (maxPrecision || 4));
-        return (ABeamer.downRound(unitTime * divider) / divider).toString() + TimeUnit[unit];
+        return (BeamToIX.downRound(unitTime * divider) / divider).toString() + TimeUnit[unit];
     }
-    ABeamer.frame2Time = frame2Time;
+    BeamToIX.frame2Time = frame2Time;
     // ------------------------------------------------------------------------
     //                               parseTimeHandler
     // ------------------------------------------------------------------------
@@ -80,7 +80,7 @@ var ABeamer;
         var defaultUnit = story.defaultUnit;
         var isStringTime = typeof timeOrFrame === 'string';
         if (isStringTime) {
-            var exprTime = ABeamer.ifExprCalc(timeOrFrame, args);
+            var exprTime = BeamToIX.ifExprCalc(timeOrFrame, args);
             if (exprTime !== undefined) {
                 timeOrFrame = exprTime;
                 isStringTime = typeof timeOrFrame === 'string';
@@ -121,8 +121,8 @@ var ABeamer;
         }
         // this is delta is used to minimize the problems of using integer frames
         // which happens when there is a 0.5 and can overlap with the next animation
-        return toInt ? ABeamer.downRound(res) : res;
+        return toInt ? BeamToIX.downRound(res) : res;
     }
-    ABeamer.parseTimeHandler = parseTimeHandler;
-})(ABeamer || (ABeamer = {}));
+    BeamToIX.parseTimeHandler = parseTimeHandler;
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=time.js.map

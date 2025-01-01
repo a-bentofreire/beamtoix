@@ -12,59 +12,59 @@ For developers and plugin creators read: [Developer Documentation](/docs/latest/
 ---------------------
 ## Installation
 
-### I can't install ABeamer!
+### I can't install BeamToIX!
 
-ABeamer is a nodejs package.  
+BeamToIX is a nodejs package.  
 It requires the installation of nodejs.  
 It can be downloaded here: [nodejs](http://www.nodejs.com).  
 
-During the installation process, abeamer requires to create a shortcut, 
+During the installation process, beamtoix requires to create a shortcut, 
 if you are running on linux OS, it must be installed with sudo:
   
 ```shell
-sudo npm install -g abeamer
+sudo npm install -g beamtoix
 ```
   
 If you have access errors, consider installing your global node packages 
 on a path where you have access rights.  
 Read how to do it here: [fixing-npm-permissions](https://docs.npmjs.com/getting-started/fixing-npm-permissions).  
 
-### Can I install ABeamer as a local nodejs package?
+### Can I install BeamToIX as a local nodejs package?
 
 Yes, you can.  
 Install via:
   
 ```shell
-npm install abeamer
+npm install beamtoix
 ```  
   
 And then execute via
   
 ```shell
-npm run abeamer --
+npm run beamtoix --
 ```
 
-Hint: The ending `--` allows abeamer to receive options.
+Hint: The ending `--` allows beamtoix to receive options.
 
-### Can I execute ABeamer without installing nodejs?
+### Can I execute BeamToIX without installing nodejs?
 
-ABeamer is an ecosystem that encompasses a TypeScript/Javascript web browser library, 
+BeamToIX is an ecosystem that encompasses a TypeScript/Javascript web browser library, 
 a render server agent and command line utility.  
 The web browser library doesn't requires nodejs, but it won't be able to 
 store the images on the disk, nor generate gifs.  
   
-If you just to use ABeamer as an animation library or generate the frames 
+If you just to use BeamToIX as an animation library or generate the frames 
 via [teleporting](teleporter.md) then you don't need to install nodejs.
 
 ### Can I download just the animation library?
 
 Yes, you can.  
-Download from [here](https://abeamer.a-bentofreire.com/downloads.html).  
+Download from [here](https://beamtoix.a-bentofreire.com/downloads.html).  
 
 ### I can't install puppeteer.   
 
-`puppeteer` is a node package just like abeamer.  
-For details, read the question above [I can't install ABeamer!](faq.md#i-cant-install-abeamer).
+`puppeteer` is a node package just like beamtoix.  
+For details, read the question above [I can't install BeamToIX!](faq.md#i-cant-install-beamtoix).
 
 ### Can I install puppeteer without chromium?
 
@@ -79,7 +79,7 @@ CHROME_BIN=<full-chrome-path-including-file-name>
 the previous code depends of the running OS, the best it's just type  
    
 ```shell
-abeamer check
+beamtoix check
 ```
   
 ---------------------
@@ -87,7 +87,7 @@ abeamer check
 
 ### When I render, it gives an error.
 
-ABeamer has included a render server agent, and this one requires a server.  
+BeamToIX has included a render server agent, and this one requires a server.  
 The default server is `puppeteer`, you can install it via:  
   
 ```shell
@@ -105,7 +105,7 @@ CHROME_PATH=<full-chrome-path-including-file-name>
 the previous code depends of the running OS, the best it's just type  
    
 ```shell
-abeamer check
+beamtoix check
 ```
 
 ### It doesn't creates a gif file.
@@ -133,25 +133,25 @@ In order for an element to change its position, in necessary that:
 
 ### How do I change the output frame size?
 
-Inside `abeamer.ini` there are two fields: `$abeamer-width` and `$abeamer-height`.  
+Inside `beamtoix.ini` there are two fields: `$beamtoix-width` and `$beamtoix-height`.  
 After modifying these two fields, recompile the `js/main.scss` using a SCSS compiler.   
 
 ### Can I use only JavaScript without TypeScript?
 
 Yes, you can.  
-ABeamer provides TypeScript typings for convenience and documentation purposes, 
+BeamToIX provides TypeScript typings for convenience and documentation purposes, 
 but all the functions and constants are designed to be used without TypeScript.   
 When creating a new project, add the option `--no-typescript`.  
 Example: 
   
 ```shell
-abeamer create foo-js --width 384 --height 288 --fps 30 --no-typescript
+beamtoix create foo-js --width 384 --height 288 --fps 30 --no-typescript
 ```
   
 ### Can I use only CSS without SCSS?
 
 Yes, you can. Although, it's advisable to use SCSS.  
-ABeamer uses SCSS only to read `abeamer.ini` which provides information 
+BeamToIX uses SCSS only to read `beamtoix.ini` which provides information 
 regarding width and height.  
 When placing absolute elements on your story, 
 knowing the output width and height might be necessary.   
@@ -159,29 +159,29 @@ knowing the output width and height might be necessary.
 ### Can I use LESS instead of SCSS?
 
 Yes, you can.  
-ABeamer was mainly built to use SCSS or CSS.  
+BeamToIX was mainly built to use SCSS or CSS.  
 Nevertheless, it has LESS support.  
-You need to modify `$abeamer` fields into `@abeamer` on `abeamer.ini` file.  
+You need to modify `$beamtoix` fields into `@beamtoix` on `beamtoix.ini` file.  
 
-### Why is abeamer.ini an .ini file and not a .scss file?
+### Why is beamtoix.ini an .ini file and not a .scss file?
 
-`abeamer.ini` is read both by scss compiler and ABeamer render server agent.  
+`beamtoix.ini` is read both by scss compiler and BeamToIX render server agent.  
 It only allows a small subset of scss specification.   
 
-### I don't known how to program, can I use ABeamer?
+### I don't known how to program, can I use BeamToIX?
 
 Yes, you can.  
 You can build your story just with HTML+(S)CSS+JSON without any coding.   
 
-### ABeamer has lots of functions and constants starting with underscore.   
+### BeamToIX has lots of functions and constants starting with underscore.   
 
 All the member names starting with underscore are internal members 
 and they can change over time.  
 It's advisable to use only the public API which is stable.   
 
-### Can I use ABeamer for real-time animations?
+### Can I use BeamToIX for real-time animations?
 
-Yes, you can but ABeamer wasn't build for speed.  
+Yes, you can but BeamToIX wasn't build for speed.  
 It's a software based interpolator designed to be powerful, highly configurable 
 and to allow to save images to the disk.   
 
@@ -198,17 +198,17 @@ Double slash followed by slash-quote.
 If the animations substantially change the first frame, 
 it will show a ghost first frame while rending on the client, 
 on the server this frame won't be rendered.  
-To make authoring easier, abeamer doesn't hides the story before it's rendered.
+To make authoring easier, beamtoix doesn't hides the story before it's rendered.
 When the story authoring is finished, hide the story on the css properties,
 this will prevent the ghost first frame.
 
 ---------------------
 ## Rendering
 
-### Why I do I need puppeteer to render, if ABeamer has a server?
+### Why I do I need puppeteer to render, if BeamToIX has a server?
 
-ABeamer has included a render server agent which communicates between 
-the ABeamer web browser library and puppeteer and which in turns communicates with Chrome.   
+BeamToIX has included a render server agent which communicates between 
+the BeamToIX web browser library and puppeteer and which in turns communicates with Chrome.   
 
 ### It doesn't render from my url?
 
@@ -216,12 +216,12 @@ If your url doesn't includes the `index.html` then it must end with the slash.
 **example:**
   
 ```shell
-abeamer render --url "http://localhost:9000/gallery/remote-server/"
+beamtoix render --url "http://localhost:9000/gallery/remote-server/"
 ```
   
 ### Why I can't save the frames in jpg format?
 
-ABeamer uses puppeteer/chrome to render the images to the disk
+BeamToIX uses puppeteer/chrome to render the images to the disk
 and these application don't allow to save the images into jpg.   
 
 ### Why the elements on output have a different size than the ones I tested on the browser?
@@ -231,15 +231,15 @@ to test the images it will result in a different output.
 
 ### Why the rendering speed is different from the browser to the generated image frames?
 
-ABeamer was built with image generation in mind, 
+BeamToIX was built with image generation in mind, 
 it guaranties that each generated frame has the correct information.  
 However, when the animation is tested in the browser, 
 the time between two frames can be delayed due a complex calculations or image loading.   
-In such cases, ABeamer tries to compensate by having a shorter time for the next frame.   
+In such cases, BeamToIX tries to compensate by having a shorter time for the next frame.   
 
 ### Why a N seconds animation, doesn't generate exactly N seconds frames?
 
-ABeamer works internally with frames.  
+BeamToIX works internally with frames.  
 Each time duration or position is converted to a integer frame number.  
 If the frames per second, is not a integer division of a second, such as 30fps, 
 it will round to the nearest frame.   
@@ -253,9 +253,9 @@ It's advisable to use fps that are integer divisions such as 20 or 25fps.
 A property defined in `addAnimation` is then mapped to a DOM attribute or CSS property or 
 a Virtual Element property.
 
-### Why is fps information on main.ts and not in abeamer.ini like width and height?
+### Why is fps information on main.ts and not in beamtoix.ini like width and height?
 
 Due CORS, a script running inside a browser can't load an external text file without a live server.  
-ABeamer was designed to be executed, in general, without requiring of a live server.  
-ABeamer web browser library requires `fps` information.  
-Initial versions of ABeamer used gimmicks to get information from style sheets but it wasn't clear solution.   
+BeamToIX was designed to be executed, in general, without requiring of a live server.  
+BeamToIX web browser library requires `fps` information.  
+Initial versions of BeamToIX used gimmicks to get information from style sheets but it wasn't clear solution.   

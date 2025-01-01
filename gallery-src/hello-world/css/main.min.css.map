@@ -3,7 +3,7 @@
     "mappings": "AACA,AAAA,IAAI,CACJ,IAAI,CACJ,cAAc,CACd,cAAc,AAAC,CACb,KAAK,CAAE,KAAmB,CAC1B,MAAM,CAAE,KAAoB,CAC7B,AAED,AAAA,MAAM,AAAC,CACL,QAAQ,CAAE,QAAQ,CAClB,KAAK,CAAE,GAAG,CACV,IAAI,CAAE,IAAI,CACV,GAAG,CAAE,IAAI,CACV",
     "sources": [
         "main.scss",
-        "../abeamer.ini"
+        "../beamtoix.ini"
     ],
     "names": [],
     "file": "main.min.css"

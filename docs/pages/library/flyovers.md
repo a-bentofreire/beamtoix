@@ -11,7 +11,7 @@ with the main purpose of providing useful information or sync data.
 A flyover operates outside a scene animation pipeline, and can it
 modify the content of one or more elements.  
   
-ABeamer has following built-in flyovers:  
+BeamToIX has following built-in flyovers:  
 - `info`  
 - `video-sync`.  
   
@@ -32,7 +32,7 @@ css
 ```  
 html
 ```html
-<div id="flyover" class="abeamer-flyover"></div>
+<div id="flyover" class="beamtoix-flyover"></div>
 ```  
 js
 ```js
@@ -49,8 +49,8 @@ A `video-sync` flyover synchronizes the current render frame with a background v
 **WARNING** Due Chrome 'autoplay-policy', it's not possible to 'safely' use Chrome to sync with videos,
 In order to overcome this limitation:  
 1. Use Firefox to test the animation with a background video.  
-2. Set `serverRender: false` to prevent `abeamer render` from attempting to sync the video while server render.  
-3. When using `abeamer movie`, set `--bkg-movie` parameter with the video filename to use a background video.  
+2. Set `serverRender: false` to prevent `beamtoix render` from attempting to sync the video while server render.  
+3. When using `beamtoix movie`, set `--bkg-movie` parameter with the video filename to use a background video.  
   
 _see_: [animate-video-sync](/gallery/latest/#animate-video-sync).  
   
@@ -167,7 +167,7 @@ Generic parameters passed to a flyover function.
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
 export type FlyoverFunc = (wkFlyover: WorkFlyover, params: FlyoverParams,
-    stage?: uint, args?: ABeamerArgs) => void;
+    stage?: uint, args?: BeamToIXArgs) => void;
 ```
 
 

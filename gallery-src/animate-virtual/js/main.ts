@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story = ABeamer.createStory(/*FPS:*/20);
+  const story = BeamToIX.createStory(/*FPS:*/20);
 
   // [TOPIC] using a DOM Scene and virtual element
   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -18,7 +18,7 @@ $(window).on("load", () => {
   //                               VirtualElement
   // ------------------------------------------------------------------------
 
-  class Player implements ABeamer.VirtualElement {
+  class Player implements BeamToIX.VirtualElement {
 
     img: HTMLImageElement;
     top = 0;
@@ -27,7 +27,7 @@ $(window).on("load", () => {
       this.img = document.getElementById(this.id) as HTMLImageElement;
     }
 
-    setProp(name: string, value: ABeamer.PropValue): void {
+    setProp(name: string, value: BeamToIX.PropValue): void {
       this[name] = value;
       console.log(`Set [${this.id}] [${name}]=[${value}]`);
       if (name === 'left' || name === 'top') {
@@ -35,7 +35,7 @@ $(window).on("load", () => {
       }
     }
 
-    getProp(name: string): ABeamer.PropValue {
+    getProp(name: string): BeamToIX.PropValue {
       console.log(`Get [${this.id}] [${name}]=[${this[name]}]`);
       return this[name];
     }
@@ -69,13 +69,13 @@ $(window).on("load", () => {
 
 
   story.onGetVirtualElement = (id: string,
-    args?: ABeamer.ABeamerArgs): ABeamer.VirtualElement => {
+    args?: BeamToIX.BeamToIXArgs): BeamToIX.VirtualElement => {
 
     switch (id) {
       case 'android': return android;
       case 'iphone': return iphone;
       default:
-        ABeamer.throwErr('Unsupported Id');
+        BeamToIX.throwErr('Unsupported Id');
     }
   };
 
@@ -95,7 +95,7 @@ $(window).on("load", () => {
           oscillator: {
             handler: 'harmonic',
             params: {
-              negativeHander: ABeamer.NegativeBuiltInFuncs.abs,
+              negativeHander: BeamToIX.NegativeBuiltInFuncs.abs,
             },
           },
           value: 30,
@@ -141,7 +141,7 @@ $(window).on("load", () => {
 
 
   // [TOPIC] Using Virtual scenes and virtual elements
-  class myVirtualScene implements ABeamer.VirtualScene {
+  class myVirtualScene implements BeamToIX.VirtualScene {
 
     vElements: { [id: string]: Player } = {};
 
@@ -164,7 +164,7 @@ $(window).on("load", () => {
 
 
     query(selector: string,
-      iterator: (element: ABeamer.PElement, index: uint) => void) {
+      iterator: (element: BeamToIX.PElement, index: uint) => void) {
       let index = 0;
       selector.split(/\s*,\s*/).forEach((selElement) => {
         const vElement = this.vElements[selElement];

@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements story class
@@ -8,7 +8,7 @@
 /**
  * ## Description
  *
- * A **story** is the entry point of ABeamer web browser library.
+ * A **story** is the entry point of BeamToIX web browser library.
  * It has the following functions:
  *
  * - Manage multiple scenes, including insert and remove.
@@ -29,8 +29,8 @@
  *
  * @see workflow
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // #generate-group-section
     // ------------------------------------------------------------------------
     //                               Story
@@ -45,7 +45,7 @@ var ABeamer;
         };
         return _WaitMan;
     }());
-    ABeamer._WaitMan = _WaitMan;
+    BeamToIX._WaitMan = _WaitMan;
     /**
      * Implementation of _Story class.
      */
@@ -76,8 +76,8 @@ var ABeamer;
             // scene access
             this._args = {
                 renderNr: 0,
-                stage: ABeamer.AS_UNKNOWN,
-                vars: ABeamer._vars,
+                stage: BeamToIX.AS_UNKNOWN,
+                vars: BeamToIX._vars,
             };
             /**
              * Default unit used when input time values are used in numeric forms.
@@ -87,7 +87,7 @@ var ABeamer;
              *   `TimeUnit.s = 2;`
              *   `TimeUnit.m = 3;`
              */
-            this.defaultUnit = ABeamer.TimeUnit.f;
+            this.defaultUnit = BeamToIX.TimeUnit.f;
             /**
              * True if it's running a supporting server program for frame storage.
              *
@@ -96,7 +96,7 @@ var ABeamer;
             this.hasServer = false;
             /**
              * If true, the input parameters have strict checks and throw errors if fails.
-             * If false, ABeamer is more relax and bypasses errors.
+             * If false, BeamToIX is more relax and bypasses errors.
              * The server can modify this mode on startup.
              *
              * @default false
@@ -129,20 +129,20 @@ var ABeamer;
             var urlParams = window.location.search || '';
             var args = this._args;
             var self = this;
-            this.logLevel = createParams.logLevel || ABeamer.LL_SILENT;
+            this.logLevel = createParams.logLevel || BeamToIX.LL_SILENT;
             if (urlParams) {
-                urlParams.replace(new RegExp(ABeamer._SRV_CNT.LOG_LEVEL_SUFFIX + '(\\d+)'), function (_all, p1) {
+                urlParams.replace(new RegExp(BeamToIX._SRV_CNT.LOG_LEVEL_SUFFIX + '(\\d+)'), function (_all, p1) {
                     _this.logLevel = parseInt(p1); // don't use _logLevel
                     return '';
                 });
             }
-            ABeamer._initBrowser(args);
+            BeamToIX._initBrowser(args);
             this._waitMan = new _WaitMan();
             args.waitMan = this._waitMan;
-            this.storyAdapter = createParams.storyAdapter || new ABeamer._DOMSceneAdapter('.abeamer-story');
+            this.storyAdapter = createParams.storyAdapter || new BeamToIX._DOMSceneAdapter('.beamtoix-story');
             cfg.fps = cfg.fps || this.storyAdapter.getProp('fps', args);
-            ABeamer.throwIfI8n(!ABeamer.isPositiveNatural(cfg.fps), ABeamer.Msgs.MustNatPositive, { p: 'fps' });
-            ABeamer._vars.fps = cfg.fps;
+            BeamToIX.throwIfI8n(!BeamToIX.isPositiveNatural(cfg.fps), BeamToIX.Msgs.MustNatPositive, { p: 'fps' });
+            BeamToIX._vars.fps = cfg.fps;
             function setDim(srvPropPrefix, cfgValue, propName) {
                 var res = cfgValue || self.storyAdapter.getProp(propName, args);
                 if (urlParams) {
@@ -152,14 +152,14 @@ var ABeamer;
                         return '';
                     });
                 }
-                ABeamer.throwIfI8n(!ABeamer.isPositiveNatural(res), ABeamer.Msgs.MustNatPositive, { p: propName });
+                BeamToIX.throwIfI8n(!BeamToIX.isPositiveNatural(res), BeamToIX.Msgs.MustNatPositive, { p: propName });
                 self.storyAdapter.setProp(propName, res, args);
                 return res;
             }
-            this._width = cfg.width = setDim(ABeamer._SRV_CNT.WIDTH_SUFFIX, cfg.width, 'frame-width');
-            ABeamer._vars.frameWidth = cfg.width;
-            this._height = cfg.height = setDim(ABeamer._SRV_CNT.HEIGHT_SUFFIX, cfg.height, 'frame-height');
-            ABeamer._vars.frameHeight = cfg.height;
+            this._width = cfg.width = setDim(BeamToIX._SRV_CNT.WIDTH_SUFFIX, cfg.width, 'frame-width');
+            BeamToIX._vars.frameWidth = cfg.width;
+            this._height = cfg.height = setDim(BeamToIX._SRV_CNT.HEIGHT_SUFFIX, cfg.height, 'frame-height');
+            BeamToIX._vars.frameHeight = cfg.height;
             // setting clip-path is used because of slide transitions that display outside
             // the story boundaries
             this.storyAdapter.setProp('clip-path', "polygon(0 0, 0 ".concat(cfg.height, "px, ").concat(cfg.width, "px ").concat(cfg.height, "px, ").concat(cfg.width, "px 0px)"), args);
@@ -167,18 +167,18 @@ var ABeamer;
             this.fps = cfg.fps;
             this._isTeleporting = createParams.toTeleport || false;
             if (urlParams) {
-                urlParams.replace(new RegExp(ABeamer._SRV_CNT.TELEPORT_SUFFIX + '(\\w+)'), function (_all, p1) {
+                urlParams.replace(new RegExp(BeamToIX._SRV_CNT.TELEPORT_SUFFIX + '(\\w+)'), function (_all, p1) {
                     _this._isTeleporting = p1 === 'true';
                     return '';
                 });
-                urlParams.replace(new RegExp(ABeamer._SRV_CNT.SERVER_SUFFIX + '(\\w+)'), function (_all, p1) {
+                urlParams.replace(new RegExp(BeamToIX._SRV_CNT.SERVER_SUFFIX + '(\\w+)'), function (_all, p1) {
                     _this.hasServer = true;
                     _this.storyAdapter.setProp('class', 'has-server', args);
                     _this.serverName = p1;
-                    _this.serverFeatures = ABeamer._setServer(_this.serverName);
+                    _this.serverFeatures = BeamToIX._setServer(_this.serverName);
                     return '';
                 });
-                urlParams.replace(new RegExp(ABeamer._SRV_CNT.RENDER_VAR_SUFFIX + '([^&]+)', 'g'), function (_all, p1) {
+                urlParams.replace(new RegExp(BeamToIX._SRV_CNT.RENDER_VAR_SUFFIX + '([^&]+)', 'g'), function (_all, p1) {
                     p1 = decodeURIComponent(p1);
                     // tslint:disable-next-line:prefer-const
                     var _a = p1.match(/^([^=]+)=(.*)$/) || ['', '', ''], key = _a[1], value = _a[2];
@@ -193,7 +193,7 @@ var ABeamer;
             args.hasServer = this.hasServer;
             args.isTeleporting = this._isTeleporting;
             args.vars.isTeleporting = args.isTeleporting;
-            this._teleporter = new ABeamer._Teleporter(this, cfg, this._isTeleporting);
+            this._teleporter = new BeamToIX._Teleporter(this, cfg, this._isTeleporting);
             if (this._isTeleporting && createParams.toStartTeleporting !== false) {
                 this.startTeleporting();
             }
@@ -206,8 +206,8 @@ var ABeamer;
                     ['hasStory', this._teleporter.hasStory.toString()],
                     ['frame-width', this._width],
                     ['frame-height', this._height],
-                    ['browser.isMsIE', ABeamer.browser.isMsIE.toString()],
-                    ['browser.vendorPrefix', ABeamer.browser.vendorPrefix],
+                    ['browser.isMsIE', BeamToIX.browser.isMsIE.toString()],
+                    ['browser.vendorPrefix', BeamToIX.browser.vendorPrefix],
                     ['toTeleport', this._isTeleporting.toString()],
                 ]);
             }
@@ -340,7 +340,7 @@ var ABeamer;
         });
         Object.defineProperty(_Story.prototype, "args", {
             /**
-             * Returns ABeamerArgs.
+             * Returns BeamToIXArgs.
              * This should be used only in specific cases such the access to --var.
              * In most cases, this property is passed as an argument to plugins and callbacks.
              *
@@ -365,7 +365,7 @@ var ABeamer;
             get: function () { return this._logLevel; },
             set: function (newLogLevel) {
                 this._logLevel = newLogLevel;
-                this._isVerbose = newLogLevel >= ABeamer.LL_VERBOSE;
+                this._isVerbose = newLogLevel >= BeamToIX.LL_VERBOSE;
                 this._args.isVerbose = this._isVerbose;
             },
             enumerable: false,
@@ -421,10 +421,10 @@ var ABeamer;
         _Story.prototype.addVirtualAnimator = function (animator) {
             var selector = animator.selector;
             if (!selector) {
-                ABeamer.throwI8n(ABeamer.Msgs.NoEmptySelector);
+                BeamToIX.throwI8n(BeamToIX.Msgs.NoEmptySelector);
             }
             if (this._virtualAnimatorMap[selector]) {
-                ABeamer.throwErr("The selector must be unique");
+                BeamToIX.throwErr("The selector must be unique");
             }
             this._virtualAnimators.push(animator);
             this._virtualAnimatorMap[selector] = animator;
@@ -446,13 +446,13 @@ var ABeamer;
         //                               Scenes
         // ------------------------------------------------------------------------
         /**
-         * Adds scenes defined in the html by `.abeamer-scene` class.
+         * Adds scenes defined in the html by `.beamtoix-scene` class.
          * These classes are added automatically during Story constructor.
          * Add only after a `story.reset()`.
          */
         _Story.prototype.addDefaultScenes = function () {
             var story = this;
-            $('.abeamer-scene').each(function (_index, htmlElement) {
+            $('.beamtoix-scene').each(function (_index, htmlElement) {
                 story.addScene($(htmlElement));
             });
             if (this._scenes.length) {
@@ -461,13 +461,13 @@ var ABeamer;
         };
         /**
          * Adds a scene to the story.
-         * HTML elements with abeamer-scene class are added automatically.
+         * HTML elements with beamtoix-scene class are added automatically.
          *
          * @param sceneSelector DOM selector, JQuery object or Virtual Scene
          * @returns A pointer to newly created scene
          */
         _Story.prototype.addScene = function (sceneSelector) {
-            var scene = new ABeamer._Scene(this, sceneSelector, this._scenes.length ? this._scenes[this._scenes.length - 1] : undefined);
+            var scene = new BeamToIX._Scene(this, sceneSelector, this._scenes.length ? this._scenes[this._scenes.length - 1] : undefined);
             this._scenes.push(scene);
             this._setFrameCountChanged();
             if (this._teleporter.active) {
@@ -540,8 +540,8 @@ var ABeamer;
          * @see flyovers
          */
         _Story.prototype.addFlyover = function (handler, params) {
-            var wkFlyover = ABeamer._buildWorkFlyover(handler, params, false, this._args);
-            if (this._isTeleporting && this._args.stage !== ABeamer.AS_ADD_ANIMATION
+            var wkFlyover = BeamToIX._buildWorkFlyover(handler, params, false, this._args);
+            if (this._isTeleporting && this._args.stage !== BeamToIX.AS_ADD_ANIMATION
                 && this._scenes.length) {
                 var scene = this._scenes[0];
                 scene.addAnimations([{
@@ -557,7 +557,7 @@ var ABeamer;
                     }]);
             }
             else {
-                wkFlyover.func(wkFlyover, wkFlyover.params, ABeamer.TS_INIT, this._args);
+                wkFlyover.func(wkFlyover, wkFlyover.params, BeamToIX.TS_INIT, this._args);
                 this._wkFlyovers.push(wkFlyover);
             }
         };
@@ -633,7 +633,7 @@ var ABeamer;
             this._exceptIfRendering();
             this._calcFrameCount();
             if (framePos < 0 || framePos >= this._frameCount) {
-                ABeamer.throwI8n(ABeamer.Msgs.OutOfScope, { p: ABeamer.Msgs.pos });
+                BeamToIX.throwI8n(BeamToIX.Msgs.OutOfScope, { p: BeamToIX.Msgs.pos });
             }
             this._internalGotoFrame(framePos);
         };
@@ -676,7 +676,7 @@ var ABeamer;
          * Same as `getStoryToTeleport()` but it returns as `StoryConfig` object.
          * Use this function instead of getStoryToTeleport, if you need to
          * add extra fields.
-         * Modifying the content of `config.abeamer` is forbidden for 3rd-party
+         * Modifying the content of `config.beamtoix` is forbidden for 3rd-party
          * remote server rendering.
          */
         _Story.prototype.getStoryToTeleportAsConfig = function (frameOpts) {
@@ -694,7 +694,7 @@ var ABeamer;
          * This method requires that:
          *
          * 1. Is on teleporting mode `isTeleporting === true`
-         * 2. The render server agent. `abeamer render ...`
+         * 2. The render server agent. `beamtoix render ...`
          *
          * Use this method instead of `getStoryToTeleport`.
          */
@@ -702,7 +702,7 @@ var ABeamer;
             if (!this.hasServer) {
                 console.warn("To teleport it requires the render server agent to be running");
             }
-            this._sendCmd(ABeamer._SRV_CNT.MSG_TELEPORT, this.getStoryToTeleport(frameOpts, isPretty));
+            this._sendCmd(BeamToIX._SRV_CNT.MSG_TELEPORT, this.getStoryToTeleport(frameOpts, isPretty));
         };
         /**
          * Use this method only if you have created the story with `toTeleport = true`
@@ -732,15 +732,15 @@ var ABeamer;
                 case 'object': return scene;
                 case 'string':
                     var outScene = this.findSceneByName(scene);
-                    ABeamer.throwIfI8n(!outScene, ABeamer.Msgs.Unknown, { p: scene });
+                    BeamToIX.throwIfI8n(!outScene, BeamToIX.Msgs.Unknown, { p: scene });
                     return outScene;
                 case 'number':
                     var sceneIdx = scene;
                     if (this._strictMode) {
-                        ABeamer.throwIfI8n(ABeamer.isNotNegativeNatural(sceneIdx), ABeamer.Msgs.MustNatNotNegative, { p: sceneIdx });
+                        BeamToIX.throwIfI8n(BeamToIX.isNotNegativeNatural(sceneIdx), BeamToIX.Msgs.MustNatNotNegative, { p: sceneIdx });
                     }
                     if (sceneIdx < 0 || sceneIdx >= this._scenes.length) {
-                        ABeamer.throwI8n(ABeamer.Msgs.OutOfScope, { p: ABeamer.Msgs.pos });
+                        BeamToIX.throwI8n(BeamToIX.Msgs.OutOfScope, { p: BeamToIX.Msgs.pos });
                     }
                     return this._scenes[sceneIdx];
             }
@@ -751,8 +751,8 @@ var ABeamer;
         _Story.prototype._calcRenderFrameOptions = function (frameOpts) {
             frameOpts = frameOpts || {};
             this._calcFrameCount();
-            var renderFramePos = ABeamer.parseTimeHandler(frameOpts.renderPos, this._args, 0, 0);
-            var renderFrameCount = ABeamer.parseTimeHandler(frameOpts.renderCount, this._args, this._frameCount, this._frameCount);
+            var renderFramePos = BeamToIX.parseTimeHandler(frameOpts.renderPos, this._args, 0, 0);
+            var renderFrameCount = BeamToIX.parseTimeHandler(frameOpts.renderCount, this._args, this._frameCount, this._frameCount);
             if (frameOpts.startScene !== undefined) {
                 var startScene = this._getSceneByHandler(frameOpts.startScene);
                 renderFramePos += startScene.storyFrameStart;
@@ -773,7 +773,7 @@ var ABeamer;
             }
             var renderFrameDir = renderFrameCount > 0 ? 1 : -1;
             if (renderFrameDir === -1) {
-                ABeamer.throwErr('Reverse render isn\'t supported yet');
+                BeamToIX.throwErr('Reverse render isn\'t supported yet');
             }
             var renderFrameEnd = renderFrameCount > 0
                 ? renderFramePos + renderFrameCount - 1
@@ -800,7 +800,7 @@ var ABeamer;
          * If it's running on the browser, it will render and wait `playSpeedMs` time.
          *
          * @param playSpeedMs Play speed in milliseconds,
-         * ignored on server mode. ABeamer doesn't guarantee the exact timing.
+         * ignored on server mode. BeamToIX doesn't guarantee the exact timing.
          * If it's undefined, it will play at full speed.
          */
         _Story.prototype.render = function (playSpeedMs, frameOpts) {
@@ -818,7 +818,7 @@ var ABeamer;
             this._internalRender(playSpeedMs, frameOpts);
         };
         _Story.prototype._internalRender = function (playSpeedMs, frameOpts) {
-            this._args.stage = ABeamer.AS_RENDERING;
+            this._args.stage = BeamToIX.AS_RENDERING;
             this._isRendering = true;
             if (!this._calcRenderFrameOptions(this._teleporter._fillFrameOpts(frameOpts))) {
                 this.finishRender();
@@ -835,7 +835,7 @@ var ABeamer;
                 this._renderLoop();
             }
             else {
-                this._sendCmd(ABeamer._SRV_CNT.MSG_READY);
+                this._sendCmd(BeamToIX._SRV_CNT.MSG_READY);
             }
         };
         /**
@@ -854,8 +854,8 @@ var ABeamer;
                     this._internalRender(queuedRender.playSpeedMs, queuedRender);
                     return;
                 }
-                this._args.stage = ABeamer.AS_UNKNOWN;
-                this._sendCmd(ABeamer._SRV_CNT.MSG_RENDER_FINISHED);
+                this._args.stage = BeamToIX.AS_UNKNOWN;
+                this._sendCmd(BeamToIX._SRV_CNT.MSG_RENDER_FINISHED);
                 if (this.toExitOnRenderFinished) {
                     this.exit();
                 }
@@ -897,7 +897,7 @@ var ABeamer;
                     case 3:
                         stage++;
                         this._wkFlyovers.forEach(function (wkFlyover) {
-                            wkFlyover.func(wkFlyover, wkFlyover.params, ABeamer.TS_ANIME_LOOP, _this._args);
+                            wkFlyover.func(wkFlyover, wkFlyover.params, BeamToIX.TS_ANIME_LOOP, _this._args);
                         });
                         break;
                     case 4:
@@ -930,7 +930,7 @@ var ABeamer;
                                 _this._renderLoop();
                             }
                             else {
-                                _this._sendCmd(ABeamer._SRV_CNT.MSG_RENDER);
+                                _this._sendCmd(BeamToIX._SRV_CNT.MSG_RENDER);
                             }
                         }, waitTime);
                         return;
@@ -962,15 +962,15 @@ var ABeamer;
         //                               Communicate with the server
         // ------------------------------------------------------------------------
         _Story.prototype._sendCmd = function (cmd, value) {
-            console.log(ABeamer._SRV_CNT.MESSAGE_PREFIX + cmd +
-                (value ? ABeamer._SRV_CNT.CMD_VALUE_SEP + value : ''));
+            console.log(BeamToIX._SRV_CNT.MESSAGE_PREFIX + cmd +
+                (value ? BeamToIX._SRV_CNT.CMD_VALUE_SEP + value : ''));
         };
         /**
          * Terminates the server in case is a headless webpage capture program.
          * In other cases, it has no effect.
          */
         _Story.prototype.exit = function () {
-            this._sendCmd(ABeamer._SRV_CNT.MSG_EXIT);
+            this._sendCmd(BeamToIX._SRV_CNT.MSG_EXIT);
         };
         /**
          * Formats a log using a format supported by exact test framework.
@@ -982,10 +982,10 @@ var ABeamer;
             var msg = "".concat(tag, ":") + params.map(function (param) { return "".concat(param[0], "=_[").concat(param[1], "]_"); })
                 .join(' ');
             switch (logType) {
-                case ABeamer.LT_WARN:
+                case BeamToIX.LT_WARN:
                     this.logWarn(msg);
                     break;
-                case ABeamer.LT_ERROR:
+                case BeamToIX.LT_ERROR:
                     this.logError(msg);
                     break;
                 default:
@@ -998,7 +998,7 @@ var ABeamer;
          */
         _Story.prototype.logMsg = function (msg) {
             if (this.hasServer && this.serverFeatures.hasLogging) {
-                this._sendCmd(ABeamer._SRV_CNT.MSG_LOG_MSG, msg);
+                this._sendCmd(BeamToIX._SRV_CNT.MSG_LOG_MSG, msg);
             }
             else {
                 console.log(msg);
@@ -1010,7 +1010,7 @@ var ABeamer;
          */
         _Story.prototype.logWarn = function (msg) {
             if (this.hasServer && this.serverFeatures.hasLogging) {
-                this._sendCmd(ABeamer._SRV_CNT.MSG_LOG_WARN, msg);
+                this._sendCmd(BeamToIX._SRV_CNT.MSG_LOG_WARN, msg);
             }
             else {
                 console.warn(msg);
@@ -1022,7 +1022,7 @@ var ABeamer;
          */
         _Story.prototype.logError = function (msg) {
             if (this.hasServer && this.serverFeatures.hasLogging) {
-                this._sendCmd(ABeamer._SRV_CNT.MSG_LOG_ERROR, msg);
+                this._sendCmd(BeamToIX._SRV_CNT.MSG_LOG_ERROR, msg);
             }
             else {
                 console.error(msg);
@@ -1033,17 +1033,17 @@ var ABeamer;
          */
         _Story.prototype._internalGetServerMsg = function (cmd, _value) {
             switch (cmd) {
-                case ABeamer._SRV_CNT.MSG_SERVER_READY:
+                case BeamToIX._SRV_CNT.MSG_SERVER_READY:
                     this._isServerReady = true;
                     this.logMsg('Received Server Ready');
-                    this._sendCmd(ABeamer._SRV_CNT.MSG_SET_FPS, this.fps.toString());
-                    this._sendCmd(ABeamer._SRV_CNT.MSG_SET_FRAME_COUNT, this._frameCount.toString());
+                    this._sendCmd(BeamToIX._SRV_CNT.MSG_SET_FPS, this.fps.toString());
+                    this._sendCmd(BeamToIX._SRV_CNT.MSG_SET_FRAME_COUNT, this._frameCount.toString());
                     if (this.onServerReady) {
                         this.onServerReady(this._args);
                     }
                     this._renderLoop();
                     break;
-                case ABeamer._SRV_CNT.MSG_RENDER_DONE:
+                case BeamToIX._SRV_CNT.MSG_RENDER_DONE:
                     this._renderLoop();
                     break;
             }
@@ -1052,11 +1052,11 @@ var ABeamer;
         //                               Proxies
         // ------------------------------------------------------------------------
         _Story.prototype.getElementAdapters = function (selector) {
-            return ABeamer._parseInElSelector(this, [], this.storyAdapter, selector);
+            return BeamToIX._parseInElSelector(this, [], this.storyAdapter, selector);
         };
         return _Story;
     }());
-    ABeamer._Story = _Story;
+    BeamToIX._Story = _Story;
     // ------------------------------------------------------------------------
     //                               Global Functions
     // ------------------------------------------------------------------------
@@ -1067,10 +1067,10 @@ var ABeamer;
      * @see config-file
      */
     function createStory(fps, createParams) {
-        _abeamer = new _Story({ fps: fps }, createParams || {});
-        return _abeamer;
+        _beamtoix = new _Story({ fps: fps }, createParams || {});
+        return _beamtoix;
     }
-    ABeamer.createStory = createStory;
+    BeamToIX.createStory = createStory;
     /**
      * Creates a story by loading the configuration from a file or a teleported story.
      *
@@ -1087,25 +1087,25 @@ var ABeamer;
                 // @HINT: this code is a copy of  server.ts / parseIniCfgContent
                 // @TODO: find a way to avoid duplicating this code
                 data.split(/\n/).forEach(function (line) {
-                    return line.replace(/^\s*[\$@]abeamer-([\w+\-]+)\s*:\s*"?([^\n]+)"?\s*;\s*$/, function (_all, p1, p2) {
+                    return line.replace(/^\s*[\$@]beamtoix-([\w+\-]+)\s*:\s*"?([^\n]+)"?\s*;\s*$/, function (_all, p1, p2) {
                         cfgRoot[p1] = p2;
                         return '';
                     });
                 });
-                cfgRoot = { config: { abeamer: cfgRoot } };
+                cfgRoot = { config: { beamtoix: cfgRoot } };
             }
             var cfgConfig = cfgRoot.config;
             if (cfgConfig) {
-                var cfg = cfgConfig.abeamer;
+                var cfg = cfgConfig.beamtoix;
                 if (cfg) {
                     cfg.fps = cfg.fps || fps;
-                    _abeamer = new _Story(cfg, createParams || {});
-                    callback(_abeamer);
+                    _beamtoix = new _Story(cfg, createParams || {});
+                    callback(_beamtoix);
                 }
             }
         });
     }
-    ABeamer.createStoryFromConfig = createStoryFromConfig;
-})(ABeamer || (ABeamer = {}));
-var _abeamer;
+    BeamToIX.createStoryFromConfig = createStoryFromConfig;
+})(BeamToIX || (BeamToIX = {}));
+var _beamtoix;
 //# sourceMappingURL=story.js.map

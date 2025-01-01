@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -79,9 +79,9 @@ export namespace PluginInjector {
 
     let content = readUtf8Sync(injectPage);
     writeFileSync(injectPage + '.bak.html', content);
-    const urlMatches = content.match(/["']([^"']+)\/css\/abeamer\.[\w\.]*css["']/);
+    const urlMatches = content.match(/["']([^"']+)\/css\/beamtoix\.[\w\.]*css["']/);
     if (!urlMatches) {
-      throw `Couldn't parse abeamer script link`;
+      throw `Couldn't parse beamtoix script link`;
     }
     const urlBase = urlMatches[1];
     // inject js scripts

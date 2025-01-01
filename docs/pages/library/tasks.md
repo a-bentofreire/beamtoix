@@ -35,9 +35,9 @@ into multiple parts, the best is to create a task.
 A task implementation is a function with the following syntax:  
 ```typescript
 function myTaskFunc(anime: Animation, wkTask: WorkTask,
-  params: FactoryTaskParams, stage?: uint, args?: ABeamerArgs): TaskResult;
+  params: FactoryTaskParams, stage?: uint, args?: BeamToIXArgs): TaskResult;
 ```  
-And add this task to ABeamer using `ABeamer.pluginManager.addTasks([['my-task', myTaskFunc]]);`.  
+And add this task to BeamToIX using `BeamToIX.pluginManager.addTasks([['my-task', myTaskFunc]]);`.  
   
 If the task just uses plain DOM, the simplest is to:  
 - inject DOM by using the animation `selector`, and then
@@ -75,7 +75,7 @@ export type TaskResult = 0 | 1 | 2;
 <span class="code-badge badge-public">public</span> <span class="code-badge badge-export">export</span> <span class="code-badge badge-type">type</span>    
 ```js
 export type TaskFunc = (anime: Animation, wkTask: WorkTask,
-    params?: AnyParams, stage?: uint, args?: ABeamerArgs) => TaskResult;
+    params?: AnyParams, stage?: uint, args?: BeamToIXArgs) => TaskResult;
 ```
 
 ## TaskHandler

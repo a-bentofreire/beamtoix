@@ -1,12 +1,12 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
 $(window).on("load", () => {
 
-  const story = ABeamer.createStory(/*FPS:*/10);
+  const story = BeamToIX.createStory(/*FPS:*/10);
 
   // ------------------------------------------------------------------------
   //                               Scene1
@@ -20,7 +20,7 @@ $(window).on("load", () => {
         {
           handler: 'shape',
           params: {
-            shape: ABeamer.Shapes.circle,
+            shape: BeamToIX.Shapes.circle,
             radius: 25,
             fill: '#ebebeb',
             stroke: '#9d9d9d',
@@ -51,7 +51,7 @@ $(window).on("load", () => {
         {
           handler: 'shape',
           params: {
-            shape: ABeamer.Shapes.line,
+            shape: BeamToIX.Shapes.line,
             x: 30,
             y: 30,
             stroke: 'red',
@@ -65,7 +65,7 @@ $(window).on("load", () => {
         {
           handler: 'shape',
           params: {
-            shape: ABeamer.Shapes.line,
+            shape: BeamToIX.Shapes.line,
             direction: 150,
             length: 110,
             stroke: 'red',

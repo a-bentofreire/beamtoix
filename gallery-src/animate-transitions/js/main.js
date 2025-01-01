@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 /**
@@ -13,14 +13,14 @@
  * - Use only functions and plugins that supports teleporting.
  *
  * **WARNING** This example is built to be teleported for testing purposes,
- * using `abeamer render --teleport`.
+ * using `beamtoix render --teleport`.
  * read more details on teleport documentation.
  *
  * For production mode, uncomment the code lines with comments to get the
  * story to teleport.
  */
 $(window).on("load", function () {
-    var story = ABeamer.createStory(/*FPS:*/ 20);
+    var story = BeamToIX.createStory(/*FPS:*/ 20);
     story.metadata.comments = ['My first project'];
     // ------------------------------------------------------------------------
     //                               Scene1
@@ -76,7 +76,7 @@ $(window).on("load", function () {
                     duration: '1s',
                     value: 133,
                     iterationCount: 2,
-                    direction: ABeamer.Directions.alternate,
+                    direction: BeamToIX.Directions.alternate,
                 }, {
                     prop: 'top',
                     duration: 1,
@@ -98,7 +98,7 @@ $(window).on("load", function () {
                     duration: '1s',
                     value: 5,
                     iterationCount: 2,
-                    direction: ABeamer.Directions.alternate,
+                    direction: BeamToIX.Directions.alternate,
                 },
             ],
         }]);
@@ -138,7 +138,7 @@ $(window).on("load", function () {
     //                               Transitions
     // ------------------------------------------------------------------------
     scene1.transition = {
-        handler: ABeamer.StdTransitions.slideLeft,
+        handler: BeamToIX.StdTransitions.slideLeft,
         duration: '1s',
     };
     // same as above, using a wrapper task to demonstrate if the story is loaded from a config file.
@@ -148,7 +148,7 @@ $(window).on("load", function () {
                 {
                     handler: 'scene-transition',
                     params: {
-                        handler: ABeamer.StdTransitions.slideTop,
+                        handler: BeamToIX.StdTransitions.slideTop,
                         duration: '1s',
                     },
                 },

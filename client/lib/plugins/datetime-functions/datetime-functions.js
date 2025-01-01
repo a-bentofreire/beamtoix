@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Implements a list of built-in text Tasks
@@ -69,16 +69,16 @@
  * `second` - returns the second of the datetime.
  *   The datetime is a value created by `now` or by `date`.
  */
-var ABeamer;
-(function (ABeamer) {
+var BeamToIX;
+(function (BeamToIX) {
     // ------------------------------------------------------------------------
     //                               Implementation
     // ------------------------------------------------------------------------
-    ABeamer.pluginManager.addPlugin({
-        id: 'abeamer.datetime-functions',
+    BeamToIX.pluginManager.addPlugin({
+        id: 'beamtoix.datetime-functions',
         uuid: '782cbaf4-1f1e-426c-bfbd-89c2f6ab4bbb',
         author: 'Alexandre Bento Freire',
-        email: 'abeamer@a-bentofreire.com',
+        email: 'beamtoix@a-bentofreire.com',
         jsUrls: ['plugins/datetime-functions/datetime-functions.js'],
         teleportable: true,
     });
@@ -182,10 +182,10 @@ var ABeamer;
     function _second(params, req) {
         _timeCommon(params, req, function (res, dt) { res.numValue = dt.getSeconds(); });
     }
-    ABeamer.pluginManager.addFunctions([
+    BeamToIX.pluginManager.addFunctions([
         ['now', _now], ['date', _date], ['formatDateTime', _formatDateTime],
         ['year', _year], ['shortYear', _shortYear], ['month', _month], ['day', _day],
         ['hour', _hour], ['minute', _minute], ['second', _second],
     ]);
-})(ABeamer || (ABeamer = {}));
+})(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=datetime-functions.js.map

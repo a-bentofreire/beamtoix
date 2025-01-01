@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -62,7 +62,7 @@ export namespace BuildGalleryLatest {
 
       const srcFullPath = `${cfg.paths.GALLERY_SRC_PATH}/${folder}`;
       const dstFullPath = `${cfg.paths.GALLERY_LATEST_PATH}/${folder}`;
-      const iniFileName = `${srcFullPath}/abeamer.ini`;
+      const iniFileName = `${srcFullPath}/beamtoix.ini`;
 
       if (sysFs.existsSync(iniFileName)) {
 
@@ -84,7 +84,7 @@ export namespace BuildGalleryLatest {
 
         let prevNr = 0;
         let lastDescLine = '';
-        fsix.readUtf8Sync(iniFileName).replace(/[\$@]abeamer-([a-z\-]+)(\d*)\s*:\s*"?([^";]+)"?/g,
+        fsix.readUtf8Sync(iniFileName).replace(/[\$@]beamtoix-([a-z\-]+)(\d*)\s*:\s*"?([^";]+)"?/g,
           (_all, id, nr, value: string) => {
             switch (id) {
               case 'description':
@@ -236,7 +236,7 @@ ${!ex.teleportable ? '**WARNING** This example doesn\'t supports teleportation. 
 
       runSpawn('npm', ['run', '--', 'render', '--dp', '--url',
         `${cfg.webLinks.localServer}/${cfg.paths.GALLERY_SRC_PATH}/${example.folder}/`,
-        '--config', `./${cfg.paths.GALLERY_SRC_PATH}/${example.folder}/abeamer.ini`,
+        '--config', `./${cfg.paths.GALLERY_SRC_PATH}/${example.folder}/beamtoix.ini`,
       ], () => {
         runSpawn('npm', ['run', '--', 'gif', `${cfg.paths.GALLERY_SRC_PATH}/${example.folder}/`],
           () => {

@@ -1,6 +1,6 @@
 "use strict";
 // ------------------------------------------------------------------------
-// Copyright (c) 2018-2024 Alexandre Bento Freire. All rights reserved.
+// Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 
@@ -72,17 +72,17 @@
  * `second` - returns the second of the datetime.
  *   The datetime is a value created by `now` or by `date`.
  */
-namespace ABeamer {
+namespace BeamToIX {
 
   // ------------------------------------------------------------------------
   //                               Implementation
   // ------------------------------------------------------------------------
 
   pluginManager.addPlugin({
-    id: 'abeamer.datetime-functions',
+    id: 'beamtoix.datetime-functions',
     uuid: '782cbaf4-1f1e-426c-bfbd-89c2f6ab4bbb',
     author: 'Alexandre Bento Freire',
-    email: 'abeamer@a-bentofreire.com',
+    email: 'beamtoix@a-bentofreire.com',
     jsUrls: ['plugins/datetime-functions/datetime-functions.js'],
     teleportable: true,
   });

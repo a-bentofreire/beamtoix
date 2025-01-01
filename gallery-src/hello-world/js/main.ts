@@ -1,6 +1,6 @@
 $(window).on("load", () => {
 
-  const story: ABeamer.Story = ABeamer.createStory(/*FPS:*/20);
+  const story: BeamToIX.Story = BeamToIX.createStory(/*FPS:*/20);
 
   const scene1 = story.scenes[0];
   scene1.addAnimations([{
