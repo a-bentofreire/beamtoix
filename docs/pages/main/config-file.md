@@ -7,7 +7,7 @@ category: Pages
 <!--- @author: Alexandre Bento Freire -->
 ## Synopsis
 
-Documentation of the `beamtoix.ini` file and `story.json` format.
+Documentation of the `beamtoix.scss` file and `story.json` format.
 
 ## Rationale
 
@@ -20,9 +20,9 @@ having a solution with one single `.ini` file with a simple format that serves a
 Although, it has `.scss` format, it was decided to have `.ini` extension to prevent 
 from being compiled and from the user being tempted to add extra information making the parsing more complex.  
 
-## "beamtoix.ini" format
+## "beamtoix.scss" format
 
-The `beamtoix.ini` is a subset of `.scss` format,  
+The `beamtoix.scss` is a subset of `.scss` format,  
 It supports:  
 
 * Line Comments the start with `//`
@@ -39,7 +39,7 @@ $beamtoix-file: "__PROJDIR__/index.html";
 
 ## Extra information
 
-The `beamtoix.ini` examples in the gallery have the following extra fields, 
+The `beamtoix.scss` examples in the gallery have the following extra fields, 
 that have no meaning outside the scope of the gallery:  
   
 ```scss
@@ -53,7 +53,7 @@ $beamtoix-description2: "<<2n line example description>>";
 ## LESS
 
 BeamToIX was designed to use `.scss` format for stylesheets, however, it also support LESS.  
-In this case modify the `beamtoix.ini` file from `$beamtoix` to `@beamtoix`.   
+In this case modify the `beamtoix.scss` file from `$beamtoix` to `@beamtoix`.   
 
 ```less
 @beamtoix-height: 150;

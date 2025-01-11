@@ -292,7 +292,7 @@ The commands are:
       beamtoix ${CMD_MOVIE}
 
       For more information, read:
-      https://beamtoix.devtoix.com/docs/latest/end-user/en/site/beamtoix-cli/
+      https://www.devtoix.com/docs/beamtoix/en/latest/documents/Command_Line.html
 
 `);
     OptsParser.printUsage();
@@ -522,6 +522,7 @@ npm i puppeteer`);
           break;
 
         case 'beamtoix.ini':
+        case 'beamtoix.scss':
           text = text.replace(/width:\s*\d+/, `width: ${width}`)
             .replace(/height:\s*\d+/, `height: ${height}`);
           break;
@@ -529,7 +530,9 @@ npm i puppeteer`);
         case 'main.min.css':
           text = text.replace(/.beamtoix-scene{width:\d+px;height:\d+px}/,
             `.beamtoix-scene{width:${width}px;height:${height}px}`);
-
+          break;
+        case 'package.json':
+          text = text.replace(`"name": "",`, `"name": "${projName}",`);
           break;
         case 'index.html':
 
@@ -567,13 +570,19 @@ npm i puppeteer`);
         return !fileBase.match(/plugins-list\.json$/);
       });
 
+
+
     if (logLevel > Consts.LL_SILENT) {
       console.log(`Project ${projName} created.
 - frame-width: ${width}px
 - frame-height: ${height}px
 - fps: ${fps}
-To modify the the frame dimensions, edit [beamtoix.ini] and recompile the [css/main.scss] file.
+To modify the the frame dimensions, edit [beamtoix.scss] and recompile the [css/main.scss] file.
 To modify the fps, edit the [js/main.ts] file.
+On project folder:
+1. "npm init" - to install sass and esbuild
+2. "npm run ts-compile" - to Compile js/main.ts to js/main.js
+3. "npm run scss-compile" - to Compile css/main.scss to css/main.min.css
 `);
     }
   }

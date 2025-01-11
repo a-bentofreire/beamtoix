@@ -32,7 +32,7 @@ var BuildGalleryLatest;
             }
             var srcFullPath = "".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(folder);
             var dstFullPath = "".concat(cfg.paths.GALLERY_LATEST_PATH, "/").concat(folder);
-            var iniFileName = "".concat(srcFullPath, "/beamtoix.ini");
+            var iniFileName = "".concat(srcFullPath, "/beamtoix.scss");
             if (sysFs.existsSync(iniFileName)) {
                 var ex_1 = {
                     width: 0,
@@ -173,7 +173,7 @@ var BuildGalleryLatest;
                 return;
             }
             // if (example.folder === 'animate-attack-task') { // use to test one example only
-            runSpawn('npm', ['run', '--', 'render', '--dp', '--url', "".concat(cfg.webLinks.localServer, "/").concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/"), '--config', "./".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/beamtoix.ini"),
+            runSpawn('npm', ['run', '--', 'render', '--dp', '--url', "".concat(cfg.webLinks.localServer, "/").concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/"), '--config', "./".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/beamtoix.scss"),
             ], function () {
                 runSpawn('npm', ['run', '--', 'gif', "".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(example.folder, "/")], function () {
                     console.log("Done example: ".concat(example.folder));

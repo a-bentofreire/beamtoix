@@ -7,7 +7,7 @@
 [BeamToIX](https://beamtoix.devtoix.com) is a powerful frame-by-frame animation ecosystem, designed to create an animated story
 in the web browser and generate the file images of each frame in either a local machine or in the cloud.
   
-This project was formerly known as ABeamer. Read [here](#migrate-from-abeamer) how to migrate from ABeamer to BeamToIX.
+This project was formerly known as ABeamer. Read [here](#migrating-from-abeamer) how to migrate from ABeamer to BeamToIX.
 
 Unlike `VelocityJs` and `JQuery.animate` which were built for real-time user interaction,
 BeamToIX allows you to build complex frame based animations and save them frame-by-frame
@@ -282,7 +282,7 @@ The bare-bones of a `html` file:
   </div>
 ```
   
-The bare-bones of a `beamtoix.ini` file:
+The bare-bones of a `beamtoix.scss` file:
 
 ```scss
 $beamtoix-width: 200;
@@ -292,13 +292,13 @@ $beamtoix-height: 100;
 The bare-bones of a `scss` file:
 
 ```scss
-@import "./../beamtoix.ini";
+@use "./../beamtoix";
 body,
 html,
 .beamtoix-story,
 .beamtoix-scene {
-  width: $beamtoix-width + px;
-  height: $beamtoix-height + px;
+  width: beamtoix.$beamtoix-width + px;
+  height: beamtoix.$beamtoix-height + px;
 }
 ```
   
@@ -355,11 +355,18 @@ to install if you need to render, create gifs or movies on the local machine.
 
 - [Known Issues](https://www.devtoix.com/docs/beamtoix/en/latest/documents/Known_Issues.html)
 
-## Migrate from ABeamer
+## Migrating from ABeamer
 
 To migrate from ABeamer to BeamToIX:
 1. rename all the files and text from "ABeamer" to "BeamToIX".
 2. rename all the files and text from "abeamer" to "beamtoix".
+
+## Migrating from Version 2 to Version 3+
+
+Starting version 3+ due scss deprecated `@import`, the following changes must be applies to projects in prior versions:
+- `beamtoix.ini` becomes `beamtoix.scss` and it must contains the `$width` and `$height` variables
+- `mains.scss` @import becomes `@use "./../beamtoix"`
+- `$width` and `$height` outside beamtoix must be prefixed with `beamtoix`.
 
 ## Support this Project
 

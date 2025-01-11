@@ -25,7 +25,7 @@ read the details on [AxisChartTaskParams](chart-tasks.md#axischarttaskparams).
 ## Get started
 How to create a simple bar chart:  
   
-The bare-bones of a `beamtoix.ini` file:  
+The bare-bones of a `beamtoix.scss` file:  
 ```scss
 $beamtoix-width: 300;
 $beamtoix-height: 150;

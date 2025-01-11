@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+## [3.0.0] -
+### Updated
+- Changes from `beamtoix.ini` to `beamtoix.scss`.
+- Changes @import to @use on `main.scss`.
+- `beamtoix create` creates the package.json including scripts to compile scss and ts.
+
 ## [2.0.0] -
 ### Updated
 - Rename project ABeamer to BeamToIX.

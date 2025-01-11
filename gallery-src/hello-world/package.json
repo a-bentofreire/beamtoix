@@ -1,0 +1,14 @@
+{
+    "name": "",
+    "version": "1.0.0",
+    "main": "js/main.js",
+    "scripts": {
+        "scss-compile": "cd css && sass --style=compressed main.scss main.min.css",
+        "scss-watch": "sass -w --style=compressed css/main.scss css/main.min.css",
+        "ts-compile": "esbuild --minify --sourcemap --outfile=js/main.js js/main.ts",
+        "ts-watch": "esbuild --watch --minify --sourcemap --outfile=js/main.js js/main.ts"
+    },
+    "author": "",
+    "license": "ISC",
+    "description": ""
+}

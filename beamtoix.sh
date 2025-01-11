@@ -6,6 +6,6 @@
 # Licensed under the MIT License.
 # ------------------------------------------------------------------------
 
-# this script is designed only for testing beamtoix cli in a bash enviroment.
+# this script is designed only for testing beamtoix cli in a bash environment.
 
 node ./cli/beamtoix-cli.js "$@"

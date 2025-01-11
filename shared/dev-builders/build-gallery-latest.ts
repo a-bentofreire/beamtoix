@@ -62,7 +62,7 @@ export namespace BuildGalleryLatest {
 
       const srcFullPath = `${cfg.paths.GALLERY_SRC_PATH}/${folder}`;
       const dstFullPath = `${cfg.paths.GALLERY_LATEST_PATH}/${folder}`;
-      const iniFileName = `${srcFullPath}/beamtoix.ini`;
+      const iniFileName = `${srcFullPath}/beamtoix.scss`;
 
       if (sysFs.existsSync(iniFileName)) {
 
@@ -236,7 +236,7 @@ ${!ex.teleportable ? '**WARNING** This example doesn\'t supports teleportation. 
 
       runSpawn('npm', ['run', '--', 'render', '--dp', '--url',
         `${cfg.webLinks.localServer}/${cfg.paths.GALLERY_SRC_PATH}/${example.folder}/`,
-        '--config', `./${cfg.paths.GALLERY_SRC_PATH}/${example.folder}/beamtoix.ini`,
+        '--config', `./${cfg.paths.GALLERY_SRC_PATH}/${example.folder}/beamtoix.scss`,
       ], () => {
         runSpawn('npm', ['run', '--', 'gif', `${cfg.paths.GALLERY_SRC_PATH}/${example.folder}/`],
           () => {

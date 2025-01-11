@@ -584,7 +584,7 @@ var Exact;
             + " --ll ".concat(params.logLevel !== undefined ? params.logLevel : consts_js_1.Consts.LL_VERBOSE)
             + (params.toDelPreviousFrames !== false ? ' --dp' : '')
             + (params.toGenFrames ? '' : ' --noframes')
-            + " --config \"".concat(rd.outFolder, "/beamtoix.ini\"");
+            + " --config \"".concat(rd.outFolder, "/beamtoix.scss\"");
         if (params.onCmdLine) {
             cmdLine = params.onCmdLine(cmdLine);
         }

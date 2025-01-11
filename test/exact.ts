@@ -965,7 +965,7 @@ export namespace Exact {
       + ` --ll ${params.logLevel !== undefined ? params.logLevel : Consts.LL_VERBOSE}`
       + (params.toDelPreviousFrames !== false ? ' --dp' : '')
       + (params.toGenFrames ? '' : ' --noframes')
-      + ` --config "${rd.outFolder}/beamtoix.ini"`;
+      + ` --config "${rd.outFolder}/beamtoix.scss"`;
 
     if (params.onCmdLine) {
       cmdLine = params.onCmdLine(cmdLine);

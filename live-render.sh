@@ -32,7 +32,7 @@ else
   FOLDER=${FOLDER%/}
   DFOLDER=${FOLDER//\.\//}
   URL="http://localhost:$PORT/$DFOLDER/"
-  CONFIG="./$DFOLDER/beamtoix.ini"
+  CONFIG="./$DFOLDER/beamtoix.scss"
 
   echo "PORT=$PORT"
   echo "FOLDER=$DFOLDER"

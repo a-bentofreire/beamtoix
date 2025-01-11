@@ -43,7 +43,7 @@ var __extends = (this && this.__extends) || (function () {
  * ## Get started
  * How to create a simple bar chart:
  *
- * The bare-bones of a `beamtoix.ini` file:
+ * The bare-bones of a `beamtoix.scss` file:
  * ```scss
  * $beamtoix-width: 300;
  * $beamtoix-height: 150;

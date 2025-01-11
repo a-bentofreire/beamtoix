@@ -12,7 +12,7 @@ The user can create its own custom functions but only built-in functions
 and official plugins can create functions that support [teleportation](teleporter.md).  
   
 ## Core functions
-**WARNING!** In the BeamToIX 2.x these core functions will move `core-functions` plugin.  
+**WARNING!** In BeamToIX 4.x these core functions will move `core-functions` plugin.  
 To prevent breaking changes include now the js script `core-functions.js` on the html file.  
   
 BeamToIX has the following core functions:  

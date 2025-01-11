@@ -8,7 +8,7 @@ REM  Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 REM  Licensed under the MIT License.
 REM  ------------------------------------------------------------------------
 
-REM  this script is designed only for testing beamtoix cli in a bash enviroment
+REM  this script is designed only for testing beamtoix cli in a bash environment
 REM  using `beamtoix serve` as a live server.
 REM  e.g. live-render.cmd gallery\animate-colors
 
@@ -38,12 +38,12 @@ set FOLDER=%1
 shift
 
 REM set FOLDER=!FOLDER!
-set DFOLDER=!FOLDER:\=/!
-set URL=http://localhost:!PORT!/!DFOLDER!/
-set CONFIG=./!DFOLDER!/beamtoix.ini
+set D_FOLDER=!FOLDER:\=/!
+set URL=http://localhost:!PORT!/!D_FOLDER!/
+set CONFIG=./!D_FOLDER!/beamtoix.scss
 
 echo PORT=!PORT!
-echo FOLDER=!DFOLDER!
+echo FOLDER=!D_FOLDER!
 echo URL=!URL!
 echo CONFIG=!CONFIG!
 
@@ -53,16 +53,16 @@ REM https://stackoverflow.com/questions/761615/is-there-a-way-to-indicate-the-la
 set params=%1
 :loop
 shift
-if [%1]==[] goto afterloop
+if [%1]==[] goto after_loop
 set params=%params% %1
 goto loop
-:afterloop
+:after)loop
 REM ------------------------------------------------------------------------------
 
 echo node cli\beamtoix-cli.js render !params! --dp --url !URL! --config !CONFIG!
 node cli\beamtoix-cli.js render !params! --dp --url !URL! --config !CONFIG!
 
 if %GEN_GIF% == 1 (
-  node cli\beamtoix-cli.js gif ./!DFOLDER!
+  node cli\beamtoix-cli.js gif ./!D_FOLDER!
 )
 :end

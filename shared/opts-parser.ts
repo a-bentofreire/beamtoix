@@ -148,7 +148,7 @@ export namespace OptsParser {
     config: {
       param: 'string', desc:
         `loads the config from a ini or json file
-           see https://beamtoix.devtoix.com/docs/latest/end-user/en/site/config-file/`,
+           see https://www.devtoix.com/docs/beamtoix/en/latest/documents/Config_File.html`,
     },
 
     var: {

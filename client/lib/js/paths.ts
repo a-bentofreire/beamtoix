@@ -57,7 +57,7 @@
  *     Virtual Elements such as WebGL can use 3D paths to move their objects.
  *
  * ## Core paths
- * **WARNING!** In the BeamToIX 2.x these core paths will move `core-paths` plugin.
+ * **WARNING!** In BeamToIX 4.x these core paths will move `core-paths` plugin.
  * To prevent breaking changes include now the js script `core-paths.js` on the html file.
  *
  *  BeamToIX has the following core paths:

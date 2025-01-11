@@ -47,7 +47,7 @@
  *
  *
  * ## Core oscillators
- * **WARNING!** In the BeamToIX 2.x these core oscillators will move `core-oscillators` plugin.
+ * **WARNING!** In BeamToIX 4.x these core oscillators will move `core-oscillators` plugin.
  * To prevent breaking changes include now the js script `core-oscillators.js` on the html file.
  *
  *  BeamToIX has the following core oscillators:

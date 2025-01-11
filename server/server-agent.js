@@ -211,7 +211,7 @@ var ServerAgent;
                     return '';
                 }
                 if (self.existsSync(configFileName) && self.isDirectory(configFileName)) {
-                    configFileName = self.posixPathJoin(configFileName, 'beamtoix.ini');
+                    configFileName = self.posixPathJoin(configFileName, 'beamtoix.scss');
                 }
                 if (!self.existsSync(configFileName)) {
                     throw "Config file ".concat(configFileName, " doesn't exists");

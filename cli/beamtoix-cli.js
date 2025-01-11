@@ -231,7 +231,7 @@ var Cli;
     //                               Print Usage
     // ------------------------------------------------------------------------
     function printUsage() {
-        console.log("beamtoix [command] [options] [project-name|report-name]\nThe commands are:\n    ".concat(CMD_CHECK, " checks if the all requirements are installed and configured\n    ").concat(CMD_CREATE, " creates a project with project-name\n    ").concat(CMD_SERVE, "  starts a live server. Use it in case you need to load the config from JSON file\n    ").concat(CMD_RENDER, " runs your project in the context of the headless browser.\n    ").concat(CMD_GIF, "    creates an animated gif from the project-name or report-name\n    ").concat(CMD_MOVIE, "  creates a movie from the project-name or report-name\n\n    e.g.\n      echo \"checks if chrome, puppeteer, imagemagick, ffmpeg are installed and configured\"\n      beamtoix ").concat(CMD_CHECK, "\n\n      echo \"create folder foo and copy necessary files\"\n      beamtoix ").concat(CMD_CREATE, " --width 640 --height 480 --fps 25 foo\n\n      cd foo\n\n      echo \"start a live server\"\n      echo \"only required if you need to load your configuration from json file\"\n      beamtoix ").concat(CMD_SERVE, "\n\n      echo \"generates the png files and a report on story-frames folder\"\n      beamtoix ").concat(CMD_RENDER, "\n\n      echo \"creates story.gif file on story-frames folder\"\n      beamtoix ").concat(CMD_GIF, "\n\n      echo \"creates story.mp4 file on story-frames folder\"\n      beamtoix ").concat(CMD_MOVIE, "\n\n      For more information, read:\n      https://beamtoix.devtoix.com/docs/latest/end-user/en/site/beamtoix-cli/\n\n"));
+        console.log("beamtoix [command] [options] [project-name|report-name]\nThe commands are:\n    ".concat(CMD_CHECK, " checks if the all requirements are installed and configured\n    ").concat(CMD_CREATE, " creates a project with project-name\n    ").concat(CMD_SERVE, "  starts a live server. Use it in case you need to load the config from JSON file\n    ").concat(CMD_RENDER, " runs your project in the context of the headless browser.\n    ").concat(CMD_GIF, "    creates an animated gif from the project-name or report-name\n    ").concat(CMD_MOVIE, "  creates a movie from the project-name or report-name\n\n    e.g.\n      echo \"checks if chrome, puppeteer, imagemagick, ffmpeg are installed and configured\"\n      beamtoix ").concat(CMD_CHECK, "\n\n      echo \"create folder foo and copy necessary files\"\n      beamtoix ").concat(CMD_CREATE, " --width 640 --height 480 --fps 25 foo\n\n      cd foo\n\n      echo \"start a live server\"\n      echo \"only required if you need to load your configuration from json file\"\n      beamtoix ").concat(CMD_SERVE, "\n\n      echo \"generates the png files and a report on story-frames folder\"\n      beamtoix ").concat(CMD_RENDER, "\n\n      echo \"creates story.gif file on story-frames folder\"\n      beamtoix ").concat(CMD_GIF, "\n\n      echo \"creates story.mp4 file on story-frames folder\"\n      beamtoix ").concat(CMD_MOVIE, "\n\n      For more information, read:\n      https://www.devtoix.com/docs/beamtoix/en/latest/documents/Command_Line.html\n\n"));
         opts_parser_js_1.OptsParser.printUsage();
     }
     // ------------------------------------------------------------------------
@@ -406,11 +406,15 @@ var Cli;
                     text = text.replace(/createStory\([^)]*\)/, "createStory(/*FPS:*/".concat(fps, ")"));
                     break;
                 case 'beamtoix.ini':
+                case 'beamtoix.scss':
                     text = text.replace(/width:\s*\d+/, "width: ".concat(width))
                         .replace(/height:\s*\d+/, "height: ".concat(height));
                     break;
                 case 'main.min.css':
                     text = text.replace(/.beamtoix-scene{width:\d+px;height:\d+px}/, ".beamtoix-scene{width:".concat(width, "px;height:").concat(height, "px}"));
+                    break;
+                case 'package.json':
+                    text = text.replace("\"name\": \"\",", "\"name\": \"".concat(projName, "\","));
                     break;
                 case 'index.html':
                     // inserts the plugins.
@@ -448,7 +452,7 @@ var Cli;
             return !fileBase.match(/plugins-list\.json$/);
         });
         if (logLevel > consts_js_1.Consts.LL_SILENT) {
-            console.log("Project ".concat(projName, " created.\n- frame-width: ").concat(width, "px\n- frame-height: ").concat(height, "px\n- fps: ").concat(fps, "\nTo modify the the frame dimensions, edit [beamtoix.ini] and recompile the [css/main.scss] file.\nTo modify the fps, edit the [js/main.ts] file.\n"));
+            console.log("Project ".concat(projName, " created.\n- frame-width: ").concat(width, "px\n- frame-height: ").concat(height, "px\n- fps: ").concat(fps, "\nTo modify the the frame dimensions, edit [beamtoix.scss] and recompile the [css/main.scss] file.\nTo modify the fps, edit the [js/main.ts] file.\nOn project folder:\n1. \"npm init\" - to install sass and esbuild\n2. \"npm run ts-compile\" - to Compile js/main.ts to js/main.js\n3. \"npm run scss-compile\" - to Compile css/main.scss to css/main.min.css\n"));
         }
     }
     /**

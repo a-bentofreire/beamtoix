@@ -88,7 +88,7 @@ var OptsParser;
         teleport: { desc: "makes the web browser run on teleport mode, and generates the story on the exit" },
         dp: { desc: "deletes previous frames" },
         config: {
-            param: 'string', desc: "loads the config from a ini or json file\n           see https://beamtoix.devtoix.com/docs/latest/end-user/en/site/config-file/",
+            param: 'string', desc: "loads the config from a ini or json file\n           see https://www.devtoix.com/docs/beamtoix/en/latest/documents/Config_File.html",
         },
         var: {
             param: 'object', desc: "allows to pass multiple variables to client web library.\n         accessible as story.args.vars or in expressions.\n         if the variable name has dashes, it will be converted to camelCase\n           e.g --var name=end-user --var value=1.2.3",

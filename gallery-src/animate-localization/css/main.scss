@@ -5,13 +5,13 @@
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 //
-@import "./../beamtoix.ini";
+@use "./../beamtoix";
 body,
 html,
 .beamtoix-story,
 .beamtoix-scene {
-  width: $beamtoix-width + px;
-  height: $beamtoix-height + px;
+  width: beamtoix.$beamtoix-width + px;
+  height: beamtoix.$beamtoix-height + px;
 }
 
 #scene1 {
@@ -32,7 +32,7 @@ html,
 #dot {
   position: absolute;
   left: 10px;
-  top: $beamtoix-height/2 + px;
+  top: beamtoix.$beamtoix-height/2 + px;
   width: 6px;
   height: 6px;
   background: red;
