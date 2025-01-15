@@ -27,7 +27,7 @@
  * If there aren't enough frames in the pipeline, part of the transition will be missing.
  *
  * ## Core transitions
- * **WARNING!** In the BeamToIX 2.x these core transitions will move `core-transitions` plugin.
+ * **WARNING!** In BeamToIX 4.x these core transitions will move `core-transitions` plugin.
  * To prevent breaking changes include now the js script `core-transitions.js` on the html file.
  *
  *  BeamToIX has the following core transitions:

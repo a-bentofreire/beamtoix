@@ -1,10 +1,10 @@
 # Description
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-beamtoix/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-beamtoix.gif)
 
 ![NPM Version](https://img.shields.io/npm/v/beamtoix)
 
-[BeamToIX](https://beamtoix.devtoix.com) is a powerful frame-by-frame animation ecosystem, designed to create an animated story
+[BeamToIX](https://www.devtoix.com/en/projects/beamtoix) is a powerful frame-by-frame animation ecosystem, designed to create an animated story
 in the web browser and generate the file images of each frame in either a local machine or in the cloud.
   
 This project was formerly known as ABeamer. Read [here](#migrating-from-abeamer) how to migrate from ABeamer to BeamToIX.
@@ -48,7 +48,6 @@ to install if you need to render, create gifs or movies in the local machine.
 - Absolutely minimum [dependencies](#requirements).
 - Highly Extensible via plugins including interpolators, functions, flyovers and tasks.
 - Tasks to build complex animations and F/X.
-- Large gallery of [example projects](https://beamtoix.devtoix.com/gallery/latest/).
 - Multiple scenes (only default scenes are teleportable).
 - Scene transitions.
 - Expressions, functions and variables.
@@ -56,19 +55,17 @@ to install if you need to render, create gifs or movies in the local machine.
 - Teleportable JQuery-like containers.
 - Teleportable flyovers.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-rec-high-res/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-rec-high-res.gif)
   
 - Saves frame-by-frame into a file sequence with transparency and at high resolution.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-with-less/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-with-less.gif)
   
 - Optional support for SCSS, LESS and TypeScript.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-virtual/story-frames/story.gif)
-  
-- DOM and Virtual Elements, Animators and Scenes. [read more >>>](https://beamtoix.devtoix.com/blog/2018/07/31/how-to-use-virtual-animators-in-beamtoix.html)
-  
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-localization/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-virtual.gif)
+
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-localization.gif)
   
 - Localization of messages and plugin functionalities, including functions and variables.
 
@@ -82,30 +79,30 @@ or if that information is given via `valueStart`.
 
 e.g  `prop: 'border-style'; valueText: ['dotted', 'dashed']`.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-pixels/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-pixels.gif)
   
 - Pixel properties.
  e.g. `valueStart: 10px; value: 100;`
-- Dual-pixel properties via [paths](https://beamtoix.devtoix.com/docs/latest/end-user/en/site/paths/).
+- Dual-pixel properties via [paths](https://www.devtoix.com/docs/beamtoix/en/latest/documents/Library.Paths.html).
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-colors/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-colors.gif)
   
 - Color properties.
 e.g. `valueText: ['red', '#FF00AA'];`
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-counter/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-counter.gif)
   
 - Formatted numerical properties.
 e.g. `valueFormat: '%d%'; value: 100;`
 - Unformatted numerical properties.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-images/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-images.gif)
   
 - Image properties.
 e.g. `prop: 'src'; valueText: ['a.png', 'b.png'];`
 - Text properties.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-class-prop/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-class-prop.gif)
   
 - `class` property.
 e.g. `prop: 'class'; valueText: ['+class1 -class2'];`
@@ -121,11 +118,11 @@ its animations are similar to CSS animations, therefore it's easy to convert CSS
 to BeamToIX animations.
 Besides the property interpolation described above, BeamToIX also supports:
 
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-item-delay/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-item-delay.gif)
   
 - Item-delay with `disturbance` to produce random effects.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-loop/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-loop.gif)
   
 - CSS animation-iteration-count.
 
@@ -140,19 +137,19 @@ BeamToIX provides several interpolators, which can be defined by:
 
 BeamToIX has following interpolators:
 
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-easings/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-easings.gif)
   
 - Easings - The speed of motion.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-oscillator/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-oscillator.gif)
   
 - `harmonic` and `damped` oscillators - Rotation and Balancing motion.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-pulsar/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-pulsar.gif)
   
 - `pulsar` oscillator.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-paths/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-paths.gif)
   
 - Paths - n-dimension motion.
 
@@ -166,53 +163,49 @@ Just like in the case of interpolators, Code Handlers aren't teleported, and the
 
 BeamToIX has the following tools:
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-transitions/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-transitions.gif)
   
 - Scene transitions.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-flyovers/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-flyovers.gif)
+
+- `video-sync` flyover [[1]](https://www.devtoix.com/docs/beamtoix/en/latest/documents/Library.Flyovers.html#video-sync-flyover).
   
-- `info` flyover.
-  
-[![Image](https://beamtoix.devtoix.com/gallery/latest/animate-video-sync/story-frames/../assets/a-bentofreire/snapshot.jpg)](https://beamtoix.devtoix.com/gallery/latest/animate-video-sync/story-frames/../assets/a-bentofreire/view-video.html)
-  
-- `video-sync` flyover [[1]](https://beamtoix.devtoix.com/docs/latest/end-user/en/site/flyovers/#video-sync-flyover).
-  
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-wrappers/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-wrappers.gif)
   
 - Wrappers.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-text-tasks/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-text-tasks.gif)
   
 - Text tasks:
   - `text-split` task.
   - `typewriter` task.
 
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-factory/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-factory.gif)
   
 - `factory` task.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-decipher-text/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-decipher-text.gif)
   
 - `decipher` task.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-attack-task/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-attack-task.gif)
   
 - `color-attack` task.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-shapes/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-shapes.gif)
   
 - `shape` task.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-speech/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-speech.gif)
   
 - `speech` shape task.
   
-![Image](https://beamtoix.devtoix.com/gallery/latest/animate-charts/story-frames/story.gif)
+![Image](https://www.devtoix.com/assets/beamtoix/gallery/animate-charts.gif)
   
 - `charts` task.
 
-and much more [coming soon](https://beamtoix.devtoix.com/docs/latest/end-user/en/site/roadmap/).
+and much more [coming soon](https://www.devtoix.com/docs/beamtoix/en/latest/documents/Roadmap.html).
 
 ## Installation
 
@@ -234,7 +227,7 @@ However, in order to render frames, generate gifs and movies, it requires:
    BeamToIX also supports `phantomjs` but since its features are outdated it is preferable to use puppeteer.
 
 3. To generate gifs, it requires to have [imagemagick](https://www.imagemagick.org) on system path.
-   For Windows users, read the following [note](https://beamtoix.devtoix.com/docs/latest/end-user/en/site/faq/#it-doesnt-creates-a-gif-file).
+   For Windows users, read the following [note](https://www.devtoix.com/docs/beamtoix/en/latest/documents/FAQ.html#it-doesnt-creates-a-gif-file).
 
 4. To create movies, it requires to have [ffmpeg](https://www.ffmpeg.org/) on the system path.
   
@@ -341,7 +334,7 @@ You can add multiple properties in parallel or off-sync with the `position` or `
 3. launch a live server: `beamtoix serve`.
 4. create a png file sequence: `beamtoix render`.
 5. create gifs: `beamtoix gif`.
-6. create movies: `beamtoix movie`.
+6. create video clips: `beamtoix movie`.
 
 For detailed examples, read: [Command Line Utility](https://www.devtoix.com/docs/beamtoix/en/latest/documents/Command_Line.html).
 Read [Requirements](#requirements) for details about the necessary software

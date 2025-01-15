@@ -22,11 +22,8 @@ var globule = require("globule");
 var child_process_1 = require("child_process");
 var _a = require('gulp'), series = _a.series, parallel = _a.parallel;
 var fsix_js_1 = require("./shared/vendor/fsix.js");
-var build_d_ts_beamtoix_js_1 = require("./shared/dev-builders/build-d-ts-beamtoix.js");
-var build_shared_js_1 = require("./shared/dev-builders/build-shared.js");
-var build_single_lib_file_js_1 = require("./shared/dev-builders/build-single-lib-file.js");
-var build_gallery_latest_js_1 = require("./shared/dev-builders/build-gallery-latest.js");
 var dev_config_js_1 = require("./shared/dev-config.js");
+var build_d_ts_js_1 = require("./shared/dev-builders/build-d-ts.js");
 /** @module developer | This module won't be part of release version */
 /**
  * ## Description
@@ -49,20 +46,17 @@ var gulpReplace = require('gulp-replace');
 var gulpPreserveTime = require('gulp-preservetime');
 var gulpRename = require('gulp-rename');
 var gulpConcat = require('gulp-concat');
-// const gulpZip = require('gulp-zip');
 var cfg = dev_config_js_1.DevCfg.getConfig(__dirname);
 var modulesList = fsix_js_1.fsix.loadJsonSync(cfg.paths.MODULES_LIST_FILE);
 var libModules = modulesList.libModules;
 var pluginModules = modulesList.pluginModules;
-var exampleNames = sysFs.readdirSync(cfg.paths.GALLERY_SRC_PATH)
-    .filter(function (file) { return file.startsWith('animate'); });
-var exampleArray = __spreadArray([], Array(exampleNames.length), true);
+var API_FOLDER = 'api';
+var EN_LAST_VERSION_PATH = 'en';
 // ------------------------------------------------------------------------
 //                               Print Usage
 // ------------------------------------------------------------------------
 exports.default = function (cb) {
-    console.log("gulp [task]\n  Where task is\n    bump_version - builds version files from package.json\n      when: before publishing a new version\n\n    clean - executes clean-gallery-src\n\n    build_release_latest - builds the release files where all the files are compiled and minify\n      when: before publishing a new **stable** version and after testing\n\n    build_shared_lib - builds files from the client library to be used by server, tests and cli\n      when: every time a module tagged with @module shared or\n            constants that are useful for server and cli are modified\n\n    build_docs_latest_deprecated - builds both the end-user and developer documentation\n      when: before publishing a new **stable** version and after testing\n\n    post_build_docs_latest_deprecated - changes links for offline testing and adds other improvements\n\n    build_definition_files - builds definition files for end-user and developer\n      when: after any public or shared member of a class is modified\n\n    build_gallery_src_gifs - builds all the animated gifs for each example in the gallery\n      when: before build-gallery-latest\n      warn: this can be a long operation\n\n    build_gallery_latest - builds release version of the gallery\n      --local builds using local links\n      when: before publishing a new gallery, after build-gallery-src-gifs\n\n    clean_gallery_src - deletes all the ".concat(cfg.paths.GALLERY_SRC_PATH, "/story-frames files and folder\n      when: cleaning day!\n\n    clean_gallery_src_png - deletes all the ").concat(cfg.paths.GALLERY_SRC_PATH, "/story-frames/*.png\n\n    update_gallery_src_scripts - builds a new version of ")
-        + "".concat(cfg.paths.GALLERY_SRC_PATH, "/*/index.html with script list updated\n      when: every time there is a new module on the library or a module change its name\n            first must update on the ").concat(cfg.paths.CLIENT_PATH, "/lib/js/modules.json\n\n    update_test_list - updates test-list.json and package.json with the full list of tests\n      when: every time there is a new test or a test change its name\n\n    list_docs_files_as_links - outputs the console the list of document files in markdown link format\n\n    list_paths_macros - lists paths & macros\n\n    README_to_online - converts all online README.md local links to online links\n\n    README_to_local - converts all online README.md online links to local links\n\n    "));
+    console.log("gulp [task]\n  Where task is\n    build - compiles all files\n\n    build_release_latest - builds the release files where all the files are compiled and minify\n      when: before publishing a new **stable** version and after testing\n\n    update_test_list - updates test-list.json and package.json with the full list of tests\n      when: every time there is a new test or a test change its name\n\n    list_docs_files_as_links - outputs the console the list of document files in markdown link format\n\n    list_paths_macros - lists paths & macros\n");
     cb();
 };
 exports.list_paths_macros = function (cb) {
@@ -92,50 +86,9 @@ function rimrafExcept(root, except) {
     });
 }
 // ------------------------------------------------------------------------
-//                               updateHtmlPages
+//                               Build
 // ------------------------------------------------------------------------
-/**
- * Updates the html links.
- * For release and release-gallery it removes the individual links,
- * and replaces with the compiled version.
- * In other cases, just updates links.
- */
-function updateHtmlPages(srcPath, destPath, newScriptFiles, setReleaseLinks, srcOptions) {
-    return gulp.src(srcPath, srcOptions)
-        .pipe(gulpReplace(/<body>((?:.|\n)+)<\/body>/, function (_all, p) {
-        var lines = p.split('\n');
-        var outLines = [];
-        var state = 0;
-        lines.forEach(function (line) {
-            if (state < 2) {
-                if (line.match(/lib\/js\/[\w\-]+.js"/)) {
-                    state = 1;
-                    return;
-                }
-                else if (state === 1 && line.trim()) {
-                    newScriptFiles.forEach(function (srcFile) {
-                        outLines.push("   <script src=\"".concat(srcFile, ".js\"></script>"));
-                    });
-                    state = 2;
-                }
-            }
-            outLines.push(line);
-        });
-        return '<body>' + outLines.join('\n') + '</body>';
-    }))
-        .pipe(gulpReplace(/^(?:.|\n)+$/, function (all) {
-        return setReleaseLinks ? all.replace(/\.\.\/\.\.\/client\/lib/g, 'beamtoix') : all;
-    }))
-        .pipe(gulp.dest(destPath));
-}
-// ------------------------------------------------------------------------
-//                               Clean
-// ------------------------------------------------------------------------
-exports.clean = exports.clean_gallery_src;
-// ------------------------------------------------------------------------
-//                               Bump Version
-// ------------------------------------------------------------------------
-exports.bump_version = function (cb) {
+exports.build = function (cb) {
     var SRC_FILENAME = './package.json';
     var WARN_MSG = "\n  // This file was generated via npx gulp bump_version\n  // @WARN: Don't edit this file. See the ".concat(SRC_FILENAME, "\n\n");
     var _a = fsix_js_1.fsix.readUtf8Sync(SRC_FILENAME).match(/"version": "([\d\.]+)"/) || ['', ''], _ = _a[0], version = _a[1];
@@ -146,13 +99,200 @@ exports.bump_version = function (cb) {
     console.log("".concat(SRC_FILENAME, " version is ").concat(version));
     sysFs.writeFileSync('./shared/version.ts', WARN_MSG + VERSION_OUT + '\n');
     sysFs.writeFileSync("./".concat(cfg.paths.JS_PATH, "/version.ts"), WARN_MSG + "namespace BeamToIX {\n  ".concat(VERSION_OUT, "\n}\n"));
-    fsix_js_1.fsix.runExternal('npx gulp build_shared_lib', function () {
-        fsix_js_1.fsix.runExternal('npm run compile', function () {
-            console.log('Version bumped');
-            cb();
-        });
+    build_shared(libModules, cfg.paths.JS_PATH, cfg.paths.SHARED_LIB_PATH, 'npx gulp build');
+    build_dts_files_beamtoix(libModules, pluginModules, COPYRIGHTS, cfg);
+    fsix_js_1.fsix.runExternal('npm run compile', function () {
+        console.log('Build');
+        cb();
     });
 };
+// ------------------------------------------------------------------------
+//                               build_single_lib_file
+// ------------------------------------------------------------------------
+function build_single_lib_file(libModules, srcPath, dstPath, dstFile, generateMsg, excludeIdList, isDebug) {
+    var WARN_MSG = "\n// This file was generated via ".concat(generateMsg, "\n//\n// @WARN: Don't edit this file.\n");
+    var outputList = [];
+    libModules.forEach(function (fileTitle) {
+        var srcFileName = "".concat(srcPath, "/").concat(fileTitle, ".ts");
+        outputList.push(fsix_js_1.fsix.readUtf8Sync(srcFileName));
+    });
+    var output = WARN_MSG + '\nnamespace BeamToIX {'
+        + outputList.join('\n')
+            .replace(/}\s*\n+\s*"use strict";/g, '') // removes the inter namespaces
+            .replace(/namespace BeamToIX\s*{/g, '')
+            .replace(/export\s+(\w+)\s+_(\w+)/g, function (all, tokType, id) {
+            return excludeIdList.indexOf(id) === -1 ? "".concat(tokType, " _").concat(id) : all;
+        });
+    if (!isDebug) {
+        output = output.replace(/\/\/\s*#debug-start(?:.|\n)*?\/\/\s*#debug-end/g, function () { return ''; });
+    }
+    fsix_js_1.fsix.mkdirpSync(dstPath);
+    sysFs.writeFileSync(dstFile, output);
+}
+// ------------------------------------------------------------------------
+//                               build_shared
+// ------------------------------------------------------------------------
+function build_shared(libSourceFileTitles, srcPath, dstPath, generateMsg) {
+    var WARN_MSG = "\n// This file was generated via ".concat(generateMsg, "\n//\n// @WARN: Don't edit this file.\n/** @see ");
+    var sharedConsts = [];
+    function parseSharedConsts(fileTitle, content) {
+        var found = false;
+        var lastIdPart = '';
+        function addConst(line) {
+            if (!found) {
+                sharedConsts.push("\n  // -------------\n  // ".concat(fileTitle, "\n  // -------------\n"));
+                found = true;
+            }
+            // adds extra line if a different constant group
+            var _a = line.match(/^(\w+)\s+(\w+)/) || ['', '', ''], id = _a[2];
+            var idParts = id.split('_');
+            if (lastIdPart && lastIdPart !== idParts[0]) {
+                sharedConsts.push('');
+            }
+            lastIdPart = idParts[0];
+            sharedConsts.push('  export ' + line);
+        }
+        // scans for consts and enums
+        content.replace(/export\s+(const\s+[A-Z]\w+\s*=\s*[^;]+;|enum\s+\w+\s*{[^}]+})/g, function (all, p) {
+            addConst(p.replace(/ as.*;/, ';'));
+            return all;
+        });
+    }
+    libSourceFileTitles.forEach(function (fileTitle) {
+        var srcFileName = "".concat(srcPath, "/").concat(fileTitle, ".ts");
+        var content = fsix_js_1.fsix.readUtf8Sync(srcFileName);
+        parseSharedConsts(fileTitle, content);
+        if (content.match(/@module shared/)) {
+            var outNameSpace = fileTitle[0].toUpperCase() + fileTitle.substr(1)
+                .replace(/-(\w)/g, function (all, p1) { return p1.toUpperCase(); });
+            content = content.replace(/namespace \w+/, "export namespace ".concat(outNameSpace));
+            content = content.replace(/[^\n]+@module shared[^\n]+/, "\n".concat(WARN_MSG).concat(srcFileName, " */\n"));
+            var dstFileName = "".concat(dstPath, "/").concat(fileTitle, ".ts");
+            console.log("writing ".concat(dstFileName));
+            sysFs.writeFileSync(dstFileName, content);
+        }
+    });
+    // generates the dev consts file
+    sysFs.writeFileSync("".concat(dstPath, "/dev-consts.ts"), "\"use strict\";\n// This file was generated ".concat(generateMsg, "\n//\n// @WARN: Don't edit this file.\n\nexport namespace DevConsts {\n").concat(sharedConsts.join('\n'), "\n}\n"));
+}
+// ------------------------------------------------------------------------
+//                               getDocsTargets
+// ------------------------------------------------------------------------
+var badgeLine = '';
+var getDocsTargets = function (cfg) { return [
+    {
+        id: 'end-user',
+        name: 'End User',
+        dstPath: cfg.paths.DOCS_LATEST_END_USER_PATH,
+        sourcePaths: [cfg.paths.DOCS_SOURCE_PATH],
+        moduleTypes: ['end-user'],
+        indexFile: './README.md',
+        isEndUser: true,
+        logFile: './build-docs-latest-end-user.log',
+        processIndexPage: function (data) {
+            return data
+                .replace(/^(.*)developer-badge\.gif(.*)$/m, function (all, p1, p2) {
+                badgeLine = all;
+                return p1 + 'end-user-badge.gif' + p2;
+            })
+                .replace(new RegExp("".concat(cfg.webLinks.webDomain, "/"), 'g'), '/');
+        },
+    },
+    {
+        id: 'dev',
+        name: 'Developer',
+        dstPath: cfg.paths.DOCS_LATEST_DEVELOPER_PATH,
+        sourcePaths: [cfg.paths.DOCS_SOURCE_PATH, cfg.paths.DOCS_SOURCE_DEV_PATH],
+        moduleTypes: ['end-user', 'developer', 'internal'],
+        indexFile: "".concat(cfg.paths.DOCS_SOURCE_PATH, "-dev/README.md"),
+        isEndUser: false,
+        logFile: './build-docs-latest-dev.log',
+        processIndexPage: function (data) {
+            return data.replace(/^(# Description.*)$/m, function (all) {
+                if (!badgeLine) {
+                    throw "end-user should had been processed already.";
+                }
+                return all + '\n' + badgeLine + '  \n';
+            });
+        },
+    },
+]; };
+// ------------------------------------------------------------------------
+//                               build_dts_files_beamtoix
+// ------------------------------------------------------------------------
+function build_dts_files_beamtoix(libModules, pluginModules, COPYRIGHTS, cfg) {
+    var WARN_MSG = "\n  // This file was generated via gulp build-definition-files\n  //\n  // @WARN: Don't edit this file.\n  ";
+    var libSourceFileNames = __spreadArray(__spreadArray([], libModules
+        .map(function (fileTitle) { return "".concat(cfg.paths.JS_PATH, "/").concat(fileTitle, ".ts"); }), true), pluginModules
+        .map(function (fileTitle) { return "".concat(cfg.paths.PLUGINS_PATH, "/").concat(fileTitle, "/").concat(fileTitle, ".ts"); }), true);
+    [{
+            uuid: 'bb85cc57-f5e3-4ae9-b498-7d13c07c8516',
+            srcFiles: libSourceFileNames,
+            docTarget: getDocsTargets(cfg).find(function (target) { return target.id === 'end-user'; }),
+            namespace: 'BeamToIX',
+            outFile: "".concat(cfg.paths.TYPINGS_PATH, "/beamtoix.d.ts"),
+            description: "\n  //\n  // These are the class interfaces for the end-user and plugin creators\n  // Any modification on these interfaces will require an increment in the high number version\n  //",
+            acceptId: function (id, idType) {
+                switch (idType) {
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.JsDocs:
+                        return id.replace(/@(memberof|extends) _/g, '@$1 ');
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.ExtendsWords:
+                        return id.replace(/\s_/, ' ');
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.ClassName:
+                        return id.replace(/^_/, '');
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.FunctionName:
+                        return '';
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.MethodName:
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.VarName:
+                        return id[0] === '_' || id === 'constructor' ? '' : id;
+                }
+                return id;
+            },
+        },
+        {
+            uuid: 'a7d9ab44-f9b0-4108-b768-730d7afb20a4',
+            srcFiles: libSourceFileNames,
+            namespace: 'BeamToIX',
+            docTarget: getDocsTargets(cfg).find(function (target) { return target.id === 'dev'; }),
+            outFile: "".concat(cfg.paths.TYPINGS_PATH, "/beamtoix-dev.d.ts"),
+            description: "\n  //\n  // These are the class interfaces for internal usage only\n  // It won't be deployed on the release version\n  // and it shouldn't be accessed by plugin creators\n  // In theory, all of these class members should be have protected access\n  // but due a lack of 'friend class' mechanism in TypeScript, they have\n  // public access but both the interfaces as well as the members but all\n  // must start with underscore\n  //",
+            acceptId: function (id, idType) {
+                switch (idType) {
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.ExtendsWords:
+                        return '';
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.ClassName:
+                        return id + 'Impl extends ' + id.replace(/^_/, '');
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.FunctionName:
+                        return '';
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.MethodName:
+                    case build_d_ts_js_1.BuildDTsFiles.IdTypes.VarName: return id[0] !== '_' ? '' : id;
+                }
+                return id;
+            },
+        },
+        {
+            uuid: '61a25ccf-dbe2-49cc-bb39-bc58b68ccbae',
+            srcFiles: libSourceFileNames,
+            tag: 'release',
+            namespace: 'BeamToIX',
+            outFile: "".concat(cfg.paths.TYPINGS_PATH, "/release/beamtoix-release.d.ts"),
+            description: "\n  //\n  // This file contains about the compilation of all the exported types\n  // targeted for the end-user\n  // The source data is all information in each source code file defined between\n  //      #export-section-start: release\n  // and  #export-section-end: release\n  //\n  // This way the user will have access to all the public information in one file\n  // It won't be used during the development phase.\n  // And it's excluded in tsconfig\n  //",
+            acceptId: function (id, idType) {
+                return (idType === build_d_ts_js_1.BuildDTsFiles.IdTypes.FunctionName && id[0] === '_') ? '' : id;
+            },
+        },
+    ].forEach(function (target) {
+        var outFile = target.outFile;
+        var apiPath;
+        if (target.docTarget) {
+            apiPath = "".concat(target.docTarget.dstPath, "/").concat(EN_LAST_VERSION_PATH, "/").concat(API_FOLDER);
+            fsix_js_1.fsix.mkdirpSync(apiPath);
+        }
+        build_d_ts_js_1.BuildDTsFiles.build(target.srcFiles, outFile, COPYRIGHTS + WARN_MSG + target.description
+            + "\n\ndeclare namespace ".concat(target.namespace, " {\n\n"), '\n}\n', target.acceptId, target.tag, apiPath);
+        console.log("Build ".concat(outFile));
+    });
+}
 // ------------------------------------------------------------------------
 //                               Build Single Lib
 // ------------------------------------------------------------------------
@@ -178,7 +318,7 @@ var bs_copy = function (mode) {
 };
 var bs_build_single_ts = function (mode) {
     return function build_single_ts(cb) {
-        build_single_lib_file_js_1.BuildSingleLibFile.build(libModules, cfg.paths.JS_PATH, "".concat(mode.path), "".concat(mode.path, "/beamtoix").concat(mode.suffix, ".ts"), 'npx gulp build_release_latest', [
+        build_single_lib_file(libModules, cfg.paths.JS_PATH, "".concat(mode.path), "".concat(mode.path, "/beamtoix").concat(mode.suffix, ".ts"), 'npx gulp build_release_latest', [
             exports.Story, // story must always be exported
         ], mode.isDebug);
         cb();
@@ -203,12 +343,6 @@ var rel_client = function () {
         .pipe(gulp.dest("".concat(cfg.paths.RELEASE_LATEST_PATH, "/client")))
         .pipe(gulpPreserveTime());
 };
-// jquery_typings is over 300k. no longer being deployed 
-var rel_jquery_typings = function () {
-    return gulp.src("node_modules/@types/jquery/**")
-        .pipe(gulp.dest("".concat(cfg.paths.RELEASE_LATEST_PATH, "/").concat(cfg.paths.TYPINGS_PATH, "/vendor/jquery")))
-        .pipe(gulpPreserveTime());
-};
 var rel_client_js_join = function () {
     return gulp.src("".concat(cfg.paths.SINGLE_LIB_PATH, "/*/beamtoix*.js"))
         .pipe(gulpMinify({ noSource: true, ext: { min: '.min.js' } }))
@@ -218,9 +352,9 @@ var rel_client_js_join = function () {
 };
 var rel_gallery = function () {
     return gulp.src([
-        "".concat(cfg.paths.GALLERY_SRC_PATH, "/").concat(cfg.release.demosStr, "/**"),
-        "!".concat(cfg.paths.GALLERY_SRC_PATH, "/*/story-frames/*"),
-    ], { base: cfg.paths.GALLERY_SRC_PATH })
+        "".concat(cfg.paths.GALLERY_PATH, "/").concat(cfg.release.demosStr, "/**"),
+        "!".concat(cfg.paths.GALLERY_PATH, "/*/story-frames/*"),
+    ], { base: cfg.paths.GALLERY_PATH })
         .pipe(gulp.dest("".concat(cfg.paths.RELEASE_LATEST_PATH, "/gallery")))
         .pipe(gulpPreserveTime());
 };
@@ -327,132 +461,7 @@ var rel_gen_bundle_en = function () {
         .pipe(gulpConcat('beamtoix-bundle-en.min.js'))
         .pipe(gulp.dest(JS_PATH));
 };
-exports.build_release_latest = series(build_single_lib_internal, rel_clean, rel_client, rel_gallery, rel_client_js_join, rel_root, rel_README, rel_minify, rel_minify_cli, rel_add_copyrights, rel_build_package_json, series.apply(void 0, cfg.release.demos.map(function (demo) { return rel_build_tsconfig_ts(demo); })), rel_build_beamtoix_d_ts, rel_build_plugins_list_json, rel_gen_bundle_en);
-// ------------------------------------------------------------------------
-//                               Builds Shared Modules from Client
-// ------------------------------------------------------------------------
-exports.build_shared_lib = function (cb) {
-    build_shared_js_1.BuildShared.build(libModules, cfg.paths.JS_PATH, cfg.paths.SHARED_LIB_PATH, 'npx gulp build_shared_lib');
-    cb();
-};
-// ------------------------------------------------------------------------
-//                               Builds Definition Files
-// ------------------------------------------------------------------------
-exports.build_definition_files = function (cb) {
-    build_d_ts_beamtoix_js_1.BuildDTsFilesBeamToIX.build(libModules, pluginModules, '', COPYRIGHTS, cfg);
-    cb();
-};
-// ------------------------------------------------------------------------
-//                               Builds the documentation
-// ------------------------------------------------------------------------
-exports.build_docs_latest_deprecated = function (cb) {
-    // BuildDocsLatest.build(libModules, pluginModules, cfg);
-    cb();
-};
-exports.post_build_docs_latest_deprecated = function (cb) {
-    // const wordMap: DevCfg.DevDocsWordMap = {};
-    // cfg.docs.keywords.forEach(word => { wordMap[word] = { wordClass: exports.keyword }; });
-    // cfg.docs.jsTypes.forEach(word => { wordMap[word] = { wordClass: exports.type }; });
-    // cfg.docs.customTypes.forEach(wordPair => {
-    //     wordMap[wordPair[0]] = {
-    //         wordClass: exports.type,
-    //         title: wordPair[1],
-    //     };
-    // });
-    // BuildDocsLatest.postBuild([
-    //     `{${cfg.paths.DOCS_LATEST_END_USER_PATH},${cfg.paths.DOCS_LATEST_DEVELOPER_PATH}}/en/site{/,/*/}*.html`],
-    //     cfg.docs.replacePaths, wordMap);
-    cb();
-};
-// ------------------------------------------------------------------------
-//                               Builds Release Version Of The Gallery
-// ------------------------------------------------------------------------
-function gal_rel_clear(cb) {
-    rimrafExcept(cfg.paths.GALLERY_LATEST_PATH, ['.git']);
-    cb();
-}
-function gal_rel_get_examples(cb) {
-    build_gallery_latest_js_1.BuildGalleryLatest.populateReleaseExamples(cfg);
-    cb();
-}
-function gal_rel_copy_files(index) {
-    return function rel_copy_files(cb) {
-        var ex = build_gallery_latest_js_1.BuildGalleryLatest.releaseExamples[index];
-        var srcList = ["".concat(ex.srcFullPath, "/**"), "!".concat(ex.srcFullPath, "/{*.html,story.json,story-frames/*.png}")];
-        if (ex.srcFullPath.includes('remote-server')) {
-            srcList.push("!".concat(ex.srcFullPath, "/assets{/**,}"));
-        }
-        return gulp.src(srcList, { dot: true })
-            .pipe(gulp.dest(ex.dstFullPath));
-    };
-}
-function gal_rel_update_html_files(index) {
-    return function rel_update_html_files(cb) {
-        var ex = build_gallery_latest_js_1.BuildGalleryLatest.releaseExamples[index];
-        return updateHtmlPages("".concat(ex.srcFullPath, "/*.html"), ex.dstFullPath, ["../../".concat(cfg.paths.JS_PATH, "/beamtoix.min")], true);
-    };
-}
-function gal_rel_online_html_files(index) {
-    var onlineLink = "".concat(cfg.webLinks.webDomain, "/").concat(cfg.paths.RELEASE_LATEST_PATH, "/client/lib");
-    return function rel_online_html_files(cb) {
-        var ex = build_gallery_latest_js_1.BuildGalleryLatest.releaseExamples[index];
-        return gulp.src(["".concat(ex.dstFullPath, "/index.html")])
-            .pipe(gulpReplace(/^(?:.|\n)+$/, function (all) {
-            return all
-                .replace(/"beamtoix\//g, "\"".concat(onlineLink, "/"))
-                .replace(/(<head>)/g, '<!-- This file was created to be used online only. -->\n$1');
-        }))
-            .pipe(gulpRename('index-online.html'))
-            .pipe(gulp.dest(ex.dstFullPath))
-            .pipe(gulpPreserveTime());
-    };
-}
-function gal_rel_create_zip(index) {
-    return function rel_create_zip(cb) {
-        var ex = build_gallery_latest_js_1.BuildGalleryLatest.releaseExamples[index];
-        cb();
-        // return gulp.src([
-        //     `${ex.dstFullPath}/**`,
-        //     `${ex.dstFullPath}/.allowed-plugins.json`,
-        //     `!${ex.dstFullPath}/index-online.html`,
-        //     `!${ex.dstFullPath}/*.zip`,
-        //     `!${ex.dstFullPath}/story-frames/*.{json,gif,mp4}`,
-        // ])
-        //     .pipe(gulpZip(BuildGalRel.EXAMPLE_ZIP_FILE))
-        //     .pipe(gulp.dest(ex.dstFullPath));
-    };
-}
-exports.build_gallery_latest = series(gal_rel_clear, gal_rel_get_examples, parallel.apply(void 0, __spreadArray(__spreadArray([], exampleArray.map(function (_, index) { return series(gal_rel_copy_files(index), gal_rel_update_html_files(index), gal_rel_online_html_files(index), gal_rel_create_zip(index)); }), false), [function gal_rel_process_readme(cb) {
-        build_gallery_latest_js_1.BuildGalleryLatest.buildReadMe(cfg);
-        cb();
-    }], false)));
-// ------------------------------------------------------------------------
-//                               Deletes gallery story-frames folder
-// ------------------------------------------------------------------------
-exports.clean_gallery_src = function (cb) {
-    rimraf.sync("".concat(cfg.paths.GALLERY_SRC_PATH, "/*/story-frames"));
-    cb();
-};
-exports.clean_gallery_src_png = function (cb) {
-    rimraf.sync("".concat(cfg.paths.GALLERY_SRC_PATH, "/*/story-frames/*.png"));
-    cb();
-};
-// ------------------------------------------------------------------------
-//                               Creates gallery examples gif image
-// ------------------------------------------------------------------------
-exports.build_gallery_src_gifs = series(exports.clean_gallery_src_png, function (cb) {
-    build_gallery_latest_js_1.BuildGalleryLatest.buildGifs(cfg);
-    cb();
-});
-// ------------------------------------------------------------------------
-//                               Update Gallery Scripts
-// ------------------------------------------------------------------------
-exports.update_gallery_src_scripts = function () {
-    var DST_PATH = "".concat(cfg.paths.GALLERY_SRC_PATH, "-updated");
-    rimraf.sync("".concat(DST_PATH, "/**"));
-    var newScriptFiles = libModules.map(function (srcFile) { return "../../".concat(cfg.paths.JS_PATH, "/").concat(srcFile); });
-    return updateHtmlPages("".concat(cfg.paths.GALLERY_SRC_PATH, "/*/*.html"), DST_PATH, newScriptFiles, false);
-};
+exports.build_release_latest = series(exports.build, build_single_lib_internal, rel_clean, rel_client, rel_gallery, rel_client_js_join, rel_root, rel_README, rel_minify, rel_minify_cli, rel_add_copyrights, rel_build_package_json, series.apply(void 0, cfg.release.demos.map(function (demo) { return rel_build_tsconfig_ts(demo); })), rel_build_beamtoix_d_ts, rel_build_plugins_list_json, rel_gen_bundle_en);
 // ------------------------------------------------------------------------
 //                               Updates Test List
 // ------------------------------------------------------------------------
@@ -533,20 +542,4 @@ exports.prepare_docs = function (cb) {
     }
     cb();
 };
-// ------------------------------------------------------------------------
-//                               Lists ./docs Files As Links
-// ------------------------------------------------------------------------
-function changeReadmeLinks(toLocal, cb) {
-    var IN_FILE = './README.md';
-    var BAK_FILE = IN_FILE + '.bak.md';
-    var srcRegEx = new RegExp('\\]\\(' + (toLocal ? cfg.webLinks.webDomain : '') + '/', exports.g);
-    var dstLink = '](' + (toLocal ? '' : cfg.webLinks.webDomain) + '/';
-    var content = fsix_js_1.fsix.readUtf8Sync(IN_FILE);
-    sysFs.writeFileSync(BAK_FILE, content);
-    content = content.replace(srcRegEx, dstLink);
-    sysFs.writeFileSync(IN_FILE, content);
-    cb();
-}
-exports.readme_to_online = function (cb) { changeReadmeLinks(false, cb); };
-exports.readme_to_local = function (cb) { changeReadmeLinks(true, cb); };
 //# sourceMappingURL=gulpfile.js.map

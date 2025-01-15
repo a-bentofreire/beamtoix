@@ -6,7 +6,7 @@ exports.Consts = void 0;
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
 // Defines global constants
-// This file was generated via npx gulp build_shared_lib
+// This file was generated via npx gulp build
 //
 // @WARN: Don't edit this file.
 /** @see client/lib/js/consts.ts */

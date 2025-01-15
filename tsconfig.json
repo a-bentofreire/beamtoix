@@ -21,7 +21,6 @@
         ".private/",
         "docs/",
         "release/",
-        "gallery-release/",
         "node_modules/",
         "shared/dev-builders/output/",
         "client/lib/typings/release/beamtoix-release.d.ts",

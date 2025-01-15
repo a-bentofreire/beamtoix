@@ -13,12 +13,9 @@ import * as globule from "globule";
 import { exec as sysExec } from "child_process";
 const { series, parallel } = require('gulp');
 import { fsix } from "./shared/vendor/fsix.js";
-import { BuildDTsFilesBeamToIX } from "./shared/dev-builders/build-d-ts-beamtoix.js";
-import { BuildShared } from "./shared/dev-builders/build-shared.js";
-import { BuildSingleLibFile } from "./shared/dev-builders/build-single-lib-file.js";
-import { BuildDocsLatest } from "./shared/dev-builders/build-docs-latest.js";
-import { BuildGalleryLatest as BuildGalRel } from "./shared/dev-builders/build-gallery-latest.js";
 import { DevCfg } from "./shared/dev-config.js";
+import { BuildDTsFiles } from "./shared/dev-builders/build-d-ts.js";
+
 
 /** @module developer | This module won't be part of release version */
 
@@ -51,15 +48,14 @@ const gulpReplace = require('gulp-replace');
 const gulpPreserveTime = require('gulp-preservetime');
 const gulpRename = require('gulp-rename');
 const gulpConcat = require('gulp-concat');
-// const gulpZip = require('gulp-zip');
 
 const cfg = DevCfg.getConfig(__dirname);
 const modulesList = fsix.loadJsonSync(cfg.paths.MODULES_LIST_FILE) as Shared.ModulesList;
 const libModules = modulesList.libModules;
 const pluginModules = modulesList.pluginModules;
-const exampleNames = sysFs.readdirSync(cfg.paths.GALLERY_SRC_PATH)
-    .filter(file => file.startsWith('animate'));
-const exampleArray = [...Array(exampleNames.length)];
+
+const API_FOLDER = 'api';
+const EN_LAST_VERSION_PATH = 'en';
 
 // ------------------------------------------------------------------------
 //                               Print Usage
@@ -68,43 +64,10 @@ const exampleArray = [...Array(exampleNames.length)];
 exports.default = function (cb) {
     console.log(`gulp [task]
   Where task is
-    bump_version - builds version files from package.json
-      when: before publishing a new version
-
-    clean - executes clean-gallery-src
+    build - compiles all files
 
     build_release_latest - builds the release files where all the files are compiled and minify
       when: before publishing a new **stable** version and after testing
-
-    build_shared_lib - builds files from the client library to be used by server, tests and cli
-      when: every time a module tagged with @module shared or
-            constants that are useful for server and cli are modified
-
-    build_docs_latest_deprecated - builds both the end-user and developer documentation
-      when: before publishing a new **stable** version and after testing
-
-    post_build_docs_latest_deprecated - changes links for offline testing and adds other improvements
-
-    build_definition_files - builds definition files for end-user and developer
-      when: after any public or shared member of a class is modified
-
-    build_gallery_src_gifs - builds all the animated gifs for each example in the gallery
-      when: before build-gallery-latest
-      warn: this can be a long operation
-
-    build_gallery_latest - builds release version of the gallery
-      --local builds using local links
-      when: before publishing a new gallery, after build-gallery-src-gifs
-
-    clean_gallery_src - deletes all the ${cfg.paths.GALLERY_SRC_PATH}/story-frames files and folder
-      when: cleaning day!
-
-    clean_gallery_src_png - deletes all the ${cfg.paths.GALLERY_SRC_PATH}/story-frames/*.png
-
-    update_gallery_src_scripts - builds a new version of `
-        + `${cfg.paths.GALLERY_SRC_PATH}/*/index.html with script list updated
-      when: every time there is a new module on the library or a module change its name
-            first must update on the ${cfg.paths.CLIENT_PATH}/lib/js/modules.json
 
     update_test_list - updates test-list.json and package.json with the full list of tests
       when: every time there is a new test or a test change its name
@@ -112,12 +75,7 @@ exports.default = function (cb) {
     list_docs_files_as_links - outputs the console the list of document files in markdown link format
 
     list_paths_macros - lists paths & macros
-
-    README_to_online - converts all online README.md local links to online links
-
-    README_to_local - converts all online README.md online links to local links
-
-    `);
+`);
     cb();
 }
 
@@ -151,59 +109,10 @@ function rimrafExcept(root: string, except: string[]): void {
 }
 
 // ------------------------------------------------------------------------
-//                               updateHtmlPages
+//                               Build
 // ------------------------------------------------------------------------
 
-/**
- * Updates the html links.
- * For release and release-gallery it removes the individual links,
- * and replaces with the compiled version.
- * In other cases, just updates links.
- */
-function updateHtmlPages(srcPath: string, destPath: string,
-    newScriptFiles: string[], setReleaseLinks: boolean,
-    srcOptions?: any): NodeJS.ReadWriteStream {
-
-    return gulp.src(srcPath, srcOptions)
-        .pipe(gulpReplace(/<body>((?:.|\n)+)<\/body>/, (_all, p: string) => {
-            const lines = p.split('\n');
-            const outLines = [];
-            let state = 0;
-            lines.forEach(line => {
-                if (state < 2) {
-                    if (line.match(/lib\/js\/[\w\-]+.js"/)) {
-                        state = 1;
-                        return;
-                    } else if (state === 1 && line.trim()) {
-                        newScriptFiles.forEach(srcFile => {
-                            outLines.push(`   <script src="${srcFile}.js"></script>`);
-                        });
-                        state = 2;
-                    }
-                }
-                outLines.push(line);
-            });
-            return '<body>' + outLines.join('\n') + '</body>';
-        }))
-
-        .pipe(gulpReplace(/^(?:.|\n)+$/, (all: string) =>
-            setReleaseLinks ? all.replace(/\.\.\/\.\.\/client\/lib/g, 'beamtoix') : all,
-        ))
-
-        .pipe(gulp.dest(destPath));
-}
-
-// ------------------------------------------------------------------------
-//                               Clean
-// ------------------------------------------------------------------------
-
-exports.clean = exports.clean_gallery_src;
-
-// ------------------------------------------------------------------------
-//                               Bump Version
-// ------------------------------------------------------------------------
-
-exports.bump_version = function (cb) {
+exports.build = function (cb) {
     const SRC_FILENAME = './package.json';
     const WARN_MSG = `
   // This file was generated via npx gulp bump_version
@@ -219,11 +128,294 @@ exports.bump_version = function (cb) {
     sysFs.writeFileSync(`./${cfg.paths.JS_PATH}/version.ts`,
         WARN_MSG + `namespace BeamToIX {\n  ${VERSION_OUT}\n}\n`);
 
-    fsix.runExternal('npx gulp build_shared_lib', () => {
-        fsix.runExternal('npm run compile', () => {
-            console.log('Version bumped');
-            cb();
+    build_shared(libModules, cfg.paths.JS_PATH, cfg.paths.SHARED_LIB_PATH, 'npx gulp build');
+    build_dts_files_beamtoix(libModules, pluginModules, COPYRIGHTS, cfg);
+
+    fsix.runExternal('npm run compile', () => {
+        console.log('Build');
+        cb();
+    });
+}
+
+// ------------------------------------------------------------------------
+//                               build_single_lib_file
+// ------------------------------------------------------------------------
+
+function build_single_lib_file(libModules: string[],
+    srcPath: string, dstPath: string, dstFile: string,
+    generateMsg: string, excludeIdList: string[], isDebug: boolean): void {
+
+    const WARN_MSG = `
+// This file was generated via ${generateMsg}
+//
+// @WARN: Don't edit this file.
+`;
+
+    const outputList = [];
+
+    libModules.forEach(fileTitle => {
+        const srcFileName = `${srcPath}/${fileTitle}.ts`;
+        outputList.push(fsix.readUtf8Sync(srcFileName));
+    });
+
+    let output = WARN_MSG + '\nnamespace BeamToIX {'
+        + outputList.join('\n')
+            .replace(/}\s*\n+\s*"use strict";/g, '') // removes the inter namespaces
+            .replace(/namespace BeamToIX\s*{/g, '')
+            .replace(/export\s+(\w+)\s+_(\w+)/g, (all, tokType, id) =>
+                excludeIdList.indexOf(id) === -1 ? `${tokType} _${id}` : all,
+            );
+
+    if (!isDebug) {
+        output = output.replace(/\/\/\s*#debug-start(?:.|\n)*?\/\/\s*#debug-end/g,
+            () => '');
+    }
+
+    fsix.mkdirpSync(dstPath);
+    sysFs.writeFileSync(dstFile, output);
+}
+
+// ------------------------------------------------------------------------
+//                               build_shared
+// ------------------------------------------------------------------------
+
+function build_shared(libSourceFileTitles: string[],
+    srcPath: string, dstPath: string,
+    generateMsg: string) {
+
+    const WARN_MSG = `
+// This file was generated via ${generateMsg}
+//
+// @WARN: Don't edit this file.
+/** @see `;
+
+    const sharedConsts = [];
+
+    function parseSharedConsts(fileTitle: string, content: string): void {
+        let found = false;
+        let lastIdPart = '';
+
+        function addConst(line: string): void {
+            if (!found) {
+                sharedConsts.push(`
+  // -------------
+  // ${fileTitle}
+  // -------------
+`);
+                found = true;
+            }
+
+            // adds extra line if a different constant group
+            const [, , id] = line.match(/^(\w+)\s+(\w+)/) || ['', '', ''];
+            const idParts = id.split('_');
+            if (lastIdPart && lastIdPart !== idParts[0]) {
+                sharedConsts.push('');
+            }
+            lastIdPart = idParts[0];
+
+            sharedConsts.push('  export ' + line);
+        }
+
+        // scans for consts and enums
+        content.replace(/export\s+(const\s+[A-Z]\w+\s*=\s*[^;]+;|enum\s+\w+\s*{[^}]+})/g, (all, p) => {
+            addConst(p.replace(/ as.*;/, ';'));
+            return all;
         });
+    }
+
+
+    libSourceFileTitles.forEach(fileTitle => {
+        const srcFileName = `${srcPath}/${fileTitle}.ts`;
+        let content = fsix.readUtf8Sync(srcFileName);
+        parseSharedConsts(fileTitle, content);
+        if (content.match(/@module shared/)) {
+
+            const outNameSpace = fileTitle[0].toUpperCase() + fileTitle.substr(1)
+                .replace(/-(\w)/g, (all, p1) => p1.toUpperCase());
+            content = content.replace(/namespace \w+/, `export namespace ${outNameSpace}`);
+            content = content.replace(/[^\n]+@module shared[^\n]+/, `\n${WARN_MSG}${srcFileName} */\n`);
+
+            const dstFileName = `${dstPath}/${fileTitle}.ts`;
+            console.log(`writing ${dstFileName}`);
+            sysFs.writeFileSync(dstFileName, content);
+        }
+    });
+
+
+    // generates the dev consts file
+    sysFs.writeFileSync(`${dstPath}/dev-consts.ts`,
+        `"use strict";
+// This file was generated ${generateMsg}
+//
+// @WARN: Don't edit this file.
+
+export namespace DevConsts {
+${sharedConsts.join('\n')}
+}
+`);
+}
+
+// ------------------------------------------------------------------------
+//                               getDocsTargets
+// ------------------------------------------------------------------------
+
+let badgeLine = '';
+
+const getDocsTargets = (cfg: DevCfg.DevConfig) => [
+    {
+        id: 'end-user',
+        name: 'End User',
+        dstPath: cfg.paths.DOCS_LATEST_END_USER_PATH,
+        sourcePaths: [cfg.paths.DOCS_SOURCE_PATH],
+        moduleTypes: ['end-user'],
+        indexFile: './README.md',
+        isEndUser: true,
+        logFile: './build-docs-latest-end-user.log',
+        processIndexPage: (data: string) => {
+            return data
+                .replace(/^(.*)developer-badge\.gif(.*)$/m, (all, p1, p2) => {
+                    badgeLine = all;
+                    return p1 + 'end-user-badge.gif' + p2;
+                })
+                .replace(new RegExp(`${cfg.webLinks.webDomain}/`, 'g'), '/');
+        },
+    },
+    {
+        id: 'dev',
+        name: 'Developer',
+        dstPath: cfg.paths.DOCS_LATEST_DEVELOPER_PATH,
+        sourcePaths: [cfg.paths.DOCS_SOURCE_PATH, cfg.paths.DOCS_SOURCE_DEV_PATH],
+        moduleTypes: ['end-user', 'developer', 'internal'],
+        indexFile: `${cfg.paths.DOCS_SOURCE_PATH}-dev/README.md`,
+        isEndUser: false,
+        logFile: './build-docs-latest-dev.log',
+        processIndexPage: (data: string) => {
+            return data.replace(/^(# Description.*)$/m, (all) => {
+                if (!badgeLine) {
+                    throw `end-user should had been processed already.`;
+                }
+                return all + '\n' + badgeLine + '  \n';
+            });
+        },
+    },
+];
+
+// ------------------------------------------------------------------------
+//                               build_dts_files_beamtoix
+// ------------------------------------------------------------------------
+
+function build_dts_files_beamtoix(libModules: string[],
+    pluginModules: string[],
+    COPYRIGHTS: string,
+    cfg: DevCfg.DevConfig) {
+
+    const WARN_MSG = `
+  // This file was generated via gulp build-definition-files
+  //
+  // @WARN: Don't edit this file.
+  `;
+
+    const libSourceFileNames = [...libModules
+        .map(fileTitle => `${cfg.paths.JS_PATH}/${fileTitle}.ts`),
+    ...pluginModules
+        .map(fileTitle => `${cfg.paths.PLUGINS_PATH}/${fileTitle}/${fileTitle}.ts`)];
+
+    [{
+        uuid: 'bb85cc57-f5e3-4ae9-b498-7d13c07c8516',
+        srcFiles: libSourceFileNames,
+        docTarget: getDocsTargets(cfg).find(target => target.id === 'end-user'),
+        namespace: 'BeamToIX',
+        outFile: `${cfg.paths.TYPINGS_PATH}/beamtoix.d.ts`,
+        description: `
+  //
+  // These are the class interfaces for the end-user and plugin creators
+  // Any modification on these interfaces will require an increment in the high number version
+  //`,
+        acceptId: (id: string, idType: BuildDTsFiles.IdTypes) => {
+            switch (idType) {
+                case BuildDTsFiles.IdTypes.JsDocs:
+                    return id.replace(/@(memberof|extends) _/g, '@$1 ');
+                case BuildDTsFiles.IdTypes.ExtendsWords:
+                    return id.replace(/\s_/, ' ');
+                case BuildDTsFiles.IdTypes.ClassName:
+                    return id.replace(/^_/, '');
+                case BuildDTsFiles.IdTypes.FunctionName:
+                    return '';
+                case BuildDTsFiles.IdTypes.MethodName:
+                case BuildDTsFiles.IdTypes.VarName:
+                    return id[0] === '_' || id === 'constructor' ? '' : id;
+            }
+            return id;
+        },
+    },
+    {
+        uuid: 'a7d9ab44-f9b0-4108-b768-730d7afb20a4',
+        srcFiles: libSourceFileNames,
+        namespace: 'BeamToIX',
+        docTarget: getDocsTargets(cfg).find(target => target.id === 'dev'),
+        outFile: `${cfg.paths.TYPINGS_PATH}/beamtoix-dev.d.ts`,
+        description: `
+  //
+  // These are the class interfaces for internal usage only
+  // It won't be deployed on the release version
+  // and it shouldn't be accessed by plugin creators
+  // In theory, all of these class members should be have protected access
+  // but due a lack of 'friend class' mechanism in TypeScript, they have
+  // public access but both the interfaces as well as the members but all
+  // must start with underscore
+  //`,
+        acceptId: (id: string, idType: BuildDTsFiles.IdTypes) => {
+            switch (idType) {
+                case BuildDTsFiles.IdTypes.ExtendsWords:
+                    return '';
+                case BuildDTsFiles.IdTypes.ClassName:
+                    return id + 'Impl extends ' + id.replace(/^_/, '');
+                case BuildDTsFiles.IdTypes.FunctionName:
+                    return '';
+                case BuildDTsFiles.IdTypes.MethodName:
+                case BuildDTsFiles.IdTypes.VarName: return id[0] !== '_' ? '' : id;
+            }
+            return id;
+        },
+    },
+    {
+        uuid: '61a25ccf-dbe2-49cc-bb39-bc58b68ccbae',
+        srcFiles: libSourceFileNames,
+        tag: 'release',
+        namespace: 'BeamToIX',
+        outFile: `${cfg.paths.TYPINGS_PATH}/release/beamtoix-release.d.ts`,
+        description: `
+  //
+  // This file contains about the compilation of all the exported types
+  // targeted for the end-user
+  // The source data is all information in each source code file defined between
+  //      #export-section-start: release
+  // and  #export-section-end: release
+  //
+  // This way the user will have access to all the public information in one file
+  // It won't be used during the development phase.
+  // And it's excluded in tsconfig
+  //`,
+        acceptId: (id: string, idType: BuildDTsFiles.IdTypes) => {
+            return (idType === BuildDTsFiles.IdTypes.FunctionName && id[0] === '_') ? '' : id;
+        },
+    },
+    ].forEach(target => {
+        const outFile = target.outFile;
+
+        let apiPath;
+        if (target.docTarget) {
+            apiPath = `${target.docTarget.dstPath}/${EN_LAST_VERSION_PATH}/${API_FOLDER}`;
+            fsix.mkdirpSync(apiPath);
+        }
+
+        BuildDTsFiles.build(target.srcFiles,
+            outFile,
+            COPYRIGHTS + WARN_MSG + target.description
+            + `\n\ndeclare namespace ${target.namespace} {\n\n`, '\n}\n',
+            target.acceptId, target.tag, apiPath,
+        );
+        console.log(`Build ${outFile}`);
     });
 }
 
@@ -256,7 +448,7 @@ const bs_copy = function (mode) {
 
 const bs_build_single_ts = function (mode) {
     return function build_single_ts(cb) {
-        BuildSingleLibFile.build(libModules, cfg.paths.JS_PATH,
+        build_single_lib_file(libModules, cfg.paths.JS_PATH,
             `${mode.path}`, `${mode.path}/beamtoix${mode.suffix}.ts`,
             'npx gulp build_release_latest', [
             exports.Story, // story must always be exported
@@ -294,13 +486,6 @@ const rel_client = function () {
         .pipe(gulpPreserveTime());
 }
 
-// jquery_typings is over 300k. no longer being deployed 
-const rel_jquery_typings = function () {
-    return gulp.src(`node_modules/@types/jquery/**`)
-        .pipe(gulp.dest(`${cfg.paths.RELEASE_LATEST_PATH}/${cfg.paths.TYPINGS_PATH}/vendor/jquery`))
-        .pipe(gulpPreserveTime());
-}
-
 const rel_client_js_join = function () {
     return gulp.src(`${cfg.paths.SINGLE_LIB_PATH}/*/beamtoix*.js`)
         .pipe(gulpMinify({ noSource: true, ext: { min: '.min.js' } }))
@@ -308,15 +493,15 @@ const rel_client_js_join = function () {
         .pipe(gulpReplace(/^(.)/, COPYRIGHTS + '$1'))
         .pipe(gulp.dest(`${cfg.paths.RELEASE_LATEST_PATH}/${cfg.paths.JS_PATH}`));
 }
-
 const rel_gallery = function () {
     return gulp.src([
-        `${cfg.paths.GALLERY_SRC_PATH}/${cfg.release.demosStr}/**`,
-        `!${cfg.paths.GALLERY_SRC_PATH}/*/story-frames/*`,
-    ], { base: cfg.paths.GALLERY_SRC_PATH })
+        `${cfg.paths.GALLERY_PATH}/${cfg.release.demosStr}/**`,
+        `!${cfg.paths.GALLERY_PATH}/*/story-frames/*`,
+    ], { base: cfg.paths.GALLERY_PATH })
         .pipe(gulp.dest(`${cfg.paths.RELEASE_LATEST_PATH}/gallery`))
         .pipe(gulpPreserveTime());
 }
+
 
 const rel_root = function () {
     return gulp.src(DevCfg.expandArray(cfg.release.root))
@@ -437,6 +622,7 @@ const rel_gen_bundle_en = function () {
 }
 
 exports.build_release_latest = series(
+    exports.build,
     build_single_lib_internal,
     rel_clean,
     rel_client,
@@ -453,165 +639,6 @@ exports.build_release_latest = series(
     rel_build_plugins_list_json,
     rel_gen_bundle_en
 );
-
-// ------------------------------------------------------------------------
-//                               Builds Shared Modules from Client
-// ------------------------------------------------------------------------
-
-exports.build_shared_lib = function (cb) {
-    BuildShared.build(libModules, cfg.paths.JS_PATH, cfg.paths.SHARED_LIB_PATH, 'npx gulp build_shared_lib');
-    cb();
-}
-
-// ------------------------------------------------------------------------
-//                               Builds Definition Files
-// ------------------------------------------------------------------------
-
-exports.build_definition_files = function (cb) {
-    BuildDTsFilesBeamToIX.build(libModules, pluginModules, '', COPYRIGHTS, cfg);
-    cb();
-}
-
-// ------------------------------------------------------------------------
-//                               Builds the documentation
-// ------------------------------------------------------------------------
-
-exports.build_docs_latest_deprecated = function (cb) {
-    // BuildDocsLatest.build(libModules, pluginModules, cfg);
-    cb();
-}
-
-exports.post_build_docs_latest_deprecated = function (cb) {
-
-    // const wordMap: DevCfg.DevDocsWordMap = {};
-    // cfg.docs.keywords.forEach(word => { wordMap[word] = { wordClass: exports.keyword }; });
-    // cfg.docs.jsTypes.forEach(word => { wordMap[word] = { wordClass: exports.type }; });
-    // cfg.docs.customTypes.forEach(wordPair => {
-    //     wordMap[wordPair[0]] = {
-    //         wordClass: exports.type,
-    //         title: wordPair[1],
-    //     };
-    // });
-
-    // BuildDocsLatest.postBuild([
-    //     `{${cfg.paths.DOCS_LATEST_END_USER_PATH},${cfg.paths.DOCS_LATEST_DEVELOPER_PATH}}/en/site{/,/*/}*.html`],
-    //     cfg.docs.replacePaths, wordMap);
-    cb();
-}
-
-// ------------------------------------------------------------------------
-//                               Builds Release Version Of The Gallery
-// ------------------------------------------------------------------------
-
-function gal_rel_clear(cb) {
-    rimrafExcept(cfg.paths.GALLERY_LATEST_PATH, ['.git']);
-    cb();
-}
-
-function gal_rel_get_examples(cb) {
-    BuildGalRel.populateReleaseExamples(cfg);
-    cb();
-}
-
-function gal_rel_copy_files(index) {
-    return function rel_copy_files(cb) {
-        const ex = BuildGalRel.releaseExamples[index];
-        const srcList = [`${ex.srcFullPath}/**`,
-        `!${ex.srcFullPath}/{*.html,story.json,story-frames/*.png}`];
-        if (ex.srcFullPath.includes('remote-server')) {
-            srcList.push(`!${ex.srcFullPath}/assets{/**,}`);
-        }
-        return gulp.src(srcList, { dot: true })
-            .pipe(gulp.dest(ex.dstFullPath));
-    }
-}
-
-function gal_rel_update_html_files(index) {
-    return function rel_update_html_files(cb) {
-        const ex = BuildGalRel.releaseExamples[index];
-        return updateHtmlPages(`${ex.srcFullPath}/*.html`, ex.dstFullPath,
-            [`../../${cfg.paths.JS_PATH}/beamtoix.min`], true);
-    }
-}
-
-function gal_rel_online_html_files(index) {
-    const onlineLink = `${cfg.webLinks.webDomain}/${cfg.paths.RELEASE_LATEST_PATH}/client/lib`;
-    return function rel_online_html_files(cb) {
-        const ex = BuildGalRel.releaseExamples[index];
-        return gulp.src([`${ex.dstFullPath}/index.html`])
-            .pipe(gulpReplace(/^(?:.|\n)+$/, (all: string) =>
-                all
-                    .replace(/"beamtoix\//g, `"${onlineLink}/`)
-                    .replace(/(<head>)/g, '<!-- This file was created to be used online only. -->\n$1'),
-            ))
-            .pipe(gulpRename('index-online.html'))
-            .pipe(gulp.dest(ex.dstFullPath))
-            .pipe(gulpPreserveTime());
-    }
-}
-
-
-function gal_rel_create_zip(index) {
-    return function rel_create_zip(cb) {
-        const ex = BuildGalRel.releaseExamples[index];
-        cb();
-        // return gulp.src([
-        //     `${ex.dstFullPath}/**`,
-        //     `${ex.dstFullPath}/.allowed-plugins.json`,
-        //     `!${ex.dstFullPath}/index-online.html`,
-        //     `!${ex.dstFullPath}/*.zip`,
-        //     `!${ex.dstFullPath}/story-frames/*.{json,gif,mp4}`,
-        // ])
-        //     .pipe(gulpZip(BuildGalRel.EXAMPLE_ZIP_FILE))
-        //     .pipe(gulp.dest(ex.dstFullPath));
-    }
-}
-
-
-exports.build_gallery_latest = series(
-    gal_rel_clear,
-    gal_rel_get_examples,
-    parallel(...exampleArray.map((_, index) => series(gal_rel_copy_files(index),
-        gal_rel_update_html_files(index), gal_rel_online_html_files(index), gal_rel_create_zip(index))),
-        function gal_rel_process_readme(cb) {
-            BuildGalRel.buildReadMe(cfg);
-            cb();
-        },
-    ));
-
-// ------------------------------------------------------------------------
-//                               Deletes gallery story-frames folder
-// ------------------------------------------------------------------------
-
-exports.clean_gallery_src = function (cb) {
-    rimraf.sync(`${cfg.paths.GALLERY_SRC_PATH}/*/story-frames`);
-    cb();
-}
-
-exports.clean_gallery_src_png = function (cb) {
-    rimraf.sync(`${cfg.paths.GALLERY_SRC_PATH}/*/story-frames/*.png`);
-    cb();
-}
-
-// ------------------------------------------------------------------------
-//                               Creates gallery examples gif image
-// ------------------------------------------------------------------------
-
-exports.build_gallery_src_gifs = series(exports.clean_gallery_src_png, function (cb) {
-    BuildGalRel.buildGifs(cfg);
-    cb();
-});
-
-// ------------------------------------------------------------------------
-//                               Update Gallery Scripts
-// ------------------------------------------------------------------------
-
-exports.update_gallery_src_scripts = function () {
-    const DST_PATH = `${cfg.paths.GALLERY_SRC_PATH}-updated`;
-    rimraf.sync(`${DST_PATH}/**`);
-    const newScriptFiles = libModules.map(srcFile => `../../${cfg.paths.JS_PATH}/${srcFile}`);
-    return updateHtmlPages(`${cfg.paths.GALLERY_SRC_PATH}/*/*.html`, DST_PATH, newScriptFiles, false);
-}
 
 // ------------------------------------------------------------------------
 //                               Updates Test List
@@ -703,23 +730,3 @@ exports.prepare_docs = function (cb) {
     }
     cb();
 }
-
-// ------------------------------------------------------------------------
-//                               Lists ./docs Files As Links
-// ------------------------------------------------------------------------
-
-function changeReadmeLinks(toLocal: boolean, cb): void {
-    const IN_FILE = './README.md';
-    const BAK_FILE = IN_FILE + '.bak.md';
-    const srcRegEx = new RegExp('\\]\\(' + (toLocal ? cfg.webLinks.webDomain : '') + '/', exports.g);
-    const dstLink = '](' + (toLocal ? '' : cfg.webLinks.webDomain) + '/';
-
-    let content = fsix.readUtf8Sync(IN_FILE);
-    sysFs.writeFileSync(BAK_FILE, content);
-    content = content.replace(srcRegEx, dstLink);
-    sysFs.writeFileSync(IN_FILE, content);
-    cb();
-}
-
-exports.readme_to_online = function (cb) { changeReadmeLinks(false, cb); };
-exports.readme_to_local = function (cb) { changeReadmeLinks(true, cb); };

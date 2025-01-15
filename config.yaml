@@ -10,7 +10,7 @@ paths:
   TYPINGS_PATH: ${LIB_PATH}/typings
   SHARED_PATH: shared
   SHARED_LIB_PATH: ${SHARED_PATH}/lib
-  GALLERY_SRC_PATH: gallery-src
+  GALLERY_PATH: gallery
   BADGES_PATH: assets/badges
   ICONS_PATH: assets/icons
 
@@ -18,7 +18,6 @@ paths:
   DOCS_SOURCE_PATH: ${DOCS_PATH}/sources
   DOCS_SOURCE_DEV_PATH: ${DOCS_PATH}/sources-dev
 
-  GALLERY_LATEST_PATH: gallery/latest
   RELEASE_LATEST_PATH: release/latest
   DOCS_LATEST_END_USER_PATH: ${DOCS_PATH}/latest/end-user
   DOCS_LATEST_DEVELOPER_PATH: ${DOCS_PATH}/latest/developer

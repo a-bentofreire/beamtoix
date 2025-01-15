@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DevConsts = void 0;
-// This file was generated npx gulp build_shared_lib
+// This file was generated npx gulp build
 //
 // @WARN: Don't edit this file.
 var DevConsts;
@@ -9,7 +9,7 @@ var DevConsts;
     // -------------
     // version
     // -------------
-    DevConsts.VERSION = "3.0.0";
+    DevConsts.VERSION = "3.1.0";
     // -------------
     // consts
     // -------------

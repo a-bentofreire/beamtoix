@@ -5,7 +5,7 @@ exports.ServerConsts = void 0;
 // Copyright (c) 2018-2025 Alexandre Bento Freire. All rights reserved.
 // Licensed under the MIT License.
 // ------------------------------------------------------------------------
-// This file was generated via npx gulp build_shared_lib
+// This file was generated via npx gulp build
 //
 // @WARN: Don't edit this file.
 /** @see client/lib/js/server-consts.ts */

@@ -6,7 +6,7 @@
 
 
 
-// This file was generated via npx gulp build_shared_lib
+// This file was generated via npx gulp build
 //
 // @WARN: Don't edit this file.
 /** @see client/lib/js/server-consts.ts */

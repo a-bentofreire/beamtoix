@@ -1,5 +1,5 @@
 "use strict";
-// This file was generated npx gulp build_shared_lib
+// This file was generated npx gulp build
 //
 // @WARN: Don't edit this file.
 
@@ -9,7 +9,7 @@ export namespace DevConsts {
   // version
   // -------------
 
-  export const VERSION = "3.0.0";
+  export const VERSION = "3.1.0";
 
   // -------------
   // consts

@@ -33,8 +33,7 @@ export namespace DevCfg {
       TYPINGS_PATH: string;
       SHARED_PATH: string;
       SHARED_LIB_PATH: string;
-      GALLERY_SRC_PATH: string;
-      GALLERY_LATEST_PATH: string;
+      GALLERY_PATH: string;
       BADGES_PATH: string;
       ICONS_PATH: string;
 

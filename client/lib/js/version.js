@@ -2,6 +2,6 @@
 // @WARN: Don't edit this file. See the ./package.json
 var BeamToIX;
 (function (BeamToIX) {
-    BeamToIX.VERSION = "3.0.0";
+    BeamToIX.VERSION = "3.1.0";
 })(BeamToIX || (BeamToIX = {}));
 //# sourceMappingURL=version.js.map
